@@ -11,6 +11,7 @@ enum _Union {
 }
 
 abstract class _UnionBase {
+  /// Create a union from _UnionBase first generic type
   const _UnionBase(this._value, this._type);
 
   final _Union _type;
@@ -28,8 +29,129 @@ abstract class _UnionBase {
   int get hashCode => runtimeType.hashCode ^ _type.hashCode ^ _value.hashCode;
 }
 
+/// {@template union}
+/// A class that holds a value which can be of different types, and allow
+/// manipulating that value in a type-safe way.
+///
+/// Unions comes in different variants, where the class name "Union" is
+/// suffixed by a number (such as [Union2] or [Union3]).
+/// That number represents the number of different types the value stored
+/// can take.
+///
+/// For example, if a value can be both a [String] and a [int], that makes
+/// two different types. We can therefore use [Union2] like so:
+///
+/// ```dart
+/// Union2<String, int> myUnion;
+/// ```
+/// or:
+/// ```dart
+/// Union2<int, String> myUnion;
+/// ```
+///
+/// # Assigning a value to a union
+///
+/// We've seen previously that a `Union2<String, int>` stores a value that is
+/// either a [String] or an [int].
+///
+/// But such union **cannot** contain a type that is neither [String] nor [int].
+///
+/// As such, to ensure the type safety, instead of a single constructor that
+/// take the current value of any given type, unions have multiple constructor:
+/// One constructor for each type.
+///
+/// For example, `Union2<String, int>` expose two constructors:
+/// - `new Union2.first(String value)`
+/// - `new Union2.second(int value)`
+///
+/// Whereas `Union4<String, int, double, List<int>>` have four constructors:
+/// - `new Union4.first(String value)`
+/// - `new Union4.second(int value)`
+/// - `new Union4.third(double value)`
+/// - `new Union4.forth(List<int> value)`
+///
+///
+/// We can therefore do:
+///
+/// ```dart
+/// Union2<String, int> myUnion;
+///
+/// myUnion = Union2.first('hello world');
+/// myUnion = Union2.second(42);
+/// ```
+///
+/// # Reading the value
+///
+/// Unions expose the current value publicly through [value].
+///
+/// But since the value can be of different types, a small trick is necessary
+/// to preserve type safety:
+///
+/// On a `Union2<SomeClass, AnotherClass>`, the type of [value] is neither of
+/// type `SomeClass` nor of type `AnotherClass`.
+/// Instead it has the type of their nearest common interface.
+///
+///
+/// ```dart
+/// Union2<String, int> example;
+/// // String and int have no shared, so value is of type Object
+/// Object value = example.value;
+/// int impossible = example.value; // COMPILE ERROR, not type safe
+///
+/// Union2<int, double> example2;
+/// // int and double have a common interface: num. Therefore is of type num
+/// num value2 = example2.value; // type safe, there's no cast or compile error.
+/// int stillImpossible = example2.value; // COMPILE ERROR, value is a num not a int
+///
+/// Union2<String, String> example3;
+/// // The type is always a String, so value is a String too
+/// String value3 = example3.value; // type safe, there's no cast or compile error.
+/// ```
+///
+/// NOTE:
+/// Such powerful type inference is made possible only thanks to type extension.
+///
+/// # Applying operations on the value
+///
+/// To prevent mistakes, it is not recommended to use the `is` operator to
+/// determine what the value currently is.
+///
+/// **DON'T:**
+///
+/// ```dart
+/// Union2<String, int> union;
+/// if (union.value is String) {
+///   print('String: ${union.value}');
+/// } else if (union.value is int) {
+///   print('int: ${union.value}');
+/// }
+/// ```
+///
+/// This is a bad practice because it is easy to forget to handle one of the
+/// potential types that the value can take.
+///
+/// Instead, use one of the availble methods on unions, such as:
+/// - [map], which transforms the current value in another value.
+/// - [forEach], which allows performing some logic based on the value type.
+/// - [join], which fuse all the different types in a single type.
+///
+/// **DO:**
+/// ```dart
+/// Union2<String, int> union;
+/// union.forEach(
+///   (String value) => print('String: $value'),
+///   (int value) => print('int: $value'),
+/// );
+/// ```
+///
+/// This is better because the code will not compile if we forgot to handle
+/// one of the potential types that [value] can take.
+/// {@endtemplate}
 class Union2<A, B> extends _UnionBase {
+  /// Create a union from its first generic type
   const Union2.first(A value) : super(value, _Union.first);
+
+  /// Create a union from its second generic type
   const Union2.second(B value) : super(value, _Union.second);
 
   void forEach(
@@ -75,9 +197,16 @@ class Union2<A, B> extends _UnionBase {
   }
 }
 
+
+/// {@macro union}
 class Union3<A, B, C> extends _UnionBase {
+  /// Create a union from its first generic type
   const Union3.first(A value) : super(value, _Union.first);
+
+  /// Create a union from its second generic type
   const Union3.second(B value) : super(value, _Union.second);
+
+  /// Create a union from its third generic type
   const Union3.third(C value) : super(value, _Union.third);
 
   void forEach(
@@ -132,10 +261,19 @@ class Union3<A, B, C> extends _UnionBase {
   }
 }
 
+/// {@macro union}
+
 class Union4<A, B, C, D> extends _UnionBase {
+  /// Create a union from its first generic type
   const Union4.first(A value) : super(value, _Union.first);
+
+  /// Create a union from its second generic type
   const Union4.second(B value) : super(value, _Union.second);
+
+  /// Create a union from its third generic type
   const Union4.third(C value) : super(value, _Union.third);
+
+  /// Create a union from its forth generic type
   const Union4.forth(D value) : super(value, _Union.forth);
 
   void forEach(
@@ -199,11 +337,21 @@ class Union4<A, B, C, D> extends _UnionBase {
   }
 }
 
+/// {@macro union}
 class Union5<A, B, C, D, E> extends _UnionBase {
+  /// Create a union from its first generic type
   const Union5.first(A value) : super(value, _Union.first);
+
+  /// Create a union from its second generic type
   const Union5.second(B value) : super(value, _Union.second);
+
+  /// Create a union from its third generic type
   const Union5.third(C value) : super(value, _Union.third);
+
+  /// Create a union from its forth generic type
   const Union5.forth(D value) : super(value, _Union.forth);
+
+  /// Create a union from its fifth generic type
   const Union5.fifth(E value) : super(value, _Union.fifth);
 
   void forEach(
@@ -276,12 +424,24 @@ class Union5<A, B, C, D, E> extends _UnionBase {
   }
 }
 
+/// {@macro union}
 class Union6<A, B, C, D, E, F> extends _UnionBase {
+  /// Create a union from its first generic type
   const Union6.first(A value) : super(value, _Union.first);
+
+  /// Create a union from its second generic type
   const Union6.second(B value) : super(value, _Union.second);
+
+  /// Create a union from its third generic type
   const Union6.third(C value) : super(value, _Union.third);
+
+  /// Create a union from its forth generic type
   const Union6.forth(D value) : super(value, _Union.forth);
+
+  /// Create a union from its fifth generic type
   const Union6.fifth(E value) : super(value, _Union.fifth);
+
+  /// Create a union from its sixth generic type
   const Union6.sixth(F value) : super(value, _Union.sixth);
 
   void forEach(
@@ -363,13 +523,27 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
   }
 }
 
+/// {@macro union}
 class Union7<A, B, C, D, E, F, G> extends _UnionBase {
+  /// Create a union from its first generic type
   const Union7.first(A value) : super(value, _Union.first);
+
+  /// Create a union from its second generic type
   const Union7.second(B value) : super(value, _Union.second);
+
+  /// Create a union from its third generic type
   const Union7.third(C value) : super(value, _Union.third);
+
+  /// Create a union from its forth generic type
   const Union7.forth(D value) : super(value, _Union.forth);
+
+  /// Create a union from its fifth generic type
   const Union7.fifth(E value) : super(value, _Union.fifth);
+
+  /// Create a union from its sixth generic type
   const Union7.sixth(F value) : super(value, _Union.sixth);
+
+  /// Create a union from its seventh generic type
   const Union7.seventh(G value) : super(value, _Union.seventh);
 
   void forEach(
@@ -460,14 +634,30 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
   }
 }
 
+/// {@macro union}
 class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
+  /// Create a union from its first generic type
   const Union8.first(A value) : super(value, _Union.first);
+
+  /// Create a union from its second generic type
   const Union8.second(B value) : super(value, _Union.second);
+
+  /// Create a union from its third generic type
   const Union8.third(C value) : super(value, _Union.third);
+
+  /// Create a union from its forth generic type
   const Union8.forth(D value) : super(value, _Union.forth);
+
+  /// Create a union from its fifth generic type
   const Union8.fifth(E value) : super(value, _Union.fifth);
+
+  /// Create a union from its sixth generic type
   const Union8.sixth(F value) : super(value, _Union.sixth);
+
+  /// Create a union from its seventh generic type
   const Union8.seventh(G value) : super(value, _Union.seventh);
+
+  /// Create a union from its eighth generic type
   const Union8.eighth(H value) : super(value, _Union.eighth);
 
   void forEach(
@@ -567,15 +757,33 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
   }
 }
 
+/// {@macro union}
 class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
+  /// Create a union from its first generic type
   const Union9.first(A value) : super(value, _Union.first);
+
+  /// Create a union from its second generic type
   const Union9.second(B value) : super(value, _Union.second);
+
+  /// Create a union from its third generic type
   const Union9.third(C value) : super(value, _Union.third);
+
+  /// Create a union from its forth generic type
   const Union9.forth(D value) : super(value, _Union.forth);
+
+  /// Create a union from its fifth generic type
   const Union9.fifth(E value) : super(value, _Union.fifth);
+
+  /// Create a union from its sixth generic type
   const Union9.sixth(F value) : super(value, _Union.sixth);
+
+  /// Create a union from its seventh generic type
   const Union9.seventh(G value) : super(value, _Union.seventh);
+
+  /// Create a union from its eighth generic type
   const Union9.eighth(H value) : super(value, _Union.eighth);
+
+  /// Create a union from its ninth generic type
   const Union9.ninth(I value) : super(value, _Union.ninth);
 
   void forEach(
@@ -715,4 +923,17 @@ extension Union8Value<A> on Union8<A, A, A, A, A, A, A, A> {
 
 extension Union9Value<A> on Union9<A, A, A, A, A, A, A, A, A> {
   A get value => _value as A;
+}
+
+void main() {
+  Union2<String, int> union;
+  Union2<int, FormatException> res = union.join(
+    (value) {
+      final parsed = int.tryParse(value);
+      return parsed != null
+          ? Union2.first(parsed)
+          : Union2.second(FormatException());
+    },
+    (value) => Union2.first(value),
+  );
 }
