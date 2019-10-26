@@ -267,6 +267,35 @@ class Union2<A, B> extends _UnionBase {
     }
   }
 
+  /// {@template union.map}
+  /// Transforms a union into another union of potentially different types.
+  ///
+  /// The [map] function is useful when we want to modify the current value,
+  /// and the result is still a union.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// Union2<String, int> union;
+  ///
+  /// Union2<String, int> modifiedValue = union.map(
+  ///   (value) => 'Hello $value',
+  ///   (value) => value * 2,
+  /// );
+  /// ```
+  ///
+  /// This previous snippet will do two things:
+  /// - if the value is a [String], it'll prefix the value by `Hello `.
+  /// - if it's an [int] instead, the value will be multiplied by 2.
+  ///
+  /// So original union is not modified, and a new union is created instead.
+  ///
+  /// The result of a callback doesn't have to be of the same type than the
+  /// value type.
+  ///
+  /// See also:
+  ///  - [join], similar to map but with more freedom on the result.
+  /// {@endtemplate}
   // ignore: missing_return, the switch always return
   Union2<A2, B2> map<A2, B2>(
     A2 first(A value),
@@ -328,6 +357,7 @@ class Union3<A, B, C> extends _UnionBase {
     }
   }
 
+  /// {@macro union.map}
   // ignore: missing_return, the switch always returns
   Union3<A2, B2, C2> map<A2, B2, C2>(
     A2 first(A value),
@@ -401,6 +431,7 @@ class Union4<A, B, C, D> extends _UnionBase {
     }
   }
 
+  /// {@macro union.map}
   // ignore: missing_return, the switch always return
   Union4<A2, B2, C2, D2> map<A2, B2, C2, D2>(
     A2 first(A value),
@@ -486,6 +517,7 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     }
   }
 
+  /// {@macro union.map}
   // ignore: missing_return, the switch always return
   Union5<A2, B2, C2, D2, E2> map<A2, B2, C2, D2, E2>(
     A2 first(A value),
@@ -583,6 +615,7 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     }
   }
 
+  /// {@macro union.map}
   // ignore: missing_return, the switch always returns
   Union6<A2, B2, C2, D2, E2, F2> map<A2, B2, C2, D2, E2, F2>(
     A2 first(A value),
@@ -692,6 +725,7 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     }
   }
 
+  /// {@macro union.map}
   // ignore: missing_return, the switch always returns
   Union7<A2, B2, C2, D2, E2, F2, G2> map<A2, B2, C2, D2, E2, F2, G2>(
     A2 first(A value),
@@ -813,6 +847,7 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     }
   }
 
+  /// {@macro union.map}
   // ignore: missing_return, the switch always return
   Union8<A2, B2, C2, D2, E2, F2, G2, H2> map<A2, B2, C2, D2, E2, F2, G2, H2>(
     A2 first(A value),
@@ -946,6 +981,7 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     }
   }
 
+  /// {@macro union.map}
   // ignore: missing_return, the switch always returns
   Union9<A2, B2, C2, D2, E2, F2, G2, H2, I2>
       map<A2, B2, C2, D2, E2, F2, G2, H2, I2>(
