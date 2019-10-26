@@ -154,6 +154,7 @@ class Union2<A, B> extends _UnionBase {
   /// Create a union from its second generic type
   const Union2.second(B value) : super(value, _Union.second);
 
+  // / Allow executing custom logic based on the value type in a type safe way.
   void forEach(
     void first(A value),
     void second(B value),
@@ -167,6 +168,43 @@ class Union2<A, B> extends _UnionBase {
     }
   }
 
+  /// {@template union.join}
+  /// Transform all the potential types that [value] can take into a single
+  /// unique type.
+  ///
+  /// For example, we can use [join] to convert a `Union2<String, int>` into
+  /// an [int]:
+  ///
+  /// ```dart
+  /// Union2<String, int> union2;
+  ///
+  /// int result = union2.join(
+  ///   (value) => int.tryParse(value) ?? 0,
+  ///   (value) => value,
+  /// );
+  /// ```
+  ///
+  /// Alternatively, [join] can return unions too, for more advanced cases that
+  /// [map] cannot handle.
+  ///
+  /// For example, we could use [join] to transform `Union2<String, int>` into
+  /// `Union2<int, FormatException>`, to have a clean error handling on parse
+  /// errors:
+  ///
+  /// ```dart
+  /// Union2<String, int> union2;
+  ///
+  /// Union2<int, FormatException> res = union2.join(
+  ///   (value) {
+  ///     final parsed = int.tryParse(value);
+  ///     return parsed != null
+  ///         ? Union2.first(parsed)
+  ///         : Union2.second(FormatException());
+  ///   },
+  ///   (value) => Union2.first(value),
+  /// );
+  /// ```
+  /// {@endtemplate}
   // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
@@ -223,6 +261,7 @@ class Union3<A, B, C> extends _UnionBase {
     }
   }
 
+  /// {@macro union.join}
   // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
@@ -291,6 +330,7 @@ class Union4<A, B, C, D> extends _UnionBase {
     }
   }
 
+  /// {@macro union.join}
   // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
@@ -371,6 +411,7 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     }
   }
 
+  /// {@macro union.join}
   // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
@@ -463,6 +504,7 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     }
   }
 
+  /// {@macro union.join}
   // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
@@ -567,6 +609,7 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     }
   }
 
+  /// {@macro union.join}
   // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
@@ -683,6 +726,7 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     }
   }
 
+  /// {@macro union.join}
   // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
@@ -811,6 +855,7 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     }
   }
 
+  /// {@macro union.join}
   // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
@@ -914,16 +959,3 @@ extension Union8Value<A> on Union8<A, A, A, A, A, A, A, A> {
 extension Union9Value<A> on Union9<A, A, A, A, A, A, A, A, A> {
   A get value => _value as A;
 }
-
-// void main() {
-//   Union2<String, int> union;
-//   Union2<int, FormatException> res = union.join(
-//     (value) {
-//       final parsed = int.tryParse(value);
-//       return parsed != null
-//           ? Union2.first(parsed)
-//           : Union2.second(FormatException());
-//     },
-//     (value) => Union2.first(value),
-//   );
-// }
