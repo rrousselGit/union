@@ -158,45 +158,43 @@ class Union2<A, B> extends _UnionBase {
     void first(A value),
     void second(B value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
       case _Union.second:
         return second(_value as B);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
     T second(B value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
       case _Union.second:
         return second(_value as B);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always return
   Union2<A2, B2> map<A2, B2>(
     A2 first(A value),
     B2 second(B value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return Union2.first(first(_value as A));
       case _Union.second:
         return Union2.second(second(_value as B));
-      default:
-        throw FallThroughError();
     }
   }
 }
-
 
 /// {@macro union}
 class Union3<A, B, C> extends _UnionBase {
@@ -214,6 +212,7 @@ class Union3<A, B, C> extends _UnionBase {
     void second(B value),
     void third(C value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -221,16 +220,16 @@ class Union3<A, B, C> extends _UnionBase {
         return second(_value as B);
       case _Union.third:
         return third(_value as C);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
     T second(B value),
     T third(C value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -238,16 +237,16 @@ class Union3<A, B, C> extends _UnionBase {
         return second(_value as B);
       case _Union.third:
         return third(_value as C);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   Union3<A2, B2, C2> map<A2, B2, C2>(
     A2 first(A value),
     B2 second(B value),
     C2 third(C value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return Union3.first(first(_value as A));
@@ -255,14 +254,11 @@ class Union3<A, B, C> extends _UnionBase {
         return Union3.second(second(_value as B));
       case _Union.third:
         return Union3.third(third(_value as C));
-      default:
-        throw FallThroughError();
     }
   }
 }
 
 /// {@macro union}
-
 class Union4<A, B, C, D> extends _UnionBase {
   /// Create a union from its first generic type
   const Union4.first(A value) : super(value, _Union.first);
@@ -282,6 +278,7 @@ class Union4<A, B, C, D> extends _UnionBase {
     void third(C value),
     void forth(D value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -291,17 +288,17 @@ class Union4<A, B, C, D> extends _UnionBase {
         return third(_value as C);
       case _Union.forth:
         return forth(_value as D);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
     T second(B value),
     T third(C value),
     T forth(D value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -311,17 +308,17 @@ class Union4<A, B, C, D> extends _UnionBase {
         return third(_value as C);
       case _Union.forth:
         return forth(_value as D);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always return
   Union4<A2, B2, C2, D2> map<A2, B2, C2, D2>(
     A2 first(A value),
     B2 second(B value),
     C2 third(C value),
     D2 forth(D value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return Union4.first(first(_value as A));
@@ -331,8 +328,6 @@ class Union4<A, B, C, D> extends _UnionBase {
         return Union4.third(third(_value as C));
       case _Union.forth:
         return Union4.forth(forth(_value as D));
-      default:
-        throw FallThroughError();
     }
   }
 }
@@ -361,6 +356,7 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     void forth(D value),
     void fifth(E value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -372,11 +368,10 @@ class Union5<A, B, C, D, E> extends _UnionBase {
         return forth(_value as D);
       case _Union.fifth:
         return fifth(_value as E);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
     T second(B value),
@@ -384,6 +379,7 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     T forth(D value),
     T fifth(E value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -395,11 +391,10 @@ class Union5<A, B, C, D, E> extends _UnionBase {
         return forth(_value as D);
       case _Union.fifth:
         return fifth(_value as E);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always return
   Union5<A2, B2, C2, D2, E2> map<A2, B2, C2, D2, E2>(
     A2 first(A value),
     B2 second(B value),
@@ -407,6 +402,7 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     D2 forth(D value),
     E2 fifth(E value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return Union5.first(first(_value as A));
@@ -418,8 +414,6 @@ class Union5<A, B, C, D, E> extends _UnionBase {
         return Union5.forth(forth(_value as D));
       case _Union.fifth:
         return Union5.fifth(fifth(_value as E));
-      default:
-        throw FallThroughError();
     }
   }
 }
@@ -452,6 +446,7 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     void fifth(E value),
     void sixth(F value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -465,11 +460,10 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
         return fifth(_value as E);
       case _Union.sixth:
         return sixth(_value as F);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
     T second(B value),
@@ -478,6 +472,7 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     T fifth(E value),
     T sixth(F value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -491,11 +486,10 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
         return fifth(_value as E);
       case _Union.sixth:
         return sixth(_value as F);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   Union6<A2, B2, C2, D2, E2, F2> map<A2, B2, C2, D2, E2, F2>(
     A2 first(A value),
     B2 second(B value),
@@ -504,6 +498,7 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     E2 fifth(E value),
     F2 sixth(F value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return Union6.first(first(_value as A));
@@ -517,8 +512,6 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
         return Union6.fifth(fifth(_value as E));
       case _Union.sixth:
         return Union6.sixth(sixth(_value as F));
-      default:
-        throw FallThroughError();
     }
   }
 }
@@ -555,6 +548,7 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     void sixth(F value),
     void seventh(G value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -570,11 +564,10 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
         return sixth(_value as F);
       case _Union.seventh:
         return seventh(_value as G);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
     T second(B value),
@@ -584,6 +577,7 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     T sixth(F value),
     T seventh(G value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -599,11 +593,10 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
         return sixth(_value as F);
       case _Union.seventh:
         return seventh(_value as G);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   Union7<A2, B2, C2, D2, E2, F2, G2> map<A2, B2, C2, D2, E2, F2, G2>(
     A2 first(A value),
     B2 second(B value),
@@ -613,6 +606,7 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     F2 sixth(F value),
     G2 seventh(G value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return Union7.first(first(_value as A));
@@ -628,8 +622,6 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
         return Union7.sixth(sixth(_value as F));
       case _Union.seventh:
         return Union7.seventh(seventh(_value as G));
-      default:
-        throw FallThroughError();
     }
   }
 }
@@ -670,6 +662,7 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     void seventh(G value),
     void eighth(H value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -687,11 +680,10 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
         return seventh(_value as G);
       case _Union.eighth:
         return eighth(_value as H);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
     T second(B value),
@@ -702,6 +694,7 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     T seventh(G value),
     T eighth(H value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -719,11 +712,10 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
         return seventh(_value as G);
       case _Union.eighth:
         return eighth(_value as H);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always return
   Union8<A2, B2, C2, D2, E2, F2, G2, H2> map<A2, B2, C2, D2, E2, F2, G2, H2>(
     A2 first(A value),
     B2 second(B value),
@@ -734,6 +726,7 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     G2 seventh(G value),
     H2 eighth(H value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return Union8.first(first(_value as A));
@@ -751,8 +744,6 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
         return Union8.seventh(seventh(_value as G));
       case _Union.eighth:
         return Union8.eighth(eighth(_value as H));
-      default:
-        throw FallThroughError();
     }
   }
 }
@@ -797,6 +788,7 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     void eighth(H value),
     void ninth(I value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -816,11 +808,10 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
         return eighth(_value as H);
       case _Union.ninth:
         return ninth(_value as I);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   T join<T>(
     T first(A value),
     T second(B value),
@@ -832,6 +823,7 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     T eighth(H value),
     T ninth(I value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return first(_value as A);
@@ -851,11 +843,10 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
         return eighth(_value as H);
       case _Union.ninth:
         return ninth(_value as I);
-      default:
-        throw FallThroughError();
     }
   }
 
+  // ignore: missing_return, the switch always returns
   Union9<A2, B2, C2, D2, E2, F2, G2, H2, I2>
       map<A2, B2, C2, D2, E2, F2, G2, H2, I2>(
     A2 first(A value),
@@ -868,6 +859,7 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     H2 eighth(H value),
     I2 ninth(I value),
   ) {
+    // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
         return Union9.first(first(_value as A));
@@ -887,8 +879,6 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
         return Union9.eighth(eighth(_value as H));
       case _Union.ninth:
         return Union9.ninth(ninth(_value as I));
-      default:
-        throw FallThroughError();
     }
   }
 }
@@ -925,15 +915,15 @@ extension Union9Value<A> on Union9<A, A, A, A, A, A, A, A, A> {
   A get value => _value as A;
 }
 
-void main() {
-  Union2<String, int> union;
-  Union2<int, FormatException> res = union.join(
-    (value) {
-      final parsed = int.tryParse(value);
-      return parsed != null
-          ? Union2.first(parsed)
-          : Union2.second(FormatException());
-    },
-    (value) => Union2.first(value),
-  );
-}
+// void main() {
+//   Union2<String, int> union;
+//   Union2<int, FormatException> res = union.join(
+//     (value) {
+//       final parsed = int.tryParse(value);
+//       return parsed != null
+//           ? Union2.first(parsed)
+//           : Union2.second(FormatException());
+//     },
+//     (value) => Union2.first(value),
+//   );
+// }
