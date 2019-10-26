@@ -1019,34 +1019,57 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
   }
 }
 
+/// An extension that expose the current value.
 extension Union2Value<A> on Union2<A, A> {
+  /// {@template union.value}
+  /// The current value of the union.
+  ///
+  /// Its type is based the nearest common interface of all the types
+  /// that the value can take.
+  ///
+  /// See [Union2] for examples on how [value] works.
+  /// {@endtemplate}
   A get value => _value as A;
 }
 
+/// An extension that expose the current value.
 extension Union3Value<A> on Union3<A, A, A> {
+  /// {@macro union.value}
   A get value => _value as A;
 }
 
+/// An extension that expose the current value.
 extension Union4Value<A> on Union4<A, A, A, A> {
+  /// {@macro union.value}
   A get value => _value as A;
 }
 
+/// An extension that expose the current value.
 extension Union5Value<A> on Union5<A, A, A, A, A> {
+  /// {@macro union.value}
   A get value => _value as A;
 }
 
+/// An extension that expose the current value.
 extension Union6Value<A> on Union6<A, A, A, A, A, A> {
+  /// {@macro union.value}
   A get value => _value as A;
 }
 
+/// An extension that expose the current value.
 extension Union7Value<A> on Union7<A, A, A, A, A, A, A> {
+  /// {@macro union.value}
   A get value => _value as A;
 }
 
+/// An extension that expose the current value.
 extension Union8Value<A> on Union8<A, A, A, A, A, A, A, A> {
+  /// {@macro union.value}
   A get value => _value as A;
 }
 
+/// An extension that expose the current value.
 extension Union9Value<A> on Union9<A, A, A, A, A, A, A, A, A> {
+  /// {@macro union.value}
   A get value => _value as A;
 }
