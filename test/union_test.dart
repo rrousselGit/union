@@ -122,6 +122,11 @@ void main() {
       );
       expect(callCount, equals(2));
     });
+
+    test('forEach null', () {
+      first.forEach(null, null);
+      second.forEach(null, null);
+    });
   });
 
   group('Union3', () {
@@ -246,6 +251,12 @@ void main() {
         (v) => callCount++,
       );
       expect(callCount, equals(3));
+    });
+
+    test('forEach null', () {
+      first.forEach(null, null, null);
+      second.forEach(null, null, null);
+      third.forEach(null, null, null);
     });
   });
 
@@ -408,6 +419,13 @@ void main() {
         (v) => callCount++,
       );
       expect(callCount, equals(4));
+    });
+
+    test('forEach null', () {
+      first.forEach(null, null, null, null);
+      second.forEach(null, null, null, null);
+      third.forEach(null, null, null, null);
+      forth.forEach(null, null, null, null);
     });
   });
 
@@ -613,6 +631,14 @@ void main() {
         (v) => callCount++,
       );
       expect(callCount, equals(5));
+    });
+
+    test('forEach null', () {
+      first.forEach(null, null, null, null, null);
+      second.forEach(null, null, null, null, null);
+      third.forEach(null, null, null, null, null);
+      forth.forEach(null, null, null, null, null);
+      fifth.forEach(null, null, null, null, null);
     });
   });
   group('Union6', () {
@@ -866,6 +892,15 @@ void main() {
         (v) => callCount++,
       );
       expect(callCount, equals(6));
+    });
+
+    test('forEach null', () {
+      first.forEach(null, null, null, null, null, null);
+      second.forEach(null, null, null, null, null, null);
+      third.forEach(null, null, null, null, null, null);
+      forth.forEach(null, null, null, null, null, null);
+      fifth.forEach(null, null, null, null, null, null);
+      sixth.forEach(null, null, null, null, null, null);
     });
   });
 
@@ -1175,6 +1210,15 @@ void main() {
         (v) => callCount++,
       );
       expect(callCount, equals(7));
+    });
+    test('forEach null', () {
+      first.forEach(null, null, null, null, null, null, null);
+      second.forEach(null, null, null, null, null, null, null);
+      third.forEach(null, null, null, null, null, null, null);
+      forth.forEach(null, null, null, null, null, null, null);
+      fifth.forEach(null, null, null, null, null, null, null);
+      sixth.forEach(null, null, null, null, null, null, null);
+      seventh.forEach(null, null, null, null, null, null, null);
     });
   });
 
@@ -1545,6 +1589,17 @@ void main() {
         (v) => callCount++,
       );
       expect(callCount, equals(8));
+    });
+
+    test('forEach null', () {
+      first.forEach(null, null, null, null, null, null, null, null);
+      second.forEach(null, null, null, null, null, null, null, null);
+      third.forEach(null, null, null, null, null, null, null, null);
+      forth.forEach(null, null, null, null, null, null, null, null);
+      fifth.forEach(null, null, null, null, null, null, null, null);
+      sixth.forEach(null, null, null, null, null, null, null, null);
+      seventh.forEach(null, null, null, null, null, null, null, null);
+      eighth.forEach(null, null, null, null, null, null, null, null);
     });
   });
 
@@ -1973,6 +2028,18 @@ void main() {
         (v) => callCount++,
       );
       expect(callCount, equals(9));
+    });
+
+    test('forEach null', () {
+      first.forEach(null, null, null, null, null, null, null, null, null);
+      second.forEach(null, null, null, null, null, null, null, null, null);
+      third.forEach(null, null, null, null, null, null, null, null, null);
+      forth.forEach(null, null, null, null, null, null, null, null, null);
+      fifth.forEach(null, null, null, null, null, null, null, null, null);
+      sixth.forEach(null, null, null, null, null, null, null, null, null);
+      seventh.forEach(null, null, null, null, null, null, null, null, null);
+      eighth.forEach(null, null, null, null, null, null, null, null, null);
+      ninth.forEach(null, null, null, null, null, null, null, null, null);
     });
   });
 }

@@ -154,7 +154,55 @@ class Union2<A, B> extends _UnionBase {
   /// Create a union from its second generic type
   const Union2.second(B value) : super(value, _Union.second);
 
-  // / Allow executing custom logic based on the value type in a type safe way.
+  /// {@template union.forEach}
+  /// Allow executing custom logic based on the value type in a type safe way.
+  ///
+  /// Prefer using this method over the `is` operator.
+  ///
+  /// The [forEach] method voluntarily forces the code to handle all types that
+  /// the value can take, whereas `is` doesn't.
+  ///
+  /// As such, while we can do:
+  ///
+  /// ```dart
+  /// Union2<String, int> union;
+  ///
+  /// if (union.value is int) {
+  ///   final value = union.value as int;
+  ///   print(value);
+  /// }
+  /// // Voluntarily do nothing with String
+  /// ```
+  ///
+  /// This code has a few issues:
+  /// - it requires a cast
+  /// - it is implicit instead of explicit that `String` is not handled.
+  ///   This makes the code harder to read: is it a mistake or desired?
+  /// - if in the future the union changes (a type changed or a new type is
+  ///   added), then we may forget to update this specific piece of code.
+  ///
+  /// Instead, we can use [forEach] like so:
+  ///
+  /// ```dart
+  /// Union2<String, int> union;
+  ///
+  /// union.forEach(
+  ///   null, // we explicitly don't handle String
+  ///   (value) => print(value),
+  /// );
+  /// ```
+  ///
+  /// This is equivalent to the previous code with a few benefits:
+  /// - no cast
+  /// - not handling a specific type is now explicit: we now know for sure
+  ///   that it's _desired_.
+  /// - if we later refactor `Union2<String, int>` into
+  ///   `Union2<String, num>` or `Union3<String, int, Whatever>`, than we may
+  ///   have a compile error.
+  ///
+  ///   This ensures that there's no invalid/dead code that we forgot to update.
+  /// {@endtemplate}
+  /// Callbacks can be `null`, but all callbacks are required.
   void forEach(
     void first(A value),
     void second(B value),
@@ -162,9 +210,9 @@ class Union2<A, B> extends _UnionBase {
     // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
-        return first(_value as A);
+        return first?.call(_value as A);
       case _Union.second:
-        return second(_value as B);
+        return second?.call(_value as B);
     }
   }
 
@@ -245,6 +293,7 @@ class Union3<A, B, C> extends _UnionBase {
   /// Create a union from its third generic type
   const Union3.third(C value) : super(value, _Union.third);
 
+  /// {@macro union.forEach}
   void forEach(
     void first(A value),
     void second(B value),
@@ -253,11 +302,11 @@ class Union3<A, B, C> extends _UnionBase {
     // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
-        return first(_value as A);
+        return first?.call(_value as A);
       case _Union.second:
-        return second(_value as B);
+        return second?.call(_value as B);
       case _Union.third:
-        return third(_value as C);
+        return third?.call(_value as C);
     }
   }
 
@@ -311,6 +360,7 @@ class Union4<A, B, C, D> extends _UnionBase {
   /// Create a union from its forth generic type
   const Union4.forth(D value) : super(value, _Union.forth);
 
+  /// {@macro union.forEach}
   void forEach(
     void first(A value),
     void second(B value),
@@ -320,13 +370,13 @@ class Union4<A, B, C, D> extends _UnionBase {
     // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
-        return first(_value as A);
+        return first?.call(_value as A);
       case _Union.second:
-        return second(_value as B);
+        return second?.call(_value as B);
       case _Union.third:
-        return third(_value as C);
+        return third?.call(_value as C);
       case _Union.forth:
-        return forth(_value as D);
+        return forth?.call(_value as D);
     }
   }
 
@@ -389,6 +439,7 @@ class Union5<A, B, C, D, E> extends _UnionBase {
   /// Create a union from its fifth generic type
   const Union5.fifth(E value) : super(value, _Union.fifth);
 
+  /// {@macro union.forEach}
   void forEach(
     void first(A value),
     void second(B value),
@@ -399,15 +450,15 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
-        return first(_value as A);
+        return first?.call(_value as A);
       case _Union.second:
-        return second(_value as B);
+        return second?.call(_value as B);
       case _Union.third:
-        return third(_value as C);
+        return third?.call(_value as C);
       case _Union.forth:
-        return forth(_value as D);
+        return forth?.call(_value as D);
       case _Union.fifth:
-        return fifth(_value as E);
+        return fifth?.call(_value as E);
     }
   }
 
@@ -479,6 +530,7 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
   /// Create a union from its sixth generic type
   const Union6.sixth(F value) : super(value, _Union.sixth);
 
+  /// {@macro union.forEach}
   void forEach(
     void first(A value),
     void second(B value),
@@ -490,17 +542,17 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
-        return first(_value as A);
+        return first?.call(_value as A);
       case _Union.second:
-        return second(_value as B);
+        return second?.call(_value as B);
       case _Union.third:
-        return third(_value as C);
+        return third?.call(_value as C);
       case _Union.forth:
-        return forth(_value as D);
+        return forth?.call(_value as D);
       case _Union.fifth:
-        return fifth(_value as E);
+        return fifth?.call(_value as E);
       case _Union.sixth:
-        return sixth(_value as F);
+        return sixth?.call(_value as F);
     }
   }
 
@@ -581,6 +633,7 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
   /// Create a union from its seventh generic type
   const Union7.seventh(G value) : super(value, _Union.seventh);
 
+  /// {@macro union.forEach}
   void forEach(
     void first(A value),
     void second(B value),
@@ -593,19 +646,19 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
-        return first(_value as A);
+        return first?.call(_value as A);
       case _Union.second:
-        return second(_value as B);
+        return second?.call(_value as B);
       case _Union.third:
-        return third(_value as C);
+        return third?.call(_value as C);
       case _Union.forth:
-        return forth(_value as D);
+        return forth?.call(_value as D);
       case _Union.fifth:
-        return fifth(_value as E);
+        return fifth?.call(_value as E);
       case _Union.sixth:
-        return sixth(_value as F);
+        return sixth?.call(_value as F);
       case _Union.seventh:
-        return seventh(_value as G);
+        return seventh?.call(_value as G);
     }
   }
 
@@ -695,6 +748,7 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
   /// Create a union from its eighth generic type
   const Union8.eighth(H value) : super(value, _Union.eighth);
 
+  /// {@macro union.forEach}
   void forEach(
     void first(A value),
     void second(B value),
@@ -708,21 +762,21 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
-        return first(_value as A);
+        return first?.call(_value as A);
       case _Union.second:
-        return second(_value as B);
+        return second?.call(_value as B);
       case _Union.third:
-        return third(_value as C);
+        return third?.call(_value as C);
       case _Union.forth:
-        return forth(_value as D);
+        return forth?.call(_value as D);
       case _Union.fifth:
-        return fifth(_value as E);
+        return fifth?.call(_value as E);
       case _Union.sixth:
-        return sixth(_value as F);
+        return sixth?.call(_value as F);
       case _Union.seventh:
-        return seventh(_value as G);
+        return seventh?.call(_value as G);
       case _Union.eighth:
-        return eighth(_value as H);
+        return eighth?.call(_value as H);
     }
   }
 
@@ -821,6 +875,7 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
   /// Create a union from its ninth generic type
   const Union9.ninth(I value) : super(value, _Union.ninth);
 
+  /// {@macro union.forEach}
   void forEach(
     void first(A value),
     void second(B value),
@@ -835,23 +890,23 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     // ignore: missing_enum_constant_in_switch, _type can never be anything else
     switch (_type) {
       case _Union.first:
-        return first(_value as A);
+        return first?.call(_value as A);
       case _Union.second:
-        return second(_value as B);
+        return second?.call(_value as B);
       case _Union.third:
-        return third(_value as C);
+        return third?.call(_value as C);
       case _Union.forth:
-        return forth(_value as D);
+        return forth?.call(_value as D);
       case _Union.fifth:
-        return fifth(_value as E);
+        return fifth?.call(_value as E);
       case _Union.sixth:
-        return sixth(_value as F);
+        return sixth?.call(_value as F);
       case _Union.seventh:
-        return seventh(_value as G);
+        return seventh?.call(_value as G);
       case _Union.eighth:
-        return eighth(_value as H);
+        return eighth?.call(_value as H);
       case _Union.ninth:
-        return ninth(_value as I);
+        return ninth?.call(_value as I);
     }
   }
 
