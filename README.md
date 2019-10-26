@@ -1,1 +1,1 @@
-![Dart CI](https://github.com/rrousselGit/union/workflows/.github/workflows/dart.yml/badge.svg) [![codecov](https://codecov.io/gh/rrousselGit/union/branch/master/graph/badge.svg?token=JW4dnv3Re9)](https://codecov.io/gh/rrousselGit/union)
+[![Dart CI](https://github.com/rrousselGit/union/workflows/Dart%20CI/badge.svg)](https://github.com/rrousselGit/union/actions) [![codecov](https://codecov.io/gh/rrousselGit/union/branch/master/graph/badge.svg?token=JW4dnv3Re9)](https://codecov.io/gh/rrousselGit/union)
