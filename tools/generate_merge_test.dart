@@ -38,7 +38,9 @@ Iterable<String> generateCombination(int to, int from) sync* {
 
     final toTypesString = generateGenerics(toTypes);
 
-    for (var constructorIndex = 0; constructorIndex <= to; constructorIndex++) {
+    for (var constructorIndex = 0;
+        constructorIndex < from;
+        constructorIndex++) {
       final constructor = indexName[constructorIndex];
       final value = indexToLetter(combination[constructorIndex]).toLowerCase();
       yield '''      Union$to$toTypesString merge$index = Union$from${generateGenerics(combination)}.$constructor($value).merge$to();
