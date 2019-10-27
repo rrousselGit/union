@@ -20,7 +20,7 @@ dependencies:
 
 # Description
 
-A class that holds a value which can be of different types, and allow
+A union is a class that holds a value which can be of different types, and allow
 manipulating that value in a type-safe way.
 
 Unions comes in different variants, where the class name "Union" is
@@ -143,9 +143,71 @@ union.forEach(
 This is better because the code will not compile if we forgot to handle
 one of the potential types that [value] can take.
 
+## Making a reusable union
+
+Sometimes, we have a specific combination of types that we want to want to
+reuse all the time.
+
+In such case, having to specify the generic types of a Union can be a bit
+verbose. Similarly, the constructors name (first, second, ...) may not be
+ideal.
+
+In that situation, what we can do is subclassing the desired Union, as
+followed:
+
+```dart
+class AsyncState<T> extends Union3<T, Loading, Exception> {
+    const AsyncState.value(T value): super.first(value);
+    const AsyncState.loading(): super.second(const Loading());
+    const AsyncState.exception(Exception error): super.third(error);
+}
+```
+
+This allows us to write:
+
+```dart
+final state = AsyncState<int>.value(42);
+final loading = const AsyncState<int>.loading();
+```
+
+instead of:
+
+```dart
+final state = Union3<int, Loading, Exception>.first(42);
+final loading = const Union3<int, Loading, Exception>.second(const Loading());
+```
+
+Then, we may want to write an extension on the original Union, to easily
+convert raw unions to our custom union:
+
+```dart
+extension ToAsyncState<T> on Union3<T, Loading, Exception> {
+  AsyncState<T> toAsyncState() {
+    return join(
+      (v) => AsyncState.value(v),
+      (_) => const AsyncState.loading(),
+      (v) => AsyncState.exception(v),
+    );
+  }
+}
+```
+
+This allows us to write:
+
+```dart
+var state = AsyncState<int>.value(42);
+state = state
+    .map(
+      (v) => v * 2,
+      (v) => v,
+      (v) => v,
+    )
+    .toAsyncState();
+```
+
 [value]: https://pub.dev/documentation/union/latest/union/Union2Value/value.html
-[Union2]: https://pub.dev/documentation/union/latest/union/Union2-class.html
-[Union3]: https://pub.dev/documentation/union/latest/union/Union2-class.html
+[union2]: https://pub.dev/documentation/union/latest/union/Union2-class.html
+[union3]: https://pub.dev/documentation/union/latest/union/Union2-class.html
 [map]: https://pub.dev/documentation/union/latest/union/Union2/map.html
-[forEach]: https://pub.dev/documentation/union/latest/union/Union2/forEach.html
+[foreach]: https://pub.dev/documentation/union/latest/union/Union2/forEach.html
 [join]: https://pub.dev/documentation/union/latest/union/Union2/join.html
