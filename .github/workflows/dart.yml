@@ -27,6 +27,3 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage/lcov.info
-      - name: publish
-        if: startsWith(github.ref, 'refs/tags/')
-        run: pub publish -f
