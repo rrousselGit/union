@@ -51,6 +51,10 @@ abstract class _UnionBase {
 /// Union2<int, String> myUnion;
 /// ```
 ///
+///
+/// Note that we cannot assign `Union2<int, String>` to `Union2<String, int>`
+/// (or the opposite).
+///
 /// # Assigning a value to a union
 ///
 /// We've seen previously that a `Union2<String, int>` stores a value that is
