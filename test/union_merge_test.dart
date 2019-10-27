@@ -11,7 +11,8 @@ void main() {
       Union5<A, B, C, D, E> merge0 = Union6<A, A, B, C, D, E>.first(a).merge5();
       expect(merge0.value, equals(a));
 
-      Union5<A, B, C, D, E> merge1 = Union6<A, A, B, C, D, E>.second(a).merge5();
+      Union5<A, B, C, D, E> merge1 =
+          Union6<A, A, B, C, D, E>.second(a).merge5();
       expect(merge1.value, equals(a));
 
       Union5<A, B, C, D, E> merge2 = Union6<A, A, B, C, D, E>.third(b).merge5();
@@ -29,7 +30,8 @@ void main() {
       Union5<A, B, C, D, E> merge6 = Union6<A, B, A, C, D, E>.first(a).merge5();
       expect(merge6.value, equals(a));
 
-      Union5<A, B, C, D, E> merge7 = Union6<A, B, A, C, D, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge7 =
+          Union6<A, B, A, C, D, E>.second(b).merge5();
       expect(merge7.value, equals(b));
 
       Union5<A, B, C, D, E> merge8 = Union6<A, B, A, C, D, E>.third(a).merge5();
@@ -38,246 +40,325 @@ void main() {
       Union5<A, B, C, D, E> merge9 = Union6<A, B, A, C, D, E>.forth(c).merge5();
       expect(merge9.value, equals(c));
 
-      Union5<A, B, C, D, E> merge10 = Union6<A, B, A, C, D, E>.fifth(d).merge5();
+      Union5<A, B, C, D, E> merge10 =
+          Union6<A, B, A, C, D, E>.fifth(d).merge5();
       expect(merge10.value, equals(d));
 
-      Union5<A, B, C, D, E> merge11 = Union6<A, B, A, C, D, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge11 =
+          Union6<A, B, A, C, D, E>.sixth(e).merge5();
       expect(merge11.value, equals(e));
 
-      Union5<A, B, C, D, E> merge12 = Union6<A, B, B, C, D, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge12 =
+          Union6<A, B, B, C, D, E>.first(a).merge5();
       expect(merge12.value, equals(a));
 
-      Union5<A, B, C, D, E> merge13 = Union6<A, B, B, C, D, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge13 =
+          Union6<A, B, B, C, D, E>.second(b).merge5();
       expect(merge13.value, equals(b));
 
-      Union5<A, B, C, D, E> merge14 = Union6<A, B, B, C, D, E>.third(b).merge5();
+      Union5<A, B, C, D, E> merge14 =
+          Union6<A, B, B, C, D, E>.third(b).merge5();
       expect(merge14.value, equals(b));
 
-      Union5<A, B, C, D, E> merge15 = Union6<A, B, B, C, D, E>.forth(c).merge5();
+      Union5<A, B, C, D, E> merge15 =
+          Union6<A, B, B, C, D, E>.forth(c).merge5();
       expect(merge15.value, equals(c));
 
-      Union5<A, B, C, D, E> merge16 = Union6<A, B, B, C, D, E>.fifth(d).merge5();
+      Union5<A, B, C, D, E> merge16 =
+          Union6<A, B, B, C, D, E>.fifth(d).merge5();
       expect(merge16.value, equals(d));
 
-      Union5<A, B, C, D, E> merge17 = Union6<A, B, B, C, D, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge17 =
+          Union6<A, B, B, C, D, E>.sixth(e).merge5();
       expect(merge17.value, equals(e));
 
-      Union5<A, B, C, D, E> merge18 = Union6<A, B, C, A, D, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge18 =
+          Union6<A, B, C, A, D, E>.first(a).merge5();
       expect(merge18.value, equals(a));
 
-      Union5<A, B, C, D, E> merge19 = Union6<A, B, C, A, D, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge19 =
+          Union6<A, B, C, A, D, E>.second(b).merge5();
       expect(merge19.value, equals(b));
 
-      Union5<A, B, C, D, E> merge20 = Union6<A, B, C, A, D, E>.third(c).merge5();
+      Union5<A, B, C, D, E> merge20 =
+          Union6<A, B, C, A, D, E>.third(c).merge5();
       expect(merge20.value, equals(c));
 
-      Union5<A, B, C, D, E> merge21 = Union6<A, B, C, A, D, E>.forth(a).merge5();
+      Union5<A, B, C, D, E> merge21 =
+          Union6<A, B, C, A, D, E>.forth(a).merge5();
       expect(merge21.value, equals(a));
 
-      Union5<A, B, C, D, E> merge22 = Union6<A, B, C, A, D, E>.fifth(d).merge5();
+      Union5<A, B, C, D, E> merge22 =
+          Union6<A, B, C, A, D, E>.fifth(d).merge5();
       expect(merge22.value, equals(d));
 
-      Union5<A, B, C, D, E> merge23 = Union6<A, B, C, A, D, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge23 =
+          Union6<A, B, C, A, D, E>.sixth(e).merge5();
       expect(merge23.value, equals(e));
 
-      Union5<A, B, C, D, E> merge24 = Union6<A, B, C, B, D, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge24 =
+          Union6<A, B, C, B, D, E>.first(a).merge5();
       expect(merge24.value, equals(a));
 
-      Union5<A, B, C, D, E> merge25 = Union6<A, B, C, B, D, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge25 =
+          Union6<A, B, C, B, D, E>.second(b).merge5();
       expect(merge25.value, equals(b));
 
-      Union5<A, B, C, D, E> merge26 = Union6<A, B, C, B, D, E>.third(c).merge5();
+      Union5<A, B, C, D, E> merge26 =
+          Union6<A, B, C, B, D, E>.third(c).merge5();
       expect(merge26.value, equals(c));
 
-      Union5<A, B, C, D, E> merge27 = Union6<A, B, C, B, D, E>.forth(b).merge5();
+      Union5<A, B, C, D, E> merge27 =
+          Union6<A, B, C, B, D, E>.forth(b).merge5();
       expect(merge27.value, equals(b));
 
-      Union5<A, B, C, D, E> merge28 = Union6<A, B, C, B, D, E>.fifth(d).merge5();
+      Union5<A, B, C, D, E> merge28 =
+          Union6<A, B, C, B, D, E>.fifth(d).merge5();
       expect(merge28.value, equals(d));
 
-      Union5<A, B, C, D, E> merge29 = Union6<A, B, C, B, D, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge29 =
+          Union6<A, B, C, B, D, E>.sixth(e).merge5();
       expect(merge29.value, equals(e));
 
-      Union5<A, B, C, D, E> merge30 = Union6<A, B, C, C, D, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge30 =
+          Union6<A, B, C, C, D, E>.first(a).merge5();
       expect(merge30.value, equals(a));
 
-      Union5<A, B, C, D, E> merge31 = Union6<A, B, C, C, D, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge31 =
+          Union6<A, B, C, C, D, E>.second(b).merge5();
       expect(merge31.value, equals(b));
 
-      Union5<A, B, C, D, E> merge32 = Union6<A, B, C, C, D, E>.third(c).merge5();
+      Union5<A, B, C, D, E> merge32 =
+          Union6<A, B, C, C, D, E>.third(c).merge5();
       expect(merge32.value, equals(c));
 
-      Union5<A, B, C, D, E> merge33 = Union6<A, B, C, C, D, E>.forth(c).merge5();
+      Union5<A, B, C, D, E> merge33 =
+          Union6<A, B, C, C, D, E>.forth(c).merge5();
       expect(merge33.value, equals(c));
 
-      Union5<A, B, C, D, E> merge34 = Union6<A, B, C, C, D, E>.fifth(d).merge5();
+      Union5<A, B, C, D, E> merge34 =
+          Union6<A, B, C, C, D, E>.fifth(d).merge5();
       expect(merge34.value, equals(d));
 
-      Union5<A, B, C, D, E> merge35 = Union6<A, B, C, C, D, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge35 =
+          Union6<A, B, C, C, D, E>.sixth(e).merge5();
       expect(merge35.value, equals(e));
 
-      Union5<A, B, C, D, E> merge36 = Union6<A, B, C, D, A, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge36 =
+          Union6<A, B, C, D, A, E>.first(a).merge5();
       expect(merge36.value, equals(a));
 
-      Union5<A, B, C, D, E> merge37 = Union6<A, B, C, D, A, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge37 =
+          Union6<A, B, C, D, A, E>.second(b).merge5();
       expect(merge37.value, equals(b));
 
-      Union5<A, B, C, D, E> merge38 = Union6<A, B, C, D, A, E>.third(c).merge5();
+      Union5<A, B, C, D, E> merge38 =
+          Union6<A, B, C, D, A, E>.third(c).merge5();
       expect(merge38.value, equals(c));
 
-      Union5<A, B, C, D, E> merge39 = Union6<A, B, C, D, A, E>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge39 =
+          Union6<A, B, C, D, A, E>.forth(d).merge5();
       expect(merge39.value, equals(d));
 
-      Union5<A, B, C, D, E> merge40 = Union6<A, B, C, D, A, E>.fifth(a).merge5();
+      Union5<A, B, C, D, E> merge40 =
+          Union6<A, B, C, D, A, E>.fifth(a).merge5();
       expect(merge40.value, equals(a));
 
-      Union5<A, B, C, D, E> merge41 = Union6<A, B, C, D, A, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge41 =
+          Union6<A, B, C, D, A, E>.sixth(e).merge5();
       expect(merge41.value, equals(e));
 
-      Union5<A, B, C, D, E> merge42 = Union6<A, B, C, D, B, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge42 =
+          Union6<A, B, C, D, B, E>.first(a).merge5();
       expect(merge42.value, equals(a));
 
-      Union5<A, B, C, D, E> merge43 = Union6<A, B, C, D, B, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge43 =
+          Union6<A, B, C, D, B, E>.second(b).merge5();
       expect(merge43.value, equals(b));
 
-      Union5<A, B, C, D, E> merge44 = Union6<A, B, C, D, B, E>.third(c).merge5();
+      Union5<A, B, C, D, E> merge44 =
+          Union6<A, B, C, D, B, E>.third(c).merge5();
       expect(merge44.value, equals(c));
 
-      Union5<A, B, C, D, E> merge45 = Union6<A, B, C, D, B, E>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge45 =
+          Union6<A, B, C, D, B, E>.forth(d).merge5();
       expect(merge45.value, equals(d));
 
-      Union5<A, B, C, D, E> merge46 = Union6<A, B, C, D, B, E>.fifth(b).merge5();
+      Union5<A, B, C, D, E> merge46 =
+          Union6<A, B, C, D, B, E>.fifth(b).merge5();
       expect(merge46.value, equals(b));
 
-      Union5<A, B, C, D, E> merge47 = Union6<A, B, C, D, B, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge47 =
+          Union6<A, B, C, D, B, E>.sixth(e).merge5();
       expect(merge47.value, equals(e));
 
-      Union5<A, B, C, D, E> merge48 = Union6<A, B, C, D, C, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge48 =
+          Union6<A, B, C, D, C, E>.first(a).merge5();
       expect(merge48.value, equals(a));
 
-      Union5<A, B, C, D, E> merge49 = Union6<A, B, C, D, C, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge49 =
+          Union6<A, B, C, D, C, E>.second(b).merge5();
       expect(merge49.value, equals(b));
 
-      Union5<A, B, C, D, E> merge50 = Union6<A, B, C, D, C, E>.third(c).merge5();
+      Union5<A, B, C, D, E> merge50 =
+          Union6<A, B, C, D, C, E>.third(c).merge5();
       expect(merge50.value, equals(c));
 
-      Union5<A, B, C, D, E> merge51 = Union6<A, B, C, D, C, E>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge51 =
+          Union6<A, B, C, D, C, E>.forth(d).merge5();
       expect(merge51.value, equals(d));
 
-      Union5<A, B, C, D, E> merge52 = Union6<A, B, C, D, C, E>.fifth(c).merge5();
+      Union5<A, B, C, D, E> merge52 =
+          Union6<A, B, C, D, C, E>.fifth(c).merge5();
       expect(merge52.value, equals(c));
 
-      Union5<A, B, C, D, E> merge53 = Union6<A, B, C, D, C, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge53 =
+          Union6<A, B, C, D, C, E>.sixth(e).merge5();
       expect(merge53.value, equals(e));
 
-      Union5<A, B, C, D, E> merge54 = Union6<A, B, C, D, D, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge54 =
+          Union6<A, B, C, D, D, E>.first(a).merge5();
       expect(merge54.value, equals(a));
 
-      Union5<A, B, C, D, E> merge55 = Union6<A, B, C, D, D, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge55 =
+          Union6<A, B, C, D, D, E>.second(b).merge5();
       expect(merge55.value, equals(b));
 
-      Union5<A, B, C, D, E> merge56 = Union6<A, B, C, D, D, E>.third(c).merge5();
+      Union5<A, B, C, D, E> merge56 =
+          Union6<A, B, C, D, D, E>.third(c).merge5();
       expect(merge56.value, equals(c));
 
-      Union5<A, B, C, D, E> merge57 = Union6<A, B, C, D, D, E>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge57 =
+          Union6<A, B, C, D, D, E>.forth(d).merge5();
       expect(merge57.value, equals(d));
 
-      Union5<A, B, C, D, E> merge58 = Union6<A, B, C, D, D, E>.fifth(d).merge5();
+      Union5<A, B, C, D, E> merge58 =
+          Union6<A, B, C, D, D, E>.fifth(d).merge5();
       expect(merge58.value, equals(d));
 
-      Union5<A, B, C, D, E> merge59 = Union6<A, B, C, D, D, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge59 =
+          Union6<A, B, C, D, D, E>.sixth(e).merge5();
       expect(merge59.value, equals(e));
 
-      Union5<A, B, C, D, E> merge60 = Union6<A, B, C, D, E, A>.first(a).merge5();
+      Union5<A, B, C, D, E> merge60 =
+          Union6<A, B, C, D, E, A>.first(a).merge5();
       expect(merge60.value, equals(a));
 
-      Union5<A, B, C, D, E> merge61 = Union6<A, B, C, D, E, A>.second(b).merge5();
+      Union5<A, B, C, D, E> merge61 =
+          Union6<A, B, C, D, E, A>.second(b).merge5();
       expect(merge61.value, equals(b));
 
-      Union5<A, B, C, D, E> merge62 = Union6<A, B, C, D, E, A>.third(c).merge5();
+      Union5<A, B, C, D, E> merge62 =
+          Union6<A, B, C, D, E, A>.third(c).merge5();
       expect(merge62.value, equals(c));
 
-      Union5<A, B, C, D, E> merge63 = Union6<A, B, C, D, E, A>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge63 =
+          Union6<A, B, C, D, E, A>.forth(d).merge5();
       expect(merge63.value, equals(d));
 
-      Union5<A, B, C, D, E> merge64 = Union6<A, B, C, D, E, A>.fifth(e).merge5();
+      Union5<A, B, C, D, E> merge64 =
+          Union6<A, B, C, D, E, A>.fifth(e).merge5();
       expect(merge64.value, equals(e));
 
-      Union5<A, B, C, D, E> merge65 = Union6<A, B, C, D, E, A>.sixth(a).merge5();
+      Union5<A, B, C, D, E> merge65 =
+          Union6<A, B, C, D, E, A>.sixth(a).merge5();
       expect(merge65.value, equals(a));
 
-      Union5<A, B, C, D, E> merge66 = Union6<A, B, C, D, E, B>.first(a).merge5();
+      Union5<A, B, C, D, E> merge66 =
+          Union6<A, B, C, D, E, B>.first(a).merge5();
       expect(merge66.value, equals(a));
 
-      Union5<A, B, C, D, E> merge67 = Union6<A, B, C, D, E, B>.second(b).merge5();
+      Union5<A, B, C, D, E> merge67 =
+          Union6<A, B, C, D, E, B>.second(b).merge5();
       expect(merge67.value, equals(b));
 
-      Union5<A, B, C, D, E> merge68 = Union6<A, B, C, D, E, B>.third(c).merge5();
+      Union5<A, B, C, D, E> merge68 =
+          Union6<A, B, C, D, E, B>.third(c).merge5();
       expect(merge68.value, equals(c));
 
-      Union5<A, B, C, D, E> merge69 = Union6<A, B, C, D, E, B>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge69 =
+          Union6<A, B, C, D, E, B>.forth(d).merge5();
       expect(merge69.value, equals(d));
 
-      Union5<A, B, C, D, E> merge70 = Union6<A, B, C, D, E, B>.fifth(e).merge5();
+      Union5<A, B, C, D, E> merge70 =
+          Union6<A, B, C, D, E, B>.fifth(e).merge5();
       expect(merge70.value, equals(e));
 
-      Union5<A, B, C, D, E> merge71 = Union6<A, B, C, D, E, B>.sixth(b).merge5();
+      Union5<A, B, C, D, E> merge71 =
+          Union6<A, B, C, D, E, B>.sixth(b).merge5();
       expect(merge71.value, equals(b));
 
-      Union5<A, B, C, D, E> merge72 = Union6<A, B, C, D, E, C>.first(a).merge5();
+      Union5<A, B, C, D, E> merge72 =
+          Union6<A, B, C, D, E, C>.first(a).merge5();
       expect(merge72.value, equals(a));
 
-      Union5<A, B, C, D, E> merge73 = Union6<A, B, C, D, E, C>.second(b).merge5();
+      Union5<A, B, C, D, E> merge73 =
+          Union6<A, B, C, D, E, C>.second(b).merge5();
       expect(merge73.value, equals(b));
 
-      Union5<A, B, C, D, E> merge74 = Union6<A, B, C, D, E, C>.third(c).merge5();
+      Union5<A, B, C, D, E> merge74 =
+          Union6<A, B, C, D, E, C>.third(c).merge5();
       expect(merge74.value, equals(c));
 
-      Union5<A, B, C, D, E> merge75 = Union6<A, B, C, D, E, C>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge75 =
+          Union6<A, B, C, D, E, C>.forth(d).merge5();
       expect(merge75.value, equals(d));
 
-      Union5<A, B, C, D, E> merge76 = Union6<A, B, C, D, E, C>.fifth(e).merge5();
+      Union5<A, B, C, D, E> merge76 =
+          Union6<A, B, C, D, E, C>.fifth(e).merge5();
       expect(merge76.value, equals(e));
 
-      Union5<A, B, C, D, E> merge77 = Union6<A, B, C, D, E, C>.sixth(c).merge5();
+      Union5<A, B, C, D, E> merge77 =
+          Union6<A, B, C, D, E, C>.sixth(c).merge5();
       expect(merge77.value, equals(c));
 
-      Union5<A, B, C, D, E> merge78 = Union6<A, B, C, D, E, D>.first(a).merge5();
+      Union5<A, B, C, D, E> merge78 =
+          Union6<A, B, C, D, E, D>.first(a).merge5();
       expect(merge78.value, equals(a));
 
-      Union5<A, B, C, D, E> merge79 = Union6<A, B, C, D, E, D>.second(b).merge5();
+      Union5<A, B, C, D, E> merge79 =
+          Union6<A, B, C, D, E, D>.second(b).merge5();
       expect(merge79.value, equals(b));
 
-      Union5<A, B, C, D, E> merge80 = Union6<A, B, C, D, E, D>.third(c).merge5();
+      Union5<A, B, C, D, E> merge80 =
+          Union6<A, B, C, D, E, D>.third(c).merge5();
       expect(merge80.value, equals(c));
 
-      Union5<A, B, C, D, E> merge81 = Union6<A, B, C, D, E, D>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge81 =
+          Union6<A, B, C, D, E, D>.forth(d).merge5();
       expect(merge81.value, equals(d));
 
-      Union5<A, B, C, D, E> merge82 = Union6<A, B, C, D, E, D>.fifth(e).merge5();
+      Union5<A, B, C, D, E> merge82 =
+          Union6<A, B, C, D, E, D>.fifth(e).merge5();
       expect(merge82.value, equals(e));
 
-      Union5<A, B, C, D, E> merge83 = Union6<A, B, C, D, E, D>.sixth(d).merge5();
+      Union5<A, B, C, D, E> merge83 =
+          Union6<A, B, C, D, E, D>.sixth(d).merge5();
       expect(merge83.value, equals(d));
 
-      Union5<A, B, C, D, E> merge84 = Union6<A, B, C, D, E, E>.first(a).merge5();
+      Union5<A, B, C, D, E> merge84 =
+          Union6<A, B, C, D, E, E>.first(a).merge5();
       expect(merge84.value, equals(a));
 
-      Union5<A, B, C, D, E> merge85 = Union6<A, B, C, D, E, E>.second(b).merge5();
+      Union5<A, B, C, D, E> merge85 =
+          Union6<A, B, C, D, E, E>.second(b).merge5();
       expect(merge85.value, equals(b));
 
-      Union5<A, B, C, D, E> merge86 = Union6<A, B, C, D, E, E>.third(c).merge5();
+      Union5<A, B, C, D, E> merge86 =
+          Union6<A, B, C, D, E, E>.third(c).merge5();
       expect(merge86.value, equals(c));
 
-      Union5<A, B, C, D, E> merge87 = Union6<A, B, C, D, E, E>.forth(d).merge5();
+      Union5<A, B, C, D, E> merge87 =
+          Union6<A, B, C, D, E, E>.forth(d).merge5();
       expect(merge87.value, equals(d));
 
-      Union5<A, B, C, D, E> merge88 = Union6<A, B, C, D, E, E>.fifth(e).merge5();
+      Union5<A, B, C, D, E> merge88 =
+          Union6<A, B, C, D, E, E>.fifth(e).merge5();
       expect(merge88.value, equals(e));
 
-      Union5<A, B, C, D, E> merge89 = Union6<A, B, C, D, E, E>.sixth(e).merge5();
+      Union5<A, B, C, D, E> merge89 =
+          Union6<A, B, C, D, E, E>.sixth(e).merge5();
       expect(merge89.value, equals(e));
-
     });
     test('to Union4', () {
       Union4<A, B, C, D> merge0 = Union6<A, A, A, B, C, D>.first(a).merge4();
@@ -1254,7 +1335,6 @@ void main() {
 
       Union4<A, B, C, D> merge324 = Union6<A, B, C, D, D, D>.fifth(d).merge4();
       expect(merge324.value, equals(d));
-
     });
     test('to Union3', () {
       Union3<A, B, C> merge0 = Union6<A, A, A, A, B, C>.first(a).merge3();
@@ -2336,7 +2416,6 @@ void main() {
 
       Union3<A, B, C> merge359 = Union6<A, B, C, C, C, C>.forth(c).merge3();
       expect(merge359.value, equals(c));
-
     });
     test('to Union2', () {
       Union2<A, B> merge0 = Union6<A, A, A, A, A, B>.first(a).merge2();
@@ -2617,7 +2696,6 @@ void main() {
 
       Union2<A, B> merge92 = Union6<A, B, B, B, B, B>.third(b).merge2();
       expect(merge92.value, equals(b));
-
     });
   });
   group('Union5', () {
@@ -2771,7 +2849,6 @@ void main() {
 
       Union4<A, B, C, D> merge49 = Union5<A, B, C, D, D>.fifth(d).merge4();
       expect(merge49.value, equals(d));
-
     });
     test('to Union3', () {
       Union3<A, B, C> merge0 = Union5<A, A, A, B, C>.first(a).merge3();
@@ -3073,7 +3150,6 @@ void main() {
 
       Union3<A, B, C> merge99 = Union5<A, B, C, C, C>.forth(c).merge3();
       expect(merge99.value, equals(c));
-
     });
     test('to Union2', () {
       Union2<A, B> merge0 = Union5<A, A, A, A, B>.first(a).merge2();
@@ -3210,7 +3286,6 @@ void main() {
 
       Union2<A, B> merge44 = Union5<A, B, B, B, B>.third(b).merge2();
       expect(merge44.value, equals(b));
-
     });
   });
   group('Union4', () {
@@ -3286,7 +3361,6 @@ void main() {
 
       Union3<A, B, C> merge23 = Union4<A, B, C, C>.forth(c).merge3();
       expect(merge23.value, equals(c));
-
     });
     test('to Union2', () {
       Union2<A, B> merge0 = Union4<A, A, A, B>.first(a).merge2();
@@ -3351,7 +3425,6 @@ void main() {
 
       Union2<A, B> merge20 = Union4<A, B, B, B>.third(b).merge2();
       expect(merge20.value, equals(b));
-
     });
   });
   group('Union3', () {
@@ -3382,7 +3455,6 @@ void main() {
 
       Union2<A, B> merge8 = Union3<A, B, B>.third(b).merge2();
       expect(merge8.value, equals(b));
-
     });
   });
 }

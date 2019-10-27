@@ -1,7 +1,8 @@
 /// ignore_for_file: lines_longer_than_80_chars, public_member_api_docs
 part of 'union.dart';
 
-extension Union6Merge5CombinationAABCDE<A, B, C, D, E> on Union6<A, A, B, C, D, E> {
+extension Union6Merge5CombinationAABCDE<A, B, C, D, E>
+    on Union6<A, A, B, C, D, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -14,7 +15,8 @@ extension Union6Merge5CombinationAABCDE<A, B, C, D, E> on Union6<A, A, B, C, D, 
   }
 }
 
-extension Union6Merge5CombinationABACDE<A, B, C, D, E> on Union6<A, B, A, C, D, E> {
+extension Union6Merge5CombinationABACDE<A, B, C, D, E>
+    on Union6<A, B, A, C, D, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -27,7 +29,8 @@ extension Union6Merge5CombinationABACDE<A, B, C, D, E> on Union6<A, B, A, C, D, 
   }
 }
 
-extension Union6Merge5CombinationABBCDE<A, B, C, D, E> on Union6<A, B, B, C, D, E> {
+extension Union6Merge5CombinationABBCDE<A, B, C, D, E>
+    on Union6<A, B, B, C, D, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -40,7 +43,8 @@ extension Union6Merge5CombinationABBCDE<A, B, C, D, E> on Union6<A, B, B, C, D, 
   }
 }
 
-extension Union6Merge5CombinationABCADE<A, B, C, D, E> on Union6<A, B, C, A, D, E> {
+extension Union6Merge5CombinationABCADE<A, B, C, D, E>
+    on Union6<A, B, C, A, D, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -53,7 +57,8 @@ extension Union6Merge5CombinationABCADE<A, B, C, D, E> on Union6<A, B, C, A, D, 
   }
 }
 
-extension Union6Merge5CombinationABCBDE<A, B, C, D, E> on Union6<A, B, C, B, D, E> {
+extension Union6Merge5CombinationABCBDE<A, B, C, D, E>
+    on Union6<A, B, C, B, D, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -66,7 +71,8 @@ extension Union6Merge5CombinationABCBDE<A, B, C, D, E> on Union6<A, B, C, B, D, 
   }
 }
 
-extension Union6Merge5CombinationABCCDE<A, B, C, D, E> on Union6<A, B, C, C, D, E> {
+extension Union6Merge5CombinationABCCDE<A, B, C, D, E>
+    on Union6<A, B, C, C, D, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -79,7 +85,8 @@ extension Union6Merge5CombinationABCCDE<A, B, C, D, E> on Union6<A, B, C, C, D, 
   }
 }
 
-extension Union6Merge5CombinationABCDAE<A, B, C, D, E> on Union6<A, B, C, D, A, E> {
+extension Union6Merge5CombinationABCDAE<A, B, C, D, E>
+    on Union6<A, B, C, D, A, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -92,7 +99,8 @@ extension Union6Merge5CombinationABCDAE<A, B, C, D, E> on Union6<A, B, C, D, A, 
   }
 }
 
-extension Union6Merge5CombinationABCDBE<A, B, C, D, E> on Union6<A, B, C, D, B, E> {
+extension Union6Merge5CombinationABCDBE<A, B, C, D, E>
+    on Union6<A, B, C, D, B, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -105,7 +113,8 @@ extension Union6Merge5CombinationABCDBE<A, B, C, D, E> on Union6<A, B, C, D, B, 
   }
 }
 
-extension Union6Merge5CombinationABCDCE<A, B, C, D, E> on Union6<A, B, C, D, C, E> {
+extension Union6Merge5CombinationABCDCE<A, B, C, D, E>
+    on Union6<A, B, C, D, C, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -118,7 +127,8 @@ extension Union6Merge5CombinationABCDCE<A, B, C, D, E> on Union6<A, B, C, D, C, 
   }
 }
 
-extension Union6Merge5CombinationABCDDE<A, B, C, D, E> on Union6<A, B, C, D, D, E> {
+extension Union6Merge5CombinationABCDDE<A, B, C, D, E>
+    on Union6<A, B, C, D, D, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -131,7 +141,8 @@ extension Union6Merge5CombinationABCDDE<A, B, C, D, E> on Union6<A, B, C, D, D, 
   }
 }
 
-extension Union6Merge5CombinationABCDEA<A, B, C, D, E> on Union6<A, B, C, D, E, A> {
+extension Union6Merge5CombinationABCDEA<A, B, C, D, E>
+    on Union6<A, B, C, D, E, A> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -144,7 +155,8 @@ extension Union6Merge5CombinationABCDEA<A, B, C, D, E> on Union6<A, B, C, D, E, 
   }
 }
 
-extension Union6Merge5CombinationABCDEB<A, B, C, D, E> on Union6<A, B, C, D, E, B> {
+extension Union6Merge5CombinationABCDEB<A, B, C, D, E>
+    on Union6<A, B, C, D, E, B> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -157,7 +169,8 @@ extension Union6Merge5CombinationABCDEB<A, B, C, D, E> on Union6<A, B, C, D, E, 
   }
 }
 
-extension Union6Merge5CombinationABCDEC<A, B, C, D, E> on Union6<A, B, C, D, E, C> {
+extension Union6Merge5CombinationABCDEC<A, B, C, D, E>
+    on Union6<A, B, C, D, E, C> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -170,7 +183,8 @@ extension Union6Merge5CombinationABCDEC<A, B, C, D, E> on Union6<A, B, C, D, E, 
   }
 }
 
-extension Union6Merge5CombinationABCDED<A, B, C, D, E> on Union6<A, B, C, D, E, D> {
+extension Union6Merge5CombinationABCDED<A, B, C, D, E>
+    on Union6<A, B, C, D, E, D> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -183,7 +197,8 @@ extension Union6Merge5CombinationABCDED<A, B, C, D, E> on Union6<A, B, C, D, E, 
   }
 }
 
-extension Union6Merge5CombinationABCDEE<A, B, C, D, E> on Union6<A, B, C, D, E, E> {
+extension Union6Merge5CombinationABCDEE<A, B, C, D, E>
+    on Union6<A, B, C, D, E, E> {
   Union5<A, B, C, D, E> merge5() {
     return join(
       (v) => Union5.first(v),
@@ -196,7 +211,8 @@ extension Union6Merge5CombinationABCDEE<A, B, C, D, E> on Union6<A, B, C, D, E, 
   }
 }
 
-extension Union6Merge4CombinationAAABCD<A, B, C, D> on Union6<A, A, A, B, C, D> {
+extension Union6Merge4CombinationAAABCD<A, B, C, D>
+    on Union6<A, A, A, B, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -209,7 +225,8 @@ extension Union6Merge4CombinationAAABCD<A, B, C, D> on Union6<A, A, A, B, C, D> 
   }
 }
 
-extension Union6Merge4CombinationAABACD<A, B, C, D> on Union6<A, A, B, A, C, D> {
+extension Union6Merge4CombinationAABACD<A, B, C, D>
+    on Union6<A, A, B, A, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -222,7 +239,8 @@ extension Union6Merge4CombinationAABACD<A, B, C, D> on Union6<A, A, B, A, C, D> 
   }
 }
 
-extension Union6Merge4CombinationAABBCD<A, B, C, D> on Union6<A, A, B, B, C, D> {
+extension Union6Merge4CombinationAABBCD<A, B, C, D>
+    on Union6<A, A, B, B, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -235,7 +253,8 @@ extension Union6Merge4CombinationAABBCD<A, B, C, D> on Union6<A, A, B, B, C, D> 
   }
 }
 
-extension Union6Merge4CombinationAABCAD<A, B, C, D> on Union6<A, A, B, C, A, D> {
+extension Union6Merge4CombinationAABCAD<A, B, C, D>
+    on Union6<A, A, B, C, A, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -248,7 +267,8 @@ extension Union6Merge4CombinationAABCAD<A, B, C, D> on Union6<A, A, B, C, A, D> 
   }
 }
 
-extension Union6Merge4CombinationAABCBD<A, B, C, D> on Union6<A, A, B, C, B, D> {
+extension Union6Merge4CombinationAABCBD<A, B, C, D>
+    on Union6<A, A, B, C, B, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -261,7 +281,8 @@ extension Union6Merge4CombinationAABCBD<A, B, C, D> on Union6<A, A, B, C, B, D> 
   }
 }
 
-extension Union6Merge4CombinationAABCCD<A, B, C, D> on Union6<A, A, B, C, C, D> {
+extension Union6Merge4CombinationAABCCD<A, B, C, D>
+    on Union6<A, A, B, C, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -274,7 +295,8 @@ extension Union6Merge4CombinationAABCCD<A, B, C, D> on Union6<A, A, B, C, C, D> 
   }
 }
 
-extension Union6Merge4CombinationAABCDA<A, B, C, D> on Union6<A, A, B, C, D, A> {
+extension Union6Merge4CombinationAABCDA<A, B, C, D>
+    on Union6<A, A, B, C, D, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -287,7 +309,8 @@ extension Union6Merge4CombinationAABCDA<A, B, C, D> on Union6<A, A, B, C, D, A> 
   }
 }
 
-extension Union6Merge4CombinationAABCDB<A, B, C, D> on Union6<A, A, B, C, D, B> {
+extension Union6Merge4CombinationAABCDB<A, B, C, D>
+    on Union6<A, A, B, C, D, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -300,7 +323,8 @@ extension Union6Merge4CombinationAABCDB<A, B, C, D> on Union6<A, A, B, C, D, B> 
   }
 }
 
-extension Union6Merge4CombinationAABCDC<A, B, C, D> on Union6<A, A, B, C, D, C> {
+extension Union6Merge4CombinationAABCDC<A, B, C, D>
+    on Union6<A, A, B, C, D, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -313,7 +337,8 @@ extension Union6Merge4CombinationAABCDC<A, B, C, D> on Union6<A, A, B, C, D, C> 
   }
 }
 
-extension Union6Merge4CombinationAABCDD<A, B, C, D> on Union6<A, A, B, C, D, D> {
+extension Union6Merge4CombinationAABCDD<A, B, C, D>
+    on Union6<A, A, B, C, D, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -326,7 +351,8 @@ extension Union6Merge4CombinationAABCDD<A, B, C, D> on Union6<A, A, B, C, D, D> 
   }
 }
 
-extension Union6Merge4CombinationABAACD<A, B, C, D> on Union6<A, B, A, A, C, D> {
+extension Union6Merge4CombinationABAACD<A, B, C, D>
+    on Union6<A, B, A, A, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -339,7 +365,8 @@ extension Union6Merge4CombinationABAACD<A, B, C, D> on Union6<A, B, A, A, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABABCD<A, B, C, D> on Union6<A, B, A, B, C, D> {
+extension Union6Merge4CombinationABABCD<A, B, C, D>
+    on Union6<A, B, A, B, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -352,7 +379,8 @@ extension Union6Merge4CombinationABABCD<A, B, C, D> on Union6<A, B, A, B, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABACAD<A, B, C, D> on Union6<A, B, A, C, A, D> {
+extension Union6Merge4CombinationABACAD<A, B, C, D>
+    on Union6<A, B, A, C, A, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -365,7 +393,8 @@ extension Union6Merge4CombinationABACAD<A, B, C, D> on Union6<A, B, A, C, A, D> 
   }
 }
 
-extension Union6Merge4CombinationABACBD<A, B, C, D> on Union6<A, B, A, C, B, D> {
+extension Union6Merge4CombinationABACBD<A, B, C, D>
+    on Union6<A, B, A, C, B, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -378,7 +407,8 @@ extension Union6Merge4CombinationABACBD<A, B, C, D> on Union6<A, B, A, C, B, D> 
   }
 }
 
-extension Union6Merge4CombinationABACCD<A, B, C, D> on Union6<A, B, A, C, C, D> {
+extension Union6Merge4CombinationABACCD<A, B, C, D>
+    on Union6<A, B, A, C, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -391,7 +421,8 @@ extension Union6Merge4CombinationABACCD<A, B, C, D> on Union6<A, B, A, C, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABACDA<A, B, C, D> on Union6<A, B, A, C, D, A> {
+extension Union6Merge4CombinationABACDA<A, B, C, D>
+    on Union6<A, B, A, C, D, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -404,7 +435,8 @@ extension Union6Merge4CombinationABACDA<A, B, C, D> on Union6<A, B, A, C, D, A> 
   }
 }
 
-extension Union6Merge4CombinationABACDB<A, B, C, D> on Union6<A, B, A, C, D, B> {
+extension Union6Merge4CombinationABACDB<A, B, C, D>
+    on Union6<A, B, A, C, D, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -417,7 +449,8 @@ extension Union6Merge4CombinationABACDB<A, B, C, D> on Union6<A, B, A, C, D, B> 
   }
 }
 
-extension Union6Merge4CombinationABACDC<A, B, C, D> on Union6<A, B, A, C, D, C> {
+extension Union6Merge4CombinationABACDC<A, B, C, D>
+    on Union6<A, B, A, C, D, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -430,7 +463,8 @@ extension Union6Merge4CombinationABACDC<A, B, C, D> on Union6<A, B, A, C, D, C> 
   }
 }
 
-extension Union6Merge4CombinationABACDD<A, B, C, D> on Union6<A, B, A, C, D, D> {
+extension Union6Merge4CombinationABACDD<A, B, C, D>
+    on Union6<A, B, A, C, D, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -443,7 +477,8 @@ extension Union6Merge4CombinationABACDD<A, B, C, D> on Union6<A, B, A, C, D, D> 
   }
 }
 
-extension Union6Merge4CombinationABBACD<A, B, C, D> on Union6<A, B, B, A, C, D> {
+extension Union6Merge4CombinationABBACD<A, B, C, D>
+    on Union6<A, B, B, A, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -456,7 +491,8 @@ extension Union6Merge4CombinationABBACD<A, B, C, D> on Union6<A, B, B, A, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABBBCD<A, B, C, D> on Union6<A, B, B, B, C, D> {
+extension Union6Merge4CombinationABBBCD<A, B, C, D>
+    on Union6<A, B, B, B, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -469,7 +505,8 @@ extension Union6Merge4CombinationABBBCD<A, B, C, D> on Union6<A, B, B, B, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABBCAD<A, B, C, D> on Union6<A, B, B, C, A, D> {
+extension Union6Merge4CombinationABBCAD<A, B, C, D>
+    on Union6<A, B, B, C, A, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -482,7 +519,8 @@ extension Union6Merge4CombinationABBCAD<A, B, C, D> on Union6<A, B, B, C, A, D> 
   }
 }
 
-extension Union6Merge4CombinationABBCBD<A, B, C, D> on Union6<A, B, B, C, B, D> {
+extension Union6Merge4CombinationABBCBD<A, B, C, D>
+    on Union6<A, B, B, C, B, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -495,7 +533,8 @@ extension Union6Merge4CombinationABBCBD<A, B, C, D> on Union6<A, B, B, C, B, D> 
   }
 }
 
-extension Union6Merge4CombinationABBCCD<A, B, C, D> on Union6<A, B, B, C, C, D> {
+extension Union6Merge4CombinationABBCCD<A, B, C, D>
+    on Union6<A, B, B, C, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -508,7 +547,8 @@ extension Union6Merge4CombinationABBCCD<A, B, C, D> on Union6<A, B, B, C, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABBCDA<A, B, C, D> on Union6<A, B, B, C, D, A> {
+extension Union6Merge4CombinationABBCDA<A, B, C, D>
+    on Union6<A, B, B, C, D, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -521,7 +561,8 @@ extension Union6Merge4CombinationABBCDA<A, B, C, D> on Union6<A, B, B, C, D, A> 
   }
 }
 
-extension Union6Merge4CombinationABBCDB<A, B, C, D> on Union6<A, B, B, C, D, B> {
+extension Union6Merge4CombinationABBCDB<A, B, C, D>
+    on Union6<A, B, B, C, D, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -534,7 +575,8 @@ extension Union6Merge4CombinationABBCDB<A, B, C, D> on Union6<A, B, B, C, D, B> 
   }
 }
 
-extension Union6Merge4CombinationABBCDC<A, B, C, D> on Union6<A, B, B, C, D, C> {
+extension Union6Merge4CombinationABBCDC<A, B, C, D>
+    on Union6<A, B, B, C, D, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -547,7 +589,8 @@ extension Union6Merge4CombinationABBCDC<A, B, C, D> on Union6<A, B, B, C, D, C> 
   }
 }
 
-extension Union6Merge4CombinationABBCDD<A, B, C, D> on Union6<A, B, B, C, D, D> {
+extension Union6Merge4CombinationABBCDD<A, B, C, D>
+    on Union6<A, B, B, C, D, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -560,7 +603,8 @@ extension Union6Merge4CombinationABBCDD<A, B, C, D> on Union6<A, B, B, C, D, D> 
   }
 }
 
-extension Union6Merge4CombinationABCAAD<A, B, C, D> on Union6<A, B, C, A, A, D> {
+extension Union6Merge4CombinationABCAAD<A, B, C, D>
+    on Union6<A, B, C, A, A, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -573,7 +617,8 @@ extension Union6Merge4CombinationABCAAD<A, B, C, D> on Union6<A, B, C, A, A, D> 
   }
 }
 
-extension Union6Merge4CombinationABCABD<A, B, C, D> on Union6<A, B, C, A, B, D> {
+extension Union6Merge4CombinationABCABD<A, B, C, D>
+    on Union6<A, B, C, A, B, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -586,7 +631,8 @@ extension Union6Merge4CombinationABCABD<A, B, C, D> on Union6<A, B, C, A, B, D> 
   }
 }
 
-extension Union6Merge4CombinationABCACD<A, B, C, D> on Union6<A, B, C, A, C, D> {
+extension Union6Merge4CombinationABCACD<A, B, C, D>
+    on Union6<A, B, C, A, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -599,7 +645,8 @@ extension Union6Merge4CombinationABCACD<A, B, C, D> on Union6<A, B, C, A, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABCADA<A, B, C, D> on Union6<A, B, C, A, D, A> {
+extension Union6Merge4CombinationABCADA<A, B, C, D>
+    on Union6<A, B, C, A, D, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -612,7 +659,8 @@ extension Union6Merge4CombinationABCADA<A, B, C, D> on Union6<A, B, C, A, D, A> 
   }
 }
 
-extension Union6Merge4CombinationABCADB<A, B, C, D> on Union6<A, B, C, A, D, B> {
+extension Union6Merge4CombinationABCADB<A, B, C, D>
+    on Union6<A, B, C, A, D, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -625,7 +673,8 @@ extension Union6Merge4CombinationABCADB<A, B, C, D> on Union6<A, B, C, A, D, B> 
   }
 }
 
-extension Union6Merge4CombinationABCADC<A, B, C, D> on Union6<A, B, C, A, D, C> {
+extension Union6Merge4CombinationABCADC<A, B, C, D>
+    on Union6<A, B, C, A, D, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -638,7 +687,8 @@ extension Union6Merge4CombinationABCADC<A, B, C, D> on Union6<A, B, C, A, D, C> 
   }
 }
 
-extension Union6Merge4CombinationABCADD<A, B, C, D> on Union6<A, B, C, A, D, D> {
+extension Union6Merge4CombinationABCADD<A, B, C, D>
+    on Union6<A, B, C, A, D, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -651,7 +701,8 @@ extension Union6Merge4CombinationABCADD<A, B, C, D> on Union6<A, B, C, A, D, D> 
   }
 }
 
-extension Union6Merge4CombinationABCBAD<A, B, C, D> on Union6<A, B, C, B, A, D> {
+extension Union6Merge4CombinationABCBAD<A, B, C, D>
+    on Union6<A, B, C, B, A, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -664,7 +715,8 @@ extension Union6Merge4CombinationABCBAD<A, B, C, D> on Union6<A, B, C, B, A, D> 
   }
 }
 
-extension Union6Merge4CombinationABCBBD<A, B, C, D> on Union6<A, B, C, B, B, D> {
+extension Union6Merge4CombinationABCBBD<A, B, C, D>
+    on Union6<A, B, C, B, B, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -677,7 +729,8 @@ extension Union6Merge4CombinationABCBBD<A, B, C, D> on Union6<A, B, C, B, B, D> 
   }
 }
 
-extension Union6Merge4CombinationABCBCD<A, B, C, D> on Union6<A, B, C, B, C, D> {
+extension Union6Merge4CombinationABCBCD<A, B, C, D>
+    on Union6<A, B, C, B, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -690,7 +743,8 @@ extension Union6Merge4CombinationABCBCD<A, B, C, D> on Union6<A, B, C, B, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABCBDA<A, B, C, D> on Union6<A, B, C, B, D, A> {
+extension Union6Merge4CombinationABCBDA<A, B, C, D>
+    on Union6<A, B, C, B, D, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -703,7 +757,8 @@ extension Union6Merge4CombinationABCBDA<A, B, C, D> on Union6<A, B, C, B, D, A> 
   }
 }
 
-extension Union6Merge4CombinationABCBDB<A, B, C, D> on Union6<A, B, C, B, D, B> {
+extension Union6Merge4CombinationABCBDB<A, B, C, D>
+    on Union6<A, B, C, B, D, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -716,7 +771,8 @@ extension Union6Merge4CombinationABCBDB<A, B, C, D> on Union6<A, B, C, B, D, B> 
   }
 }
 
-extension Union6Merge4CombinationABCBDC<A, B, C, D> on Union6<A, B, C, B, D, C> {
+extension Union6Merge4CombinationABCBDC<A, B, C, D>
+    on Union6<A, B, C, B, D, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -729,7 +785,8 @@ extension Union6Merge4CombinationABCBDC<A, B, C, D> on Union6<A, B, C, B, D, C> 
   }
 }
 
-extension Union6Merge4CombinationABCBDD<A, B, C, D> on Union6<A, B, C, B, D, D> {
+extension Union6Merge4CombinationABCBDD<A, B, C, D>
+    on Union6<A, B, C, B, D, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -742,7 +799,8 @@ extension Union6Merge4CombinationABCBDD<A, B, C, D> on Union6<A, B, C, B, D, D> 
   }
 }
 
-extension Union6Merge4CombinationABCCAD<A, B, C, D> on Union6<A, B, C, C, A, D> {
+extension Union6Merge4CombinationABCCAD<A, B, C, D>
+    on Union6<A, B, C, C, A, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -755,7 +813,8 @@ extension Union6Merge4CombinationABCCAD<A, B, C, D> on Union6<A, B, C, C, A, D> 
   }
 }
 
-extension Union6Merge4CombinationABCCBD<A, B, C, D> on Union6<A, B, C, C, B, D> {
+extension Union6Merge4CombinationABCCBD<A, B, C, D>
+    on Union6<A, B, C, C, B, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -768,7 +827,8 @@ extension Union6Merge4CombinationABCCBD<A, B, C, D> on Union6<A, B, C, C, B, D> 
   }
 }
 
-extension Union6Merge4CombinationABCCCD<A, B, C, D> on Union6<A, B, C, C, C, D> {
+extension Union6Merge4CombinationABCCCD<A, B, C, D>
+    on Union6<A, B, C, C, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -781,7 +841,8 @@ extension Union6Merge4CombinationABCCCD<A, B, C, D> on Union6<A, B, C, C, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABCCDA<A, B, C, D> on Union6<A, B, C, C, D, A> {
+extension Union6Merge4CombinationABCCDA<A, B, C, D>
+    on Union6<A, B, C, C, D, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -794,7 +855,8 @@ extension Union6Merge4CombinationABCCDA<A, B, C, D> on Union6<A, B, C, C, D, A> 
   }
 }
 
-extension Union6Merge4CombinationABCCDB<A, B, C, D> on Union6<A, B, C, C, D, B> {
+extension Union6Merge4CombinationABCCDB<A, B, C, D>
+    on Union6<A, B, C, C, D, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -807,7 +869,8 @@ extension Union6Merge4CombinationABCCDB<A, B, C, D> on Union6<A, B, C, C, D, B> 
   }
 }
 
-extension Union6Merge4CombinationABCCDC<A, B, C, D> on Union6<A, B, C, C, D, C> {
+extension Union6Merge4CombinationABCCDC<A, B, C, D>
+    on Union6<A, B, C, C, D, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -820,7 +883,8 @@ extension Union6Merge4CombinationABCCDC<A, B, C, D> on Union6<A, B, C, C, D, C> 
   }
 }
 
-extension Union6Merge4CombinationABCCDD<A, B, C, D> on Union6<A, B, C, C, D, D> {
+extension Union6Merge4CombinationABCCDD<A, B, C, D>
+    on Union6<A, B, C, C, D, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -833,7 +897,8 @@ extension Union6Merge4CombinationABCCDD<A, B, C, D> on Union6<A, B, C, C, D, D> 
   }
 }
 
-extension Union6Merge4CombinationABCDAA<A, B, C, D> on Union6<A, B, C, D, A, A> {
+extension Union6Merge4CombinationABCDAA<A, B, C, D>
+    on Union6<A, B, C, D, A, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -846,7 +911,8 @@ extension Union6Merge4CombinationABCDAA<A, B, C, D> on Union6<A, B, C, D, A, A> 
   }
 }
 
-extension Union6Merge4CombinationABCDAB<A, B, C, D> on Union6<A, B, C, D, A, B> {
+extension Union6Merge4CombinationABCDAB<A, B, C, D>
+    on Union6<A, B, C, D, A, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -859,7 +925,8 @@ extension Union6Merge4CombinationABCDAB<A, B, C, D> on Union6<A, B, C, D, A, B> 
   }
 }
 
-extension Union6Merge4CombinationABCDAC<A, B, C, D> on Union6<A, B, C, D, A, C> {
+extension Union6Merge4CombinationABCDAC<A, B, C, D>
+    on Union6<A, B, C, D, A, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -872,7 +939,8 @@ extension Union6Merge4CombinationABCDAC<A, B, C, D> on Union6<A, B, C, D, A, C> 
   }
 }
 
-extension Union6Merge4CombinationABCDAD<A, B, C, D> on Union6<A, B, C, D, A, D> {
+extension Union6Merge4CombinationABCDAD<A, B, C, D>
+    on Union6<A, B, C, D, A, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -885,7 +953,8 @@ extension Union6Merge4CombinationABCDAD<A, B, C, D> on Union6<A, B, C, D, A, D> 
   }
 }
 
-extension Union6Merge4CombinationABCDBA<A, B, C, D> on Union6<A, B, C, D, B, A> {
+extension Union6Merge4CombinationABCDBA<A, B, C, D>
+    on Union6<A, B, C, D, B, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -898,7 +967,8 @@ extension Union6Merge4CombinationABCDBA<A, B, C, D> on Union6<A, B, C, D, B, A> 
   }
 }
 
-extension Union6Merge4CombinationABCDBB<A, B, C, D> on Union6<A, B, C, D, B, B> {
+extension Union6Merge4CombinationABCDBB<A, B, C, D>
+    on Union6<A, B, C, D, B, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -911,7 +981,8 @@ extension Union6Merge4CombinationABCDBB<A, B, C, D> on Union6<A, B, C, D, B, B> 
   }
 }
 
-extension Union6Merge4CombinationABCDBC<A, B, C, D> on Union6<A, B, C, D, B, C> {
+extension Union6Merge4CombinationABCDBC<A, B, C, D>
+    on Union6<A, B, C, D, B, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -924,7 +995,8 @@ extension Union6Merge4CombinationABCDBC<A, B, C, D> on Union6<A, B, C, D, B, C> 
   }
 }
 
-extension Union6Merge4CombinationABCDBD<A, B, C, D> on Union6<A, B, C, D, B, D> {
+extension Union6Merge4CombinationABCDBD<A, B, C, D>
+    on Union6<A, B, C, D, B, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -937,7 +1009,8 @@ extension Union6Merge4CombinationABCDBD<A, B, C, D> on Union6<A, B, C, D, B, D> 
   }
 }
 
-extension Union6Merge4CombinationABCDCA<A, B, C, D> on Union6<A, B, C, D, C, A> {
+extension Union6Merge4CombinationABCDCA<A, B, C, D>
+    on Union6<A, B, C, D, C, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -950,7 +1023,8 @@ extension Union6Merge4CombinationABCDCA<A, B, C, D> on Union6<A, B, C, D, C, A> 
   }
 }
 
-extension Union6Merge4CombinationABCDCB<A, B, C, D> on Union6<A, B, C, D, C, B> {
+extension Union6Merge4CombinationABCDCB<A, B, C, D>
+    on Union6<A, B, C, D, C, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -963,7 +1037,8 @@ extension Union6Merge4CombinationABCDCB<A, B, C, D> on Union6<A, B, C, D, C, B> 
   }
 }
 
-extension Union6Merge4CombinationABCDCC<A, B, C, D> on Union6<A, B, C, D, C, C> {
+extension Union6Merge4CombinationABCDCC<A, B, C, D>
+    on Union6<A, B, C, D, C, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -976,7 +1051,8 @@ extension Union6Merge4CombinationABCDCC<A, B, C, D> on Union6<A, B, C, D, C, C> 
   }
 }
 
-extension Union6Merge4CombinationABCDCD<A, B, C, D> on Union6<A, B, C, D, C, D> {
+extension Union6Merge4CombinationABCDCD<A, B, C, D>
+    on Union6<A, B, C, D, C, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -989,7 +1065,8 @@ extension Union6Merge4CombinationABCDCD<A, B, C, D> on Union6<A, B, C, D, C, D> 
   }
 }
 
-extension Union6Merge4CombinationABCDDA<A, B, C, D> on Union6<A, B, C, D, D, A> {
+extension Union6Merge4CombinationABCDDA<A, B, C, D>
+    on Union6<A, B, C, D, D, A> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -1002,7 +1079,8 @@ extension Union6Merge4CombinationABCDDA<A, B, C, D> on Union6<A, B, C, D, D, A> 
   }
 }
 
-extension Union6Merge4CombinationABCDDB<A, B, C, D> on Union6<A, B, C, D, D, B> {
+extension Union6Merge4CombinationABCDDB<A, B, C, D>
+    on Union6<A, B, C, D, D, B> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -1015,7 +1093,8 @@ extension Union6Merge4CombinationABCDDB<A, B, C, D> on Union6<A, B, C, D, D, B> 
   }
 }
 
-extension Union6Merge4CombinationABCDDC<A, B, C, D> on Union6<A, B, C, D, D, C> {
+extension Union6Merge4CombinationABCDDC<A, B, C, D>
+    on Union6<A, B, C, D, D, C> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -1028,7 +1107,8 @@ extension Union6Merge4CombinationABCDDC<A, B, C, D> on Union6<A, B, C, D, D, C> 
   }
 }
 
-extension Union6Merge4CombinationABCDDD<A, B, C, D> on Union6<A, B, C, D, D, D> {
+extension Union6Merge4CombinationABCDDD<A, B, C, D>
+    on Union6<A, B, C, D, D, D> {
   Union4<A, B, C, D> merge4() {
     return join(
       (v) => Union4.first(v),
@@ -3386,4 +3466,3 @@ extension Union3Merge2CombinationABB<A, B> on Union3<A, B, B> {
     );
   }
 }
-
