@@ -1,7 +1,3 @@
-import 'dart:math';
-
-const unionsCount = 9;
-
 const indexName = [
   'first',
   'second',
@@ -16,18 +12,8 @@ const indexName = [
 
 final aCharCode = 'A'.codeUnitAt(0);
 
-void main(List<String> args) {
-  for (final combination in generateAllMergeTypesCombination(2, 4)) {
-    print('''
-extension Union4Merge2Combination${combination.map(indexToLetter).join('')}<A, B> on Union4<${combination.map(indexToLetter).join(',')}> {
-  Union2<A, B> merge2() {
-    return join(
-${combination.map((index) => valueToUnion(index: index, union: 4)).join('\n')}
-    );
-  }
-}
-''');
-  }
+String generateGenerics(List<int> types) {
+  return '<${types.map(indexToLetter).join(', ')}>';
 }
 
 String valueToUnion({int index, int union}) {
@@ -52,18 +38,13 @@ Iterable<List<int>> _generateAllMergeTypesCombination({
   int targetLength,
   int nextNewChar,
 }) sync* {
-  // Base case: k is 0,
-  // print prefix
   if (targetLength == 0) {
-    if (nextNewChar == fromLength) {
+    if (nextNewChar >= fromLength) {
       yield currentCombination;
     }
     return;
   }
 
-  // One by one add all fromLength
-  // from set and recursively
-  // call for k equals to k-1
   for (var i = 0; i < fromLength && i <= nextNewChar; i++) {
     final newPrefix = [...currentCombination, i];
 

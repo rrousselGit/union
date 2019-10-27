@@ -1,35 +1,9 @@
 import 'package:union/union.dart';
 import 'package:test/test.dart';
 
-class A {}
-
-class B {}
-
-class C {}
-
-class D {}
-
-class E {}
-
-class F {}
-
-class G {}
-
-class H {}
-
-class I {}
+import 'common.dart';
 
 void main() {
-  final a = A();
-  final b = B();
-  final c = C();
-  final d = D();
-  final e = E();
-  final f = F();
-  final g = G();
-  final h = H();
-  final i = I();
-
   group('Union2', () {
     final first = Union2<A, B>.first(a);
     final second = Union2<A, B>.second(b);
