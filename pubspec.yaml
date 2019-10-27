@@ -1,6 +1,6 @@
 name: union
-description: Union types for dart
-version: 0.0.0
+description: Type safe union types for dart, by using extensions from Dart 2.6
+version: 0.0.0+1
 homepage: https://github.com/rrousselGit/union
 authors:
   - Remi Rousselet <darky12s@gmail.com>
@@ -8,8 +8,5 @@ authors:
 environment:
   sdk: '>=2.6.0-dev <3.0.0'
 
-dependencies:
-
 dev_dependencies:
-  mockito: ^4.0.0
-  test:
+  test: 1.9.3
