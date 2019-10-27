@@ -1,3 +1,5 @@
+part 'union.g.dart';
+
 enum _Union {
   first,
   second,
