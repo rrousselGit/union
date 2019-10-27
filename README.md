@@ -15,7 +15,7 @@ Add the following to you pubspec.yaml:
 
 ```yaml
 dependencies:
-  union: ^1.0.0
+  union: ^0.0.0
 ```
 
 # Description
