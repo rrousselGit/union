@@ -12,23 +12,25 @@ enum _Union {
   ninth,
 }
 
+R _noop<T, R>(T t) {}
+
 abstract class _UnionBase {
   /// Create a union from _UnionBase first generic type
-  const _UnionBase(this._value, this._type);
+  _UnionBase(this._value, this._id);
 
-  final _Union _type;
+  final Object _id;
   final Object _value;
 
   @override
   bool operator ==(Object other) {
     return other is _UnionBase &&
         runtimeType == other.runtimeType &&
-        other._type == _type &&
+        other._id == _id &&
         other._value == _value;
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ _type.hashCode ^ _value.hashCode;
+  int get hashCode => runtimeType.hashCode ^ _id.hashCode ^ _value.hashCode;
 }
 
 /// {@template union}
@@ -155,10 +157,16 @@ abstract class _UnionBase {
 /// {@endtemplate}
 class Union2<A, B> extends _UnionBase {
   /// Create a union from its first generic type
-  const Union2.first(A value) : super(value, _Union.first);
+  Union2.first(A value)
+      : _join = <T>(first, second) => first(value),
+        super(value, _Union.first);
 
   /// Create a union from its second generic type
-  const Union2.second(B value) : super(value, _Union.second);
+  Union2.second(B value)
+      : _join = <T>(first, second) => second(value),
+        super(value, _Union.second);
+
+  final T Function<T>(T Function(A a), T Function(B b)) _join;
 
   /// {@template union.forEach}
   /// Allow executing custom logic based on the value type in a type safe way.
@@ -213,13 +221,10 @@ class Union2<A, B> extends _UnionBase {
     void first(A value),
     void second(B value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first?.call(_value as A);
-      case _Union.second:
-        return second?.call(_value as B);
-    }
+    return _join(
+      first ?? _noop,
+      second ?? _noop,
+    );
   }
 
   /// {@template union.join}
@@ -264,13 +269,10 @@ class Union2<A, B> extends _UnionBase {
     T first(A value),
     T second(B value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first(_value as A);
-      case _Union.second:
-        return second(_value as B);
-    }
+    return _join<T>(
+      first ?? _noop,
+      second ?? _noop,
+    );
   }
 
   /// {@template union.map}
@@ -307,26 +309,50 @@ class Union2<A, B> extends _UnionBase {
     A2 first(A value),
     B2 second(B value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return Union2.first(first(_value as A));
-      case _Union.second:
-        return Union2.second(second(_value as B));
-    }
+    return _join<Union2<A2, B2>>(
+      (value) => Union2.first(first(value)),
+      (value) => Union2.second(second(value)),
+    );
   }
 }
 
 /// {@macro union}
 class Union3<A, B, C> extends _UnionBase {
   /// Create a union from its first generic type
-  const Union3.first(A value) : super(value, _Union.first);
+  Union3.first(A value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+        ) =>
+            first(value),
+        super(value, _Union.first);
 
   /// Create a union from its second generic type
-  const Union3.second(B value) : super(value, _Union.second);
+  Union3.second(B value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+        ) =>
+            second(value),
+        super(value, _Union.second);
 
   /// Create a union from its third generic type
-  const Union3.third(C value) : super(value, _Union.third);
+  Union3.third(C value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+        ) =>
+            third(value),
+        super(value, _Union.third);
+
+  final T Function<T>(
+    T Function(A a),
+    T Function(B b),
+    T Function(C c),
+  ) _join;
 
   /// {@macro union.forEach}
   void forEach(
@@ -334,15 +360,11 @@ class Union3<A, B, C> extends _UnionBase {
     void second(B value),
     void third(C value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first?.call(_value as A);
-      case _Union.second:
-        return second?.call(_value as B);
-      case _Union.third:
-        return third?.call(_value as C);
-    }
+    return _join(
+      first ?? _noop,
+      second ?? _noop,
+      third ?? _noop,
+    );
   }
 
   /// {@macro union.join}
@@ -352,15 +374,11 @@ class Union3<A, B, C> extends _UnionBase {
     T second(B value),
     T third(C value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first(_value as A);
-      case _Union.second:
-        return second(_value as B);
-      case _Union.third:
-        return third(_value as C);
-    }
+    return _join(
+      first,
+      second,
+      third,
+    );
   }
 
   /// {@macro union.map}
@@ -370,31 +388,66 @@ class Union3<A, B, C> extends _UnionBase {
     B2 second(B value),
     C2 third(C value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return Union3.first(first(_value as A));
-      case _Union.second:
-        return Union3.second(second(_value as B));
-      case _Union.third:
-        return Union3.third(third(_value as C));
-    }
+    return _join<Union3<A2, B2, C2>>(
+      (value) => Union3.first(first(value)),
+      (value) => Union3.second(second(value)),
+      (value) => Union3.third(third(value)),
+    );
   }
 }
 
 /// {@macro union}
 class Union4<A, B, C, D> extends _UnionBase {
   /// Create a union from its first generic type
-  const Union4.first(A value) : super(value, _Union.first);
+  Union4.first(A value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+        ) =>
+            first(value),
+        super(value, _Union.first);
 
   /// Create a union from its second generic type
-  const Union4.second(B value) : super(value, _Union.second);
+  Union4.second(B value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+        ) =>
+            second(value),
+        super(value, _Union.second);
 
   /// Create a union from its third generic type
-  const Union4.third(C value) : super(value, _Union.third);
+  Union4.third(C value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+        ) =>
+            third(value),
+        super(value, _Union.third);
 
   /// Create a union from its forth generic type
-  const Union4.forth(D value) : super(value, _Union.forth);
+  Union4.forth(D value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+        ) =>
+            forth(value),
+        super(value, _Union.forth);
+
+  final T Function<T>(
+    T Function(A a),
+    T Function(B b),
+    T Function(C c),
+    T Function(D c),
+  ) _join;
 
   /// {@macro union.forEach}
   void forEach(
@@ -403,17 +456,12 @@ class Union4<A, B, C, D> extends _UnionBase {
     void third(C value),
     void forth(D value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first?.call(_value as A);
-      case _Union.second:
-        return second?.call(_value as B);
-      case _Union.third:
-        return third?.call(_value as C);
-      case _Union.forth:
-        return forth?.call(_value as D);
-    }
+    return _join(
+      first ?? _noop,
+      second ?? _noop,
+      third ?? _noop,
+      forth ?? _noop,
+    );
   }
 
   /// {@macro union.join}
@@ -424,57 +472,100 @@ class Union4<A, B, C, D> extends _UnionBase {
     T third(C value),
     T forth(D value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first(_value as A);
-      case _Union.second:
-        return second(_value as B);
-      case _Union.third:
-        return third(_value as C);
-      case _Union.forth:
-        return forth(_value as D);
-    }
+    return _join(
+      first,
+      second,
+      third,
+      forth,
+    );
   }
 
   /// {@macro union.map}
-  // ignore: missing_return, the switch always return
+  // ignore: missing_return, the switch always returns
   Union4<A2, B2, C2, D2> map<A2, B2, C2, D2>(
     A2 first(A value),
     B2 second(B value),
     C2 third(C value),
     D2 forth(D value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return Union4.first(first(_value as A));
-      case _Union.second:
-        return Union4.second(second(_value as B));
-      case _Union.third:
-        return Union4.third(third(_value as C));
-      case _Union.forth:
-        return Union4.forth(forth(_value as D));
-    }
+    return _join<Union4<A2, B2, C2, D2>>(
+      (value) => Union4.first(first(value)),
+      (value) => Union4.second(second(value)),
+      (value) => Union4.third(third(value)),
+      (value) => Union4.forth(forth(value)),
+    );
   }
 }
 
 /// {@macro union}
 class Union5<A, B, C, D, E> extends _UnionBase {
   /// Create a union from its first generic type
-  const Union5.first(A value) : super(value, _Union.first);
+  Union5.first(A value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+        ) =>
+            first(value),
+        super(value, _Union.first);
 
   /// Create a union from its second generic type
-  const Union5.second(B value) : super(value, _Union.second);
+  Union5.second(B value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+        ) =>
+            second(value),
+        super(value, _Union.second);
 
   /// Create a union from its third generic type
-  const Union5.third(C value) : super(value, _Union.third);
+  Union5.third(C value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+        ) =>
+            third(value),
+        super(value, _Union.third);
 
   /// Create a union from its forth generic type
-  const Union5.forth(D value) : super(value, _Union.forth);
+  Union5.forth(D value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+        ) =>
+            forth(value),
+        super(value, _Union.forth);
 
-  /// Create a union from its fifth generic type
-  const Union5.fifth(E value) : super(value, _Union.fifth);
+  /// Create a union from its seventh generic type
+  Union5.fifth(E value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+        ) =>
+            fifth(value),
+        super(value, _Union.fifth);
+
+  final T Function<T>(
+    T Function(A a),
+    T Function(B b),
+    T Function(C c),
+    T Function(D c),
+    T Function(E c),
+  ) _join;
 
   /// {@macro union.forEach}
   void forEach(
@@ -484,19 +575,13 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     void forth(D value),
     void fifth(E value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first?.call(_value as A);
-      case _Union.second:
-        return second?.call(_value as B);
-      case _Union.third:
-        return third?.call(_value as C);
-      case _Union.forth:
-        return forth?.call(_value as D);
-      case _Union.fifth:
-        return fifth?.call(_value as E);
-    }
+    return _join(
+      first ?? _noop,
+      second ?? _noop,
+      third ?? _noop,
+      forth ?? _noop,
+      fifth ?? _noop,
+    );
   }
 
   /// {@macro union.join}
@@ -508,23 +593,17 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     T forth(D value),
     T fifth(E value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first(_value as A);
-      case _Union.second:
-        return second(_value as B);
-      case _Union.third:
-        return third(_value as C);
-      case _Union.forth:
-        return forth(_value as D);
-      case _Union.fifth:
-        return fifth(_value as E);
-    }
+    return _join(
+      first,
+      second,
+      third,
+      forth,
+      fifth,
+    );
   }
 
   /// {@macro union.map}
-  // ignore: missing_return, the switch always return
+  // ignore: missing_return, the switch always returns
   Union5<A2, B2, C2, D2, E2> map<A2, B2, C2, D2, E2>(
     A2 first(A value),
     B2 second(B value),
@@ -532,41 +611,104 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     D2 forth(D value),
     E2 fifth(E value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return Union5.first(first(_value as A));
-      case _Union.second:
-        return Union5.second(second(_value as B));
-      case _Union.third:
-        return Union5.third(third(_value as C));
-      case _Union.forth:
-        return Union5.forth(forth(_value as D));
-      case _Union.fifth:
-        return Union5.fifth(fifth(_value as E));
-    }
+    return _join<Union5<A2, B2, C2, D2, E2>>(
+      (value) => Union5.first(first(value)),
+      (value) => Union5.second(second(value)),
+      (value) => Union5.third(third(value)),
+      (value) => Union5.forth(forth(value)),
+      (value) => Union5.fifth(fifth(value)),
+    );
   }
 }
 
 /// {@macro union}
 class Union6<A, B, C, D, E, F> extends _UnionBase {
   /// Create a union from its first generic type
-  const Union6.first(A value) : super(value, _Union.first);
+  Union6.first(A value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+        ) =>
+            first(value),
+        super(value, _Union.first);
 
   /// Create a union from its second generic type
-  const Union6.second(B value) : super(value, _Union.second);
+  Union6.second(B value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+        ) =>
+            second(value),
+        super(value, _Union.second);
 
   /// Create a union from its third generic type
-  const Union6.third(C value) : super(value, _Union.third);
+  Union6.third(C value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+        ) =>
+            third(value),
+        super(value, _Union.third);
 
   /// Create a union from its forth generic type
-  const Union6.forth(D value) : super(value, _Union.forth);
+  Union6.forth(D value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+        ) =>
+            forth(value),
+        super(value, _Union.forth);
 
-  /// Create a union from its fifth generic type
-  const Union6.fifth(E value) : super(value, _Union.fifth);
+  /// Create a union from its seventh generic type
+  Union6.fifth(E value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+        ) =>
+            fifth(value),
+        super(value, _Union.fifth);
 
-  /// Create a union from its sixth generic type
-  const Union6.sixth(F value) : super(value, _Union.sixth);
+  /// Create a union from its seventh generic type
+  Union6.sixth(F value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+        ) =>
+            sixth(value),
+        super(value, _Union.sixth);
+
+  final T Function<T>(
+    T Function(A a),
+    T Function(B b),
+    T Function(C c),
+    T Function(D c),
+    T Function(E c),
+    T Function(F c),
+  ) _join;
 
   /// {@macro union.forEach}
   void forEach(
@@ -577,21 +719,14 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     void fifth(E value),
     void sixth(F value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first?.call(_value as A);
-      case _Union.second:
-        return second?.call(_value as B);
-      case _Union.third:
-        return third?.call(_value as C);
-      case _Union.forth:
-        return forth?.call(_value as D);
-      case _Union.fifth:
-        return fifth?.call(_value as E);
-      case _Union.sixth:
-        return sixth?.call(_value as F);
-    }
+    return _join(
+      first ?? _noop,
+      second ?? _noop,
+      third ?? _noop,
+      forth ?? _noop,
+      fifth ?? _noop,
+      sixth ?? _noop,
+    );
   }
 
   /// {@macro union.join}
@@ -604,21 +739,14 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     T fifth(E value),
     T sixth(F value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first(_value as A);
-      case _Union.second:
-        return second(_value as B);
-      case _Union.third:
-        return third(_value as C);
-      case _Union.forth:
-        return forth(_value as D);
-      case _Union.fifth:
-        return fifth(_value as E);
-      case _Union.sixth:
-        return sixth(_value as F);
-    }
+    return _join(
+      first,
+      second,
+      third,
+      forth,
+      fifth,
+      sixth,
+    );
   }
 
   /// {@macro union.map}
@@ -631,46 +759,126 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     E2 fifth(E value),
     F2 sixth(F value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return Union6.first(first(_value as A));
-      case _Union.second:
-        return Union6.second(second(_value as B));
-      case _Union.third:
-        return Union6.third(third(_value as C));
-      case _Union.forth:
-        return Union6.forth(forth(_value as D));
-      case _Union.fifth:
-        return Union6.fifth(fifth(_value as E));
-      case _Union.sixth:
-        return Union6.sixth(sixth(_value as F));
-    }
+    return _join<Union6<A2, B2, C2, D2, E2, F2>>(
+      (value) => Union6.first(first(value)),
+      (value) => Union6.second(second(value)),
+      (value) => Union6.third(third(value)),
+      (value) => Union6.forth(forth(value)),
+      (value) => Union6.fifth(fifth(value)),
+      (value) => Union6.sixth(sixth(value)),
+    );
   }
 }
 
 /// {@macro union}
 class Union7<A, B, C, D, E, F, G> extends _UnionBase {
   /// Create a union from its first generic type
-  const Union7.first(A value) : super(value, _Union.first);
+  Union7.first(A value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+        ) =>
+            first(value),
+        super(value, _Union.first);
 
   /// Create a union from its second generic type
-  const Union7.second(B value) : super(value, _Union.second);
+  Union7.second(B value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+        ) =>
+            second(value),
+        super(value, _Union.second);
 
   /// Create a union from its third generic type
-  const Union7.third(C value) : super(value, _Union.third);
+  Union7.third(C value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+        ) =>
+            third(value),
+        super(value, _Union.third);
 
   /// Create a union from its forth generic type
-  const Union7.forth(D value) : super(value, _Union.forth);
-
-  /// Create a union from its fifth generic type
-  const Union7.fifth(E value) : super(value, _Union.fifth);
-
-  /// Create a union from its sixth generic type
-  const Union7.sixth(F value) : super(value, _Union.sixth);
+  Union7.forth(D value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+        ) =>
+            forth(value),
+        super(value, _Union.forth);
 
   /// Create a union from its seventh generic type
-  const Union7.seventh(G value) : super(value, _Union.seventh);
+  Union7.fifth(E value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+        ) =>
+            fifth(value),
+        super(value, _Union.fifth);
+
+  /// Create a union from its seventh generic type
+  Union7.sixth(F value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+        ) =>
+            sixth(value),
+        super(value, _Union.sixth);
+
+  /// Create a union from its seventh generic type
+  Union7.seventh(G value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+        ) =>
+            seventh(value),
+        super(value, _Union.seventh);
+
+  final T Function<T>(
+    T Function(A a),
+    T Function(B b),
+    T Function(C c),
+    T Function(D c),
+    T Function(E c),
+    T Function(F c),
+    T Function(G c),
+  ) _join;
 
   /// {@macro union.forEach}
   void forEach(
@@ -682,23 +890,15 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     void sixth(F value),
     void seventh(G value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first?.call(_value as A);
-      case _Union.second:
-        return second?.call(_value as B);
-      case _Union.third:
-        return third?.call(_value as C);
-      case _Union.forth:
-        return forth?.call(_value as D);
-      case _Union.fifth:
-        return fifth?.call(_value as E);
-      case _Union.sixth:
-        return sixth?.call(_value as F);
-      case _Union.seventh:
-        return seventh?.call(_value as G);
-    }
+    return _join(
+      first ?? _noop,
+      second ?? _noop,
+      third ?? _noop,
+      forth ?? _noop,
+      fifth ?? _noop,
+      sixth ?? _noop,
+      seventh ?? _noop,
+    );
   }
 
   /// {@macro union.join}
@@ -712,23 +912,15 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     T sixth(F value),
     T seventh(G value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first(_value as A);
-      case _Union.second:
-        return second(_value as B);
-      case _Union.third:
-        return third(_value as C);
-      case _Union.forth:
-        return forth(_value as D);
-      case _Union.fifth:
-        return fifth(_value as E);
-      case _Union.sixth:
-        return sixth(_value as F);
-      case _Union.seventh:
-        return seventh(_value as G);
-    }
+    return _join(
+      first,
+      second,
+      third,
+      forth,
+      fifth,
+      sixth,
+      seventh,
+    );
   }
 
   /// {@macro union.map}
@@ -742,51 +934,150 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     F2 sixth(F value),
     G2 seventh(G value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return Union7.first(first(_value as A));
-      case _Union.second:
-        return Union7.second(second(_value as B));
-      case _Union.third:
-        return Union7.third(third(_value as C));
-      case _Union.forth:
-        return Union7.forth(forth(_value as D));
-      case _Union.fifth:
-        return Union7.fifth(fifth(_value as E));
-      case _Union.sixth:
-        return Union7.sixth(sixth(_value as F));
-      case _Union.seventh:
-        return Union7.seventh(seventh(_value as G));
-    }
+    return _join<Union7<A2, B2, C2, D2, E2, F2, G2>>(
+      (value) => Union7.first(first(value)),
+      (value) => Union7.second(second(value)),
+      (value) => Union7.third(third(value)),
+      (value) => Union7.forth(forth(value)),
+      (value) => Union7.fifth(fifth(value)),
+      (value) => Union7.sixth(sixth(value)),
+      (value) => Union7.seventh(seventh(value)),
+    );
   }
 }
 
 /// {@macro union}
 class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
   /// Create a union from its first generic type
-  const Union8.first(A value) : super(value, _Union.first);
+  Union8.first(A value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+        ) =>
+            first(value),
+        super(value, _Union.first);
 
   /// Create a union from its second generic type
-  const Union8.second(B value) : super(value, _Union.second);
+  Union8.second(B value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+        ) =>
+            second(value),
+        super(value, _Union.second);
 
   /// Create a union from its third generic type
-  const Union8.third(C value) : super(value, _Union.third);
+  Union8.third(C value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+        ) =>
+            third(value),
+        super(value, _Union.third);
 
   /// Create a union from its forth generic type
-  const Union8.forth(D value) : super(value, _Union.forth);
-
-  /// Create a union from its fifth generic type
-  const Union8.fifth(E value) : super(value, _Union.fifth);
-
-  /// Create a union from its sixth generic type
-  const Union8.sixth(F value) : super(value, _Union.sixth);
+  Union8.forth(D value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+        ) =>
+            forth(value),
+        super(value, _Union.forth);
 
   /// Create a union from its seventh generic type
-  const Union8.seventh(G value) : super(value, _Union.seventh);
+  Union8.fifth(E value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+        ) =>
+            fifth(value),
+        super(value, _Union.fifth);
+
+  /// Create a union from its seventh generic type
+  Union8.sixth(F value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+        ) =>
+            sixth(value),
+        super(value, _Union.sixth);
+
+  /// Create a union from its seventh generic type
+  Union8.seventh(G value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+        ) =>
+            seventh(value),
+        super(value, _Union.seventh);
 
   /// Create a union from its eighth generic type
-  const Union8.eighth(H value) : super(value, _Union.eighth);
+  Union8.eighth(H value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+        ) =>
+            eight(value),
+        super(value, _Union.eighth);
+
+  final T Function<T>(
+    T Function(A a),
+    T Function(B b),
+    T Function(C c),
+    T Function(D c),
+    T Function(E c),
+    T Function(F c),
+    T Function(G c),
+    T Function(H c),
+  ) _join;
 
   /// {@macro union.forEach}
   void forEach(
@@ -799,25 +1090,16 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     void seventh(G value),
     void eighth(H value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first?.call(_value as A);
-      case _Union.second:
-        return second?.call(_value as B);
-      case _Union.third:
-        return third?.call(_value as C);
-      case _Union.forth:
-        return forth?.call(_value as D);
-      case _Union.fifth:
-        return fifth?.call(_value as E);
-      case _Union.sixth:
-        return sixth?.call(_value as F);
-      case _Union.seventh:
-        return seventh?.call(_value as G);
-      case _Union.eighth:
-        return eighth?.call(_value as H);
-    }
+    return _join(
+      first ?? _noop,
+      second ?? _noop,
+      third ?? _noop,
+      forth ?? _noop,
+      fifth ?? _noop,
+      sixth ?? _noop,
+      seventh ?? _noop,
+      eighth ?? _noop,
+    );
   }
 
   /// {@macro union.join}
@@ -832,29 +1114,20 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     T seventh(G value),
     T eighth(H value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first(_value as A);
-      case _Union.second:
-        return second(_value as B);
-      case _Union.third:
-        return third(_value as C);
-      case _Union.forth:
-        return forth(_value as D);
-      case _Union.fifth:
-        return fifth(_value as E);
-      case _Union.sixth:
-        return sixth(_value as F);
-      case _Union.seventh:
-        return seventh(_value as G);
-      case _Union.eighth:
-        return eighth(_value as H);
-    }
+    return _join(
+      first,
+      second,
+      third,
+      forth,
+      fifth,
+      sixth,
+      seventh,
+      eighth,
+    );
   }
 
   /// {@macro union.map}
-  // ignore: missing_return, the switch always return
+  // ignore: missing_return, the switch always returns
   Union8<A2, B2, C2, D2, E2, F2, G2, H2> map<A2, B2, C2, D2, E2, F2, G2, H2>(
     A2 first(A value),
     B2 second(B value),
@@ -865,56 +1138,176 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     G2 seventh(G value),
     H2 eighth(H value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return Union8.first(first(_value as A));
-      case _Union.second:
-        return Union8.second(second(_value as B));
-      case _Union.third:
-        return Union8.third(third(_value as C));
-      case _Union.forth:
-        return Union8.forth(forth(_value as D));
-      case _Union.fifth:
-        return Union8.fifth(fifth(_value as E));
-      case _Union.sixth:
-        return Union8.sixth(sixth(_value as F));
-      case _Union.seventh:
-        return Union8.seventh(seventh(_value as G));
-      case _Union.eighth:
-        return Union8.eighth(eighth(_value as H));
-    }
+    return _join<Union8<A2, B2, C2, D2, E2, F2, G2, H2>>(
+      (value) => Union8.first(first(value)),
+      (value) => Union8.second(second(value)),
+      (value) => Union8.third(third(value)),
+      (value) => Union8.forth(forth(value)),
+      (value) => Union8.fifth(fifth(value)),
+      (value) => Union8.sixth(sixth(value)),
+      (value) => Union8.seventh(seventh(value)),
+      (value) => Union8.eighth(eighth(value)),
+    );
   }
 }
 
 /// {@macro union}
 class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
   /// Create a union from its first generic type
-  const Union9.first(A value) : super(value, _Union.first);
+  Union9.first(A value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            first(value),
+        super(value, _Union.first);
 
   /// Create a union from its second generic type
-  const Union9.second(B value) : super(value, _Union.second);
+  Union9.second(B value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            second(value),
+        super(value, _Union.second);
 
   /// Create a union from its third generic type
-  const Union9.third(C value) : super(value, _Union.third);
+  Union9.third(C value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            third(value),
+        super(value, _Union.third);
 
   /// Create a union from its forth generic type
-  const Union9.forth(D value) : super(value, _Union.forth);
-
-  /// Create a union from its fifth generic type
-  const Union9.fifth(E value) : super(value, _Union.fifth);
-
-  /// Create a union from its sixth generic type
-  const Union9.sixth(F value) : super(value, _Union.sixth);
+  Union9.forth(D value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            forth(value),
+        super(value, _Union.forth);
 
   /// Create a union from its seventh generic type
-  const Union9.seventh(G value) : super(value, _Union.seventh);
+  Union9.fifth(E value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            fifth(value),
+        super(value, _Union.fifth);
+
+  /// Create a union from its seventh generic type
+  Union9.sixth(F value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            sixth(value),
+        super(value, _Union.sixth);
+
+  /// Create a union from its seventh generic type
+  Union9.seventh(G value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            seventh(value),
+        super(value, _Union.seventh);
 
   /// Create a union from its eighth generic type
-  const Union9.eighth(H value) : super(value, _Union.eighth);
+  Union9.eighth(H value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            eight(value),
+        super(value, _Union.eighth);
 
   /// Create a union from its ninth generic type
-  const Union9.ninth(I value) : super(value, _Union.ninth);
+  Union9.ninth(I value)
+      : _join = <T>(
+          first,
+          second,
+          third,
+          forth,
+          fifth,
+          sixth,
+          seventh,
+          eight,
+          ninth,
+        ) =>
+            ninth(value),
+        super(value, _Union.ninth);
+
+  final T Function<T>(
+    T Function(A a),
+    T Function(B b),
+    T Function(C c),
+    T Function(D c),
+    T Function(E c),
+    T Function(F c),
+    T Function(G c),
+    T Function(H c),
+    T Function(I c),
+  ) _join;
 
   /// {@macro union.forEach}
   void forEach(
@@ -928,27 +1321,17 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     void eighth(H value),
     void ninth(I value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first?.call(_value as A);
-      case _Union.second:
-        return second?.call(_value as B);
-      case _Union.third:
-        return third?.call(_value as C);
-      case _Union.forth:
-        return forth?.call(_value as D);
-      case _Union.fifth:
-        return fifth?.call(_value as E);
-      case _Union.sixth:
-        return sixth?.call(_value as F);
-      case _Union.seventh:
-        return seventh?.call(_value as G);
-      case _Union.eighth:
-        return eighth?.call(_value as H);
-      case _Union.ninth:
-        return ninth?.call(_value as I);
-    }
+    return _join(
+      first ?? _noop,
+      second ?? _noop,
+      third ?? _noop,
+      forth ?? _noop,
+      fifth ?? _noop,
+      sixth ?? _noop,
+      seventh ?? _noop,
+      eighth ?? _noop,
+      ninth ?? _noop,
+    );
   }
 
   /// {@macro union.join}
@@ -964,27 +1347,17 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     T eighth(H value),
     T ninth(I value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return first(_value as A);
-      case _Union.second:
-        return second(_value as B);
-      case _Union.third:
-        return third(_value as C);
-      case _Union.forth:
-        return forth(_value as D);
-      case _Union.fifth:
-        return fifth(_value as E);
-      case _Union.sixth:
-        return sixth(_value as F);
-      case _Union.seventh:
-        return seventh(_value as G);
-      case _Union.eighth:
-        return eighth(_value as H);
-      case _Union.ninth:
-        return ninth(_value as I);
-    }
+    return _join(
+      first,
+      second,
+      third,
+      forth,
+      fifth,
+      sixth,
+      seventh,
+      eighth,
+      ninth,
+    );
   }
 
   /// {@macro union.map}
@@ -1001,27 +1374,17 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
     H2 eighth(H value),
     I2 ninth(I value),
   ) {
-    // ignore: missing_enum_constant_in_switch, _type can never be anything else
-    switch (_type) {
-      case _Union.first:
-        return Union9.first(first(_value as A));
-      case _Union.second:
-        return Union9.second(second(_value as B));
-      case _Union.third:
-        return Union9.third(third(_value as C));
-      case _Union.forth:
-        return Union9.forth(forth(_value as D));
-      case _Union.fifth:
-        return Union9.fifth(fifth(_value as E));
-      case _Union.sixth:
-        return Union9.sixth(sixth(_value as F));
-      case _Union.seventh:
-        return Union9.seventh(seventh(_value as G));
-      case _Union.eighth:
-        return Union9.eighth(eighth(_value as H));
-      case _Union.ninth:
-        return Union9.ninth(ninth(_value as I));
-    }
+    return _join<Union9<A2, B2, C2, D2, E2, F2, G2, H2, I2>>(
+      (value) => Union9.first(first(value)),
+      (value) => Union9.second(second(value)),
+      (value) => Union9.third(third(value)),
+      (value) => Union9.forth(forth(value)),
+      (value) => Union9.fifth(fifth(value)),
+      (value) => Union9.sixth(sixth(value)),
+      (value) => Union9.seventh(seventh(value)),
+      (value) => Union9.eighth(eighth(value)),
+      (value) => Union9.ninth(ninth(value)),
+    );
   }
 }
 
