@@ -12,6 +12,7 @@ enum _Union {
   ninth,
 }
 
+// ignore: missing_return
 R _noop<T, R>(T t) {}
 
 abstract class _UnionBase {
