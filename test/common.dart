@@ -1,27 +1,54 @@
-class A {}
+class A {
+  const A();
+}
 
-class B {}
+class B {
+  const B();
+}
 
-class C {}
+class C {
+  const C();
+}
 
-class D {}
+class D {
+  const D();
+}
 
-class E {}
+class E {
+  const E();
+}
 
-class F {}
+class F {
+  const F();
+}
 
-class G {}
+class G {
+  const G();
+}
 
-class H {}
+class H {
+  const H();
+}
 
-class I {}
+class I {
+  const I();
+}
 
+// ignore: prefer_const_constructors
 final a = A();
+// ignore: prefer_const_constructors
 final b = B();
+// ignore: prefer_const_constructors
 final c = C();
+// ignore: prefer_const_constructors
 final d = D();
+// ignore: prefer_const_constructors
 final e = E();
+// ignore: prefer_const_constructors
 final f = F();
+// ignore: prefer_const_constructors
 final g = G();
+// ignore: prefer_const_constructors
 final h = H();
+// ignore: prefer_const_constructors
 final i = I();

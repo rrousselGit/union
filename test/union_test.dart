@@ -8,6 +8,11 @@ void main() {
     final first = Union2<A, B>.first(a);
     final second = Union2<A, B>.second(b);
 
+    test('const ctor', () {
+      const Union2<A, B>.first(A());
+      const Union2<A, B>.second(B());
+    });
+
     test('equals', () {
       expect(
         Union2<A, B>.first(a),
@@ -107,7 +112,11 @@ void main() {
     final first = Union3<A, B, C>.first(a);
     final second = Union3<A, B, C>.second(b);
     final third = Union3<A, B, C>.third(c);
-
+    test('const ctor', () {
+      const Union3<A, B, C>.first(A());
+      const Union3<A, B, C>.second(B());
+      const Union3<A, B, C>.third(C());
+    });
     test('equals', () {
       expect(
         Union3<A, B, C>.first(a),
@@ -239,6 +248,13 @@ void main() {
     final second = Union4<A, B, C, D>.second(b);
     final third = Union4<A, B, C, D>.third(c);
     final forth = Union4<A, B, C, D>.forth(d);
+
+    test('const ctor', () {
+      const Union4<A, B, C, D>.first(A());
+      const Union4<A, B, C, D>.second(B());
+      const Union4<A, B, C, D>.third(C());
+      const Union4<A, B, C, D>.forth(D());
+    });
 
     test('equals', () {
       expect(
@@ -409,6 +425,14 @@ void main() {
     final third = Union5<A, B, C, D, E>.third(c);
     final forth = Union5<A, B, C, D, E>.forth(d);
     final fifth = Union5<A, B, C, D, E>.fifth(e);
+
+    test('const ctor', () {
+      const Union5<A, B, C, D, E>.first(A());
+      const Union5<A, B, C, D, E>.second(B());
+      const Union5<A, B, C, D, E>.third(C());
+      const Union5<A, B, C, D, E>.forth(D());
+      const Union5<A, B, C, D, E>.fifth(E());
+    });
 
     test('equals', () {
       expect(
@@ -622,6 +646,15 @@ void main() {
     final forth = Union6<A, B, C, D, E, F>.forth(d);
     final fifth = Union6<A, B, C, D, E, F>.fifth(e);
     final sixth = Union6<A, B, C, D, E, F>.sixth(f);
+
+    test('const ctor', () {
+      const Union6<A, B, C, D, E, F>.first(A());
+      const Union6<A, B, C, D, E, F>.second(B());
+      const Union6<A, B, C, D, E, F>.third(C());
+      const Union6<A, B, C, D, E, F>.forth(D());
+      const Union6<A, B, C, D, E, F>.fifth(E());
+      const Union6<A, B, C, D, E, F>.sixth(F());
+    });
 
     test('equals', () {
       expect(
@@ -886,6 +919,16 @@ void main() {
     final fifth = Union7<A, B, C, D, E, F, G>.fifth(e);
     final sixth = Union7<A, B, C, D, E, F, G>.sixth(f);
     final seventh = Union7<A, B, C, D, E, F, G>.seventh(g);
+
+    test('const ctor', () {
+      const Union7<A, B, C, D, E, F, G>.first(A());
+      const Union7<A, B, C, D, E, F, G>.second(B());
+      const Union7<A, B, C, D, E, F, G>.third(C());
+      const Union7<A, B, C, D, E, F, G>.forth(D());
+      const Union7<A, B, C, D, E, F, G>.fifth(E());
+      const Union7<A, B, C, D, E, F, G>.sixth(F());
+      const Union7<A, B, C, D, E, F, G>.seventh(G());
+    });
 
     test('equals', () {
       expect(
@@ -1205,6 +1248,17 @@ void main() {
     final sixth = Union8<A, B, C, D, E, F, G, H>.sixth(f);
     final seventh = Union8<A, B, C, D, E, F, G, H>.seventh(g);
     final eighth = Union8<A, B, C, D, E, F, G, H>.eighth(h);
+
+    test('const ctor', () {
+      const Union8<A, B, C, D, E, F, G, H>.first(A());
+      const Union8<A, B, C, D, E, F, G, H>.second(B());
+      const Union8<A, B, C, D, E, F, G, H>.third(C());
+      const Union8<A, B, C, D, E, F, G, H>.forth(D());
+      const Union8<A, B, C, D, E, F, G, H>.fifth(E());
+      const Union8<A, B, C, D, E, F, G, H>.sixth(F());
+      const Union8<A, B, C, D, E, F, G, H>.seventh(G());
+      const Union8<A, B, C, D, E, F, G, H>.eighth(H());
+    });
 
     test('equals', () {
       expect(
@@ -1588,6 +1642,17 @@ void main() {
     final eighth = Union9<A, B, C, D, E, F, G, H, I>.eighth(h);
     final ninth = Union9<A, B, C, D, E, F, G, H, I>.ninth(i);
 
+    test('const ctor', () {
+      const Union9<A, B, C, D, E, F, G, H, I>.first(A());
+      const Union9<A, B, C, D, E, F, G, H, I>.second(B());
+      const Union9<A, B, C, D, E, F, G, H, I>.third(C());
+      const Union9<A, B, C, D, E, F, G, H, I>.forth(D());
+      const Union9<A, B, C, D, E, F, G, H, I>.fifth(E());
+      const Union9<A, B, C, D, E, F, G, H, I>.sixth(F());
+      const Union9<A, B, C, D, E, F, G, H, I>.seventh(G());
+      const Union9<A, B, C, D, E, F, G, H, I>.eighth(H());
+      const Union9<A, B, C, D, E, F, G, H, I>.ninth(I());
+    });
     test('equals', () {
       expect(
         Union9<A, B, C, D, E, F, G, H, I>.first(a),
