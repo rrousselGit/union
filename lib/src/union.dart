@@ -5,9 +5,9 @@ R _noop<T, R>(T t) {}
 
 abstract class _UnionBase {
   /// Create a union from _UnionBase first generic type
-  const _UnionBase(this._value);
+  const _UnionBase(this._value, this._join);
 
-  Function get _join;
+  final _Join _join;
   final Object _value;
 
   @override
@@ -22,254 +22,100 @@ abstract class _UnionBase {
   int get hashCode => runtimeType.hashCode ^ _join.hashCode ^ _value.hashCode;
 }
 
-T _first2<T, A, B>(Union2<A, B> union, T first(A a), T second(B b)) =>
+T _first<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
+  T second(B b),
+  T third(C c),
+  T forth(D d),
+  T fifth(E e),
+  T sixth(F f),
+  T seventh(G g),
+  T eighth(H h),
+  T ninth(I i),
+]) =>
     first(union._value as A);
-T _second2<T, A, B>(Union2<A, B> union, T first(A a), T second(B b)) =>
+T _second<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
+  T second(B b),
+  T third(C c),
+  T forth(D d),
+  T fifth(E e),
+  T sixth(F f),
+  T seventh(G g),
+  T eighth(H h),
+  T ninth(I i),
+]) =>
     second(union._value as B);
-
-T _first3<T, A, B, C>(
-  Union3<A, B, C> union,
-  T first(A a),
+T _third<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
   T second(B b),
   T third(C c),
-) =>
-    first(union._value as A);
-T _second3<T, A, B, C>(
-  Union3<A, B, C> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-) =>
-    second(union._value as B);
-T _third3<T, A, B, C>(
-  Union3<A, B, C> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-) =>
+  T forth(D d),
+  T fifth(E e),
+  T sixth(F f),
+  T seventh(G g),
+  T eighth(H h),
+  T ninth(I i),
+]) =>
     third(union._value as C);
-
-T _first4<T, A, B, C, D>(
-  Union4<A, B, C, D> union,
-  T first(A a),
+T _forth<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
   T second(B b),
   T third(C c),
   T forth(D d),
-) =>
-    first(union._value as A);
-T _second4<T, A, B, C, D>(
-  Union4<A, B, C, D> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-) =>
-    second(union._value as B);
-T _third4<T, A, B, C, D>(
-  Union4<A, B, C, D> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-) =>
-    third(union._value as C);
-T _forth4<T, A, B, C, D>(
-  Union4<A, B, C, D> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-) =>
+  T fifth(E e),
+  T sixth(F f),
+  T seventh(G g),
+  T eighth(H h),
+  T ninth(I i),
+]) =>
     forth(union._value as D);
-
-T _first5<T, A, B, C, D, E>(
-  Union5<A, B, C, D, E> union,
-  T first(A a),
+T _fifth<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
   T second(B b),
   T third(C c),
   T forth(D d),
   T fifth(E e),
-) =>
-    first(union._value as A);
-T _second5<T, A, B, C, D, E>(
-  Union5<A, B, C, D, E> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-) =>
-    second(union._value as B);
-T _third5<T, A, B, C, D, E>(
-  Union5<A, B, C, D, E> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-) =>
-    third(union._value as C);
-T _forth5<T, A, B, C, D, E>(
-  Union5<A, B, C, D, E> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-) =>
-    forth(union._value as D);
-T _fifth5<T, A, B, C, D, E>(
-  Union5<A, B, C, D, E> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-) =>
+  T sixth(F f),
+  T seventh(G g),
+  T eighth(H h),
+  T ninth(I i),
+]) =>
     fifth(union._value as E);
-
-T _first6<T, A, B, C, D, E, F>(
-  Union6<A, B, C, D, E, F> union,
-  T first(A a),
+T _sixth<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
   T second(B b),
   T third(C c),
   T forth(D d),
   T fifth(E e),
   T sixth(F f),
-) =>
-    first(union._value as A);
-T _second6<T, A, B, C, D, E, F>(
-  Union6<A, B, C, D, E, F> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-) =>
-    second(union._value as B);
-T _third6<T, A, B, C, D, E, F>(
-  Union6<A, B, C, D, E, F> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-) =>
-    third(union._value as C);
-T _forth6<T, A, B, C, D, E, F>(
-  Union6<A, B, C, D, E, F> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-) =>
-    forth(union._value as D);
-T _fifth6<T, A, B, C, D, E, F>(
-  Union6<A, B, C, D, E, F> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-) =>
-    fifth(union._value as E);
-T _sixth6<T, A, B, C, D, E, F>(
-  Union6<A, B, C, D, E, F> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-) =>
+  T seventh(G g),
+  T eighth(H h),
+  T ninth(I i),
+]) =>
     sixth(union._value as F);
-
-T _first7<T, A, B, C, D, E, F, G>(
-  Union7<A, B, C, D, E, F, G> union,
-  T first(A a),
+T _seventh<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
   T second(B b),
   T third(C c),
   T forth(D d),
   T fifth(E e),
   T sixth(F f),
   T seventh(G g),
-) =>
-    first(union._value as A);
-T _second7<T, A, B, C, D, E, F, G>(
-  Union7<A, B, C, D, E, F, G> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-) =>
-    second(union._value as B);
-T _third7<T, A, B, C, D, E, F, G>(
-  Union7<A, B, C, D, E, F, G> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-) =>
-    third(union._value as C);
-T _forth7<T, A, B, C, D, E, F, G>(
-  Union7<A, B, C, D, E, F, G> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-) =>
-    forth(union._value as D);
-T _fifth7<T, A, B, C, D, E, F, G>(
-  Union7<A, B, C, D, E, F, G> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-) =>
-    fifth(union._value as E);
-T _sixth7<T, A, B, C, D, E, F, G>(
-  Union7<A, B, C, D, E, F, G> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-) =>
-    sixth(union._value as F);
-T _seventh7<T, A, B, C, D, E, F, G>(
-  Union7<A, B, C, D, E, F, G> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-) =>
+  T eighth(H h),
+  T ninth(I i),
+]) =>
     seventh(union._value as G);
-
-T _first8<T, A, B, C, D, E, F, G, H>(
-  Union8<A, B, C, D, E, F, G, H> union,
-  T first(A a),
+T _eighth<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
   T second(B b),
   T third(C c),
   T forth(D d),
@@ -277,96 +123,12 @@ T _first8<T, A, B, C, D, E, F, G, H>(
   T sixth(F f),
   T seventh(G g),
   T eighth(H h),
-) =>
-    first(union._value as A);
-T _second8<T, A, B, C, D, E, F, G, H>(
-  Union8<A, B, C, D, E, F, G, H> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-) =>
-    second(union._value as B);
-T _third8<T, A, B, C, D, E, F, G, H>(
-  Union8<A, B, C, D, E, F, G, H> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-) =>
-    third(union._value as C);
-T _forth8<T, A, B, C, D, E, F, G, H>(
-  Union8<A, B, C, D, E, F, G, H> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-) =>
-    forth(union._value as D);
-T _fifth8<T, A, B, C, D, E, F, G, H>(
-  Union8<A, B, C, D, E, F, G, H> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-) =>
-    fifth(union._value as E);
-T _sixth8<T, A, B, C, D, E, F, G, H>(
-  Union8<A, B, C, D, E, F, G, H> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-) =>
-    sixth(union._value as F);
-T _seventh8<T, A, B, C, D, E, F, G, H>(
-  Union8<A, B, C, D, E, F, G, H> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-) =>
-    seventh(union._value as G);
-T _eighth8<T, A, B, C, D, E, F, G, H>(
-  Union8<A, B, C, D, E, F, G, H> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-) =>
+  T ninth(I i),
+]) =>
     eighth(union._value as H);
-
-T _first9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
+T _ninth<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase union,
+  T first(A a), [
   T second(B b),
   T third(C c),
   T forth(D d),
@@ -375,112 +137,21 @@ T _first9<T, A, B, C, D, E, F, G, H, I>(
   T seventh(G g),
   T eighth(H h),
   T ninth(I i),
-) =>
-    first(union._value as A);
-T _second9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-) =>
-    second(union._value as B);
-T _third9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-) =>
-    third(union._value as C);
-T _forth9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-) =>
-    forth(union._value as D);
-T _fifth9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-) =>
-    fifth(union._value as E);
-T _sixth9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-) =>
-    sixth(union._value as F);
-T _seventh9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-) =>
-    seventh(union._value as G);
-T _eighth9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-) =>
-    eighth(union._value as H);
-T _ninth9<T, A, B, C, D, E, F, G, H, I>(
-  Union9<A, B, C, D, E, F, G, H, I> union,
-  T first(A a),
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-) =>
+]) =>
     ninth(union._value as I);
+
+typedef _Join = T Function<T, A, B, C, D, E, F, G, H, I>(
+  _UnionBase,
+  T Function(A a), [
+  T Function(B b),
+  T Function(C c),
+  T Function(D d),
+  T Function(E e),
+  T Function(F f),
+  T Function(G g),
+  T Function(H h),
+  T Function(I i),
+]);
 
 /// {@template union}
 /// A class that holds a value which can be of different types, and allow
@@ -604,24 +275,218 @@ T _ninth9<T, A, B, C, D, E, F, G, H, I>(
 /// This is better because the code will not compile if we forgot to handle
 /// one of the potential types that [value] can take.
 /// {@endtemplate}
-class Union2<A, B> extends _UnionBase {
+class Union2<A, B> extends _UnionBase implements Union3<A, B, Object> {
   /// Create a union from its first generic type
-  const Union2.first(A value)
-      : _join = _first2,
-        super(value);
+  const Union2.first(A value) : super(value, _first);
 
   /// Create a union from its second generic type
-  const Union2.second(B value)
-      : _join = _second2,
-        super(value);
+  const Union2.second(B value) : super(value, _second);
+}
 
-  @override
-  final T Function<T, A, B>(
-    Union2<A, B> union,
-    T Function(A a),
-    T Function(B b),
-  ) _join;
+/// {@macro union}
+class Union3<A, B, C> extends _UnionBase {
+  /// Create a union from its first generic type
+  const Union3.first(A value) : super(value, _first);
 
+  /// Create a union from its second generic type
+  const Union3.second(B value) : super(value, _second);
+
+  /// Create a union from its third generic type
+  const Union3.third(C value) : super(value, _third);
+}
+
+/// {@macro union}
+class Union4<A, B, C, D> extends _UnionBase {
+  /// Create a union from its first generic type
+  const Union4.first(A value) : super(value, _first);
+
+  /// Create a union from its second generic type
+  const Union4.second(B value) : super(value, _second);
+
+  /// Create a union from its third generic type
+  const Union4.third(C value) : super(value, _third);
+
+  /// Create a union from its forth generic type
+  const Union4.forth(D value) : super(value, _forth);
+}
+
+/// {@macro union}
+class Union5<A, B, C, D, E> extends _UnionBase {
+  /// Create a union from its first generic type
+  const Union5.first(A value) : super(value, _first);
+
+  /// Create a union from its second generic type
+  const Union5.second(B value) : super(value, _second);
+
+  /// Create a union from its third generic type
+  const Union5.third(C value) : super(value, _third);
+
+  /// Create a union from its forth generic type
+  const Union5.forth(D value) : super(value, _forth);
+
+  /// Create a union from its seventh generic type
+  const Union5.fifth(E value) : super(value, _fifth);
+}
+
+/// {@macro union}
+class Union6<A, B, C, D, E, F> extends _UnionBase {
+  /// Create a union from its first generic type
+  const Union6.first(A value) : super(value, _first);
+
+  /// Create a union from its second generic type
+  const Union6.second(B value) : super(value, _second);
+
+  /// Create a union from its third generic type
+  const Union6.third(C value) : super(value, _third);
+
+  /// Create a union from its forth generic type
+  const Union6.forth(D value) : super(value, _forth);
+
+  /// Create a union from its seventh generic type
+  const Union6.fifth(E value) : super(value, _fifth);
+
+  /// Create a union from its seventh generic type
+  const Union6.sixth(F value) : super(value, _sixth);
+}
+
+/// {@macro union}
+class Union7<A, B, C, D, E, F, G> extends _UnionBase {
+  /// Create a union from its first generic type
+  const Union7.first(A value) : super(value, _first);
+
+  /// Create a union from its second generic type
+  const Union7.second(B value) : super(value, _second);
+
+  /// Create a union from its third generic type
+  const Union7.third(C value) : super(value, _third);
+
+  /// Create a union from its forth generic type
+  const Union7.forth(D value) : super(value, _forth);
+
+  /// Create a union from its seventh generic type
+  const Union7.fifth(E value) : super(value, _fifth);
+
+  /// Create a union from its seventh generic type
+  const Union7.sixth(F value) : super(value, _sixth);
+
+  /// Create a union from its seventh generic type
+  const Union7.seventh(G value) : super(value, _seventh);
+}
+
+/// {@macro union}
+class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
+  /// Create a union from its first generic type
+  const Union8.first(A value) : super(value, _first);
+
+  /// Create a union from its second generic type
+  const Union8.second(B value) : super(value, _second);
+
+  /// Create a union from its third generic type
+  const Union8.third(C value) : super(value, _third);
+
+  /// Create a union from its forth generic type
+  const Union8.forth(D value) : super(value, _forth);
+
+  /// Create a union from its seventh generic type
+  const Union8.fifth(E value) : super(value, _fifth);
+
+  /// Create a union from its seventh generic type
+  const Union8.sixth(F value) : super(value, _sixth);
+
+  /// Create a union from its seventh generic type
+  const Union8.seventh(G value) : super(value, _seventh);
+
+  /// Create a union from its eighth generic type
+  const Union8.eighth(H value) : super(value, _eighth);
+}
+
+/// {@macro union}
+class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
+  /// Create a union from its first generic type
+  const Union9.first(A value) : super(value, _first);
+
+  /// Create a union from its second generic type
+  const Union9.second(B value) : super(value, _second);
+
+  /// Create a union from its third generic type
+  const Union9.third(C value) : super(value, _third);
+
+  /// Create a union from its forth generic type
+  const Union9.forth(D value) : super(value, _forth);
+
+  /// Create a union from its seventh generic type
+  const Union9.fifth(E value) : super(value, _fifth);
+
+  /// Create a union from its seventh generic type
+  const Union9.sixth(F value) : super(value, _sixth);
+
+  /// Create a union from its seventh generic type
+  const Union9.seventh(G value) : super(value, _seventh);
+
+  /// Create a union from its eighth generic type
+  const Union9.eighth(H value) : super(value, _eighth);
+
+  /// Create a union from its ninth generic type
+  const Union9.ninth(I value) : super(value, _ninth);
+}
+
+/// An extension that expose the current value.
+extension Union2Value<A> on Union2<A, A> {
+  /// {@template union.value}
+  /// The current value of the union.
+  ///
+  /// Its type is based the nearest common interface of all the types
+  /// that the value can take.
+  ///
+  /// See [Union2] for examples on how [value] works.
+  /// {@endtemplate}
+  A get value => _value as A;
+}
+
+/// An extension that expose the current value.
+extension Union3Value<A> on Union3<A, A, A> {
+  /// {@macro union.value}
+  A get value => _value as A;
+}
+
+/// An extension that expose the current value.
+extension Union4Value<A> on Union4<A, A, A, A> {
+  /// {@macro union.value}
+  A get value => _value as A;
+}
+
+/// An extension that expose the current value.
+extension Union5Value<A> on Union5<A, A, A, A, A> {
+  /// {@macro union.value}
+  A get value => _value as A;
+}
+
+/// An extension that expose the current value.
+extension Union6Value<A> on Union6<A, A, A, A, A, A> {
+  /// {@macro union.value}
+  A get value => _value as A;
+}
+
+/// An extension that expose the current value.
+extension Union7Value<A> on Union7<A, A, A, A, A, A, A> {
+  /// {@macro union.value}
+  A get value => _value as A;
+}
+
+/// An extension that expose the current value.
+extension Union8Value<A> on Union8<A, A, A, A, A, A, A, A> {
+  /// {@macro union.value}
+  A get value => _value as A;
+}
+
+/// An extension that expose the current value.
+extension Union9Value<A> on Union9<A, A, A, A, A, A, A, A, A> {
+  /// {@macro union.value}
+  A get value => _value as A;
+}
+
+/// The methods on Union3.
+extension Union2Methods<A, B> on Union2<A, B> {
   /// {@template union.forEach}
   /// Allow executing custom logic based on the value type in a type safe way.
   ///
@@ -675,7 +540,7 @@ class Union2<A, B> extends _UnionBase {
     void first(A value),
     void second(B value),
   ) {
-    return _join(
+    return _join<void, A, B, void, void, void, void, void, void, void>(
       this,
       first ?? _noop,
       second ?? _noop,
@@ -724,10 +589,10 @@ class Union2<A, B> extends _UnionBase {
     T first(A value),
     T second(B value),
   ) {
-    return _join<T, A, B>(
+    return _join<T, A, B, void, void, void, void, void, void, void>(
       this,
-      first ?? _noop,
-      second ?? _noop,
+      first,
+      second,
     );
   }
 
@@ -765,7 +630,8 @@ class Union2<A, B> extends _UnionBase {
     A2 first(A value),
     B2 second(B value),
   ) {
-    return _join<Union2<A2, B2>, A, B>(
+    return _join<Union2<A2, B2>, A, B, void, void, void, void, void, void,
+        void>(
       this,
       (value) => Union2.first(first(value)),
       (value) => Union2.second(second(value)),
@@ -773,38 +639,15 @@ class Union2<A, B> extends _UnionBase {
   }
 }
 
-/// {@macro union}
-class Union3<A, B, C> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union3.first(A value)
-      : _join = _first3,
-        super(value);
-
-  /// Create a union from its second generic type
-  const Union3.second(B value)
-      : _join = _second3,
-        super(value);
-
-  /// Create a union from its third generic type
-  const Union3.third(C value)
-      : _join = _third3,
-        super(value);
-
-  @override
-  final T Function<T, A, B, C>(
-    Union3<A, B, C> union,
-    T Function(A a),
-    T Function(B b),
-    T Function(C c),
-  ) _join;
-
+/// The methods on Union3.
+extension Union3Methods<A, B, C> on Union3<A, B, C> {
   /// {@macro union.forEach}
   void forEach(
     void first(A value),
     void second(B value),
     void third(C value),
   ) {
-    return _join(
+    return _join<void, A, B, C, void, void, void, void, void, void>(
       this,
       first ?? _noop,
       second ?? _noop,
@@ -819,7 +662,7 @@ class Union3<A, B, C> extends _UnionBase {
     T second(B value),
     T third(C value),
   ) {
-    return _join(
+    return _join<T, A, B, C, void, void, void, void, void, void>(
       this,
       first,
       second,
@@ -834,7 +677,8 @@ class Union3<A, B, C> extends _UnionBase {
     B2 second(B value),
     C2 third(C value),
   ) {
-    return _join<Union3<A2, B2, C2>, A, B, C>(
+    return _join<Union3<A2, B2, C2>, A, B, C, void, void, void, void, void,
+        void>(
       this,
       (value) => Union3.first(first(value)),
       (value) => Union3.second(second(value)),
@@ -843,37 +687,8 @@ class Union3<A, B, C> extends _UnionBase {
   }
 }
 
-/// {@macro union}
-class Union4<A, B, C, D> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union4.first(A value)
-      : _join = _first4,
-        super(value);
-
-  /// Create a union from its second generic type
-  const Union4.second(B value)
-      : _join = _second4,
-        super(value);
-
-  /// Create a union from its third generic type
-  const Union4.third(C value)
-      : _join = _third4,
-        super(value);
-
-  /// Create a union from its forth generic type
-  const Union4.forth(D value)
-      : _join = _forth4,
-        super(value);
-
-  @override
-  final T Function<T, A, B, C, D>(
-    Union4<A, B, C, D> union,
-    T Function(A a),
-    T Function(B b),
-    T Function(C c),
-    T Function(D c),
-  ) _join;
-
+/// The methods on Union3.
+extension Union4Methods<A, B, C, D> on Union4<A, B, C, D> {
   /// {@macro union.forEach}
   void forEach(
     void first(A value),
@@ -881,7 +696,7 @@ class Union4<A, B, C, D> extends _UnionBase {
     void third(C value),
     void forth(D value),
   ) {
-    return _join(
+    return _join<void, A, B, C, D, void, void, void, void, void>(
       this,
       first ?? _noop,
       second ?? _noop,
@@ -898,7 +713,7 @@ class Union4<A, B, C, D> extends _UnionBase {
     T third(C value),
     T forth(D value),
   ) {
-    return _join(
+    return _join<T, A, B, C, D, void, void, void, void, void>(
       this,
       first,
       second,
@@ -915,7 +730,8 @@ class Union4<A, B, C, D> extends _UnionBase {
     C2 third(C value),
     D2 forth(D value),
   ) {
-    return _join<Union4<A2, B2, C2, D2>, A, B, C, D>(
+    return _join<Union4<A2, B2, C2, D2>, A, B, C, D, void, void, void, void,
+        void>(
       this,
       (value) => Union4.first(first(value)),
       (value) => Union4.second(second(value)),
@@ -925,43 +741,8 @@ class Union4<A, B, C, D> extends _UnionBase {
   }
 }
 
-/// {@macro union}
-class Union5<A, B, C, D, E> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union5.first(A value)
-      : _join = _first5,
-        super(value);
-
-  /// Create a union from its second generic type
-  const Union5.second(B value)
-      : _join = _second5,
-        super(value);
-
-  /// Create a union from its third generic type
-  const Union5.third(C value)
-      : _join = _third5,
-        super(value);
-
-  /// Create a union from its forth generic type
-  const Union5.forth(D value)
-      : _join = _forth5,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union5.fifth(E value)
-      : _join = _fifth5,
-        super(value);
-
-  @override
-  final T Function<T, A, B, C, D, E>(
-    Union5<A, B, C, D, E> union,
-    T Function(A a),
-    T Function(B b),
-    T Function(C c),
-    T Function(D c),
-    T Function(E c),
-  ) _join;
-
+/// The methods on Union3.
+extension Union5Methods<A, B, C, D, E> on Union5<A, B, C, D, E> {
   /// {@macro union.forEach}
   void forEach(
     void first(A value),
@@ -970,7 +751,7 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     void forth(D value),
     void fifth(E value),
   ) {
-    return _join(
+    return _join<void, A, B, C, D, E, void, void, void, void>(
       this,
       first ?? _noop,
       second ?? _noop,
@@ -989,7 +770,7 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     T forth(D value),
     T fifth(E value),
   ) {
-    return _join(
+    return _join<T, A, B, C, D, E, void, void, void, void>(
       this,
       first,
       second,
@@ -1008,7 +789,8 @@ class Union5<A, B, C, D, E> extends _UnionBase {
     D2 forth(D value),
     E2 fifth(E value),
   ) {
-    return _join<Union5<A2, B2, C2, D2, E2>, A, B, C, D, E>(
+    return _join<Union5<A2, B2, C2, D2, E2>, A, B, C, D, E, void, void, void,
+        void>(
       this,
       (value) => Union5.first(first(value)),
       (value) => Union5.second(second(value)),
@@ -1019,49 +801,8 @@ class Union5<A, B, C, D, E> extends _UnionBase {
   }
 }
 
-/// {@macro union}
-class Union6<A, B, C, D, E, F> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union6.first(A value)
-      : _join = _first6,
-        super(value);
-
-  /// Create a union from its second generic type
-  const Union6.second(B value)
-      : _join = _second6,
-        super(value);
-
-  /// Create a union from its third generic type
-  const Union6.third(C value)
-      : _join = _third6,
-        super(value);
-
-  /// Create a union from its forth generic type
-  const Union6.forth(D value)
-      : _join = _forth6,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union6.fifth(E value)
-      : _join = _fifth6,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union6.sixth(F value)
-      : _join = _sixth6,
-        super(value);
-
-  @override
-  final T Function<T, A, B, C, D, E, F>(
-    Union6<A, B, C, D, E, F> union,
-    T Function(A a),
-    T Function(B b),
-    T Function(C c),
-    T Function(D c),
-    T Function(E c),
-    T Function(F c),
-  ) _join;
-
+/// The methods on Union3.
+extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
   /// {@macro union.forEach}
   void forEach(
     void first(A value),
@@ -1071,7 +812,7 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     void fifth(E value),
     void sixth(F value),
   ) {
-    return _join(
+    return _join<void, A, B, C, D, E, F, void, void, void>(
       this,
       first ?? _noop,
       second ?? _noop,
@@ -1092,7 +833,7 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     T fifth(E value),
     T sixth(F value),
   ) {
-    return _join(
+    return _join<T, A, B, C, D, E, F, void, void, void>(
       this,
       first,
       second,
@@ -1113,7 +854,8 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
     E2 fifth(E value),
     F2 sixth(F value),
   ) {
-    return _join<Union6<A2, B2, C2, D2, E2, F2>, A, B, C, D, E, F>(
+    return _join<Union6<A2, B2, C2, D2, E2, F2>, A, B, C, D, E, F, void, void,
+        void>(
       this,
       (value) => Union6.first(first(value)),
       (value) => Union6.second(second(value)),
@@ -1125,55 +867,8 @@ class Union6<A, B, C, D, E, F> extends _UnionBase {
   }
 }
 
-/// {@macro union}
-class Union7<A, B, C, D, E, F, G> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union7.first(A value)
-      : _join = _first7,
-        super(value);
-
-  /// Create a union from its second generic type
-  const Union7.second(B value)
-      : _join = _second7,
-        super(value);
-
-  /// Create a union from its third generic type
-  const Union7.third(C value)
-      : _join = _third7,
-        super(value);
-
-  /// Create a union from its forth generic type
-  const Union7.forth(D value)
-      : _join = _forth7,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union7.fifth(E value)
-      : _join = _fifth7,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union7.sixth(F value)
-      : _join = _sixth7,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union7.seventh(G value)
-      : _join = _seventh7,
-        super(value);
-
-  @override
-  final T Function<T, A, B, C, D, E, F, G>(
-    Union7<A, B, C, D, E, F, G> union,
-    T Function(A a),
-    T Function(B b),
-    T Function(C c),
-    T Function(D c),
-    T Function(E c),
-    T Function(F c),
-    T Function(G c),
-  ) _join;
-
+/// The methods on Union3.
+extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
   /// {@macro union.forEach}
   void forEach(
     void first(A value),
@@ -1184,7 +879,7 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     void sixth(F value),
     void seventh(G value),
   ) {
-    return _join(
+    return _join<void, A, B, C, D, E, F, G, void, void>(
       this,
       first ?? _noop,
       second ?? _noop,
@@ -1207,7 +902,7 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     T sixth(F value),
     T seventh(G value),
   ) {
-    return _join(
+    return _join<T, A, B, C, D, E, F, G, void, void>(
       this,
       first,
       second,
@@ -1230,7 +925,8 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
     F2 sixth(F value),
     G2 seventh(G value),
   ) {
-    return _join<Union7<A2, B2, C2, D2, E2, F2, G2>, A, B, C, D, E, F, G>(
+    return _join<Union7<A2, B2, C2, D2, E2, F2, G2>, A, B, C, D, E, F, G, void,
+        void>(
       this,
       (value) => Union7.first(first(value)),
       (value) => Union7.second(second(value)),
@@ -1243,61 +939,9 @@ class Union7<A, B, C, D, E, F, G> extends _UnionBase {
   }
 }
 
-/// {@macro union}
-class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union8.first(A value)
-      : _join = _first8,
-        super(value);
-
-  /// Create a union from its second generic type
-  const Union8.second(B value)
-      : _join = _second8,
-        super(value);
-
-  /// Create a union from its third generic type
-  const Union8.third(C value)
-      : _join = _third8,
-        super(value);
-
-  /// Create a union from its forth generic type
-  const Union8.forth(D value)
-      : _join = _forth8,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union8.fifth(E value)
-      : _join = _fifth8,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union8.sixth(F value)
-      : _join = _sixth8,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union8.seventh(G value)
-      : _join = _seventh8,
-        super(value);
-
-  /// Create a union from its eighth generic type
-  const Union8.eighth(H value)
-      : _join = _eighth8,
-        super(value);
-
-  @override
-  final T Function<T, A, B, C, D, E, F, G, H>(
-    Union8<A, B, C, D, E, F, G, H> union,
-    T Function(A a),
-    T Function(B b),
-    T Function(C c),
-    T Function(D c),
-    T Function(E c),
-    T Function(F c),
-    T Function(G c),
-    T Function(H c),
-  ) _join;
-
+/// The methods on Union3.
+extension Union8Methods<A, B, C, D, E, F, G, H>
+    on Union8<A, B, C, D, E, F, G, H> {
   /// {@macro union.forEach}
   void forEach(
     void first(A value),
@@ -1309,7 +953,7 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     void seventh(G value),
     void eighth(H value),
   ) {
-    return _join(
+    return _join<void, A, B, C, D, E, F, G, H, void>(
       this,
       first ?? _noop,
       second ?? _noop,
@@ -1334,7 +978,7 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     T seventh(G value),
     T eighth(H value),
   ) {
-    return _join(
+    return _join<T, A, B, C, D, E, F, G, H, void>(
       this,
       first,
       second,
@@ -1359,8 +1003,8 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
     G2 seventh(G value),
     H2 eighth(H value),
   ) {
-    return _join<Union8<A2, B2, C2, D2, E2, F2, G2, H2>, A, B, C, D, E, F, G,
-        H>(
+    return _join<Union8<A2, B2, C2, D2, E2, F2, G2, H2>, A, B, C, D, E, F, G, H,
+        void>(
       this,
       (value) => Union8.first(first(value)),
       (value) => Union8.second(second(value)),
@@ -1374,67 +1018,9 @@ class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
   }
 }
 
-/// {@macro union}
-class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union9.first(A value)
-      : _join = _first9,
-        super(value);
-
-  /// Create a union from its second generic type
-  const Union9.second(B value)
-      : _join = _second9,
-        super(value);
-
-  /// Create a union from its third generic type
-  const Union9.third(C value)
-      : _join = _third9,
-        super(value);
-
-  /// Create a union from its forth generic type
-  const Union9.forth(D value)
-      : _join = _forth9,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union9.fifth(E value)
-      : _join = _fifth9,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union9.sixth(F value)
-      : _join = _sixth9,
-        super(value);
-
-  /// Create a union from its seventh generic type
-  const Union9.seventh(G value)
-      : _join = _seventh9,
-        super(value);
-
-  /// Create a union from its eighth generic type
-  const Union9.eighth(H value)
-      : _join = _eighth9,
-        super(value);
-
-  /// Create a union from its ninth generic type
-  const Union9.ninth(I value)
-      : _join = _ninth9,
-        super(value);
-
-  @override
-  final T Function<T, A, B, C, D, E, F, G, H, I>(
-    Union9<A, B, C, D, E, F, G, H, I> union,
-    T Function(A a),
-    T Function(B b),
-    T Function(C c),
-    T Function(D c),
-    T Function(E c),
-    T Function(F c),
-    T Function(G c),
-    T Function(H c),
-    T Function(I c),
-  ) _join;
-
+/// The methods on Union3.
+extension Union9Methods<A, B, C, D, E, F, G, H, I>
+    on Union9<A, B, C, D, E, F, G, H, I> {
   /// {@macro union.forEach}
   void forEach(
     void first(A value),
@@ -1516,59 +1102,4 @@ class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
       (value) => Union9.ninth(ninth(value)),
     );
   }
-}
-
-/// An extension that expose the current value.
-extension Union2Value<A> on Union2<A, A> {
-  /// {@template union.value}
-  /// The current value of the union.
-  ///
-  /// Its type is based the nearest common interface of all the types
-  /// that the value can take.
-  ///
-  /// See [Union2] for examples on how [value] works.
-  /// {@endtemplate}
-  A get value => _value as A;
-}
-
-/// An extension that expose the current value.
-extension Union3Value<A> on Union3<A, A, A> {
-  /// {@macro union.value}
-  A get value => _value as A;
-}
-
-/// An extension that expose the current value.
-extension Union4Value<A> on Union4<A, A, A, A> {
-  /// {@macro union.value}
-  A get value => _value as A;
-}
-
-/// An extension that expose the current value.
-extension Union5Value<A> on Union5<A, A, A, A, A> {
-  /// {@macro union.value}
-  A get value => _value as A;
-}
-
-/// An extension that expose the current value.
-extension Union6Value<A> on Union6<A, A, A, A, A, A> {
-  /// {@macro union.value}
-  A get value => _value as A;
-}
-
-/// An extension that expose the current value.
-extension Union7Value<A> on Union7<A, A, A, A, A, A, A> {
-  /// {@macro union.value}
-  A get value => _value as A;
-}
-
-/// An extension that expose the current value.
-extension Union8Value<A> on Union8<A, A, A, A, A, A, A, A> {
-  /// {@macro union.value}
-  A get value => _value as A;
-}
-
-/// An extension that expose the current value.
-extension Union9Value<A> on Union9<A, A, A, A, A, A, A, A, A> {
-  /// {@macro union.value}
-  A get value => _value as A;
 }
