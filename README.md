@@ -20,15 +20,15 @@ dependencies:
 
 # Description
 
-A union is a class that holds a value which can be of different types, and allow
-manipulating that value in a type-safe way.
+A union is an object that holds a value which can be of different types,
+and allow manipulating that value in a type-safe way.
 
-Unions comes in different variants, where the class name "Union" is
-suffixed by a number (such as [Union2] or [Union3]).
+Unions comes in different variants, where its name "Union" is suffixed
+by a number (such as [Union2] or [Union3]).
 That number represents the number of different types the value stored
 can take.
 
-For example, if a value can be both a `String` and a `int`, that makes
+For example, if a value can be both a [String] and a [int], that makes
 two different types. We can therefore use [Union2] like so:
 
 ```dart
@@ -41,49 +41,86 @@ or:
 Union2<int, String> myUnion;
 ```
 
-Note that we cannot assign `Union2<int, String>` to `Union2<String, int>` (or the opposite).
+Note that, due to language limitations, we cannot assign `Union2<int, String>`
+to `Union2<String, int>` (or the opposite).
 
-## Assigning a value to a union
+On the other hand, it is possible to assign `Union2<int, String>` to
+`Union3<int, String, Whatever>` (but not the opposite).
 
-We've seen previously that a `Union2<String, int>` stores a value that is
-either a `String` or an `int`.
+# Creating a union
 
-But such union **cannot** contain a type that is neither `String` nor `int`.
-
-As such, to ensure the type safety, instead of a single constructor that
-take the current value of any given type, unions have multiple constructor:
-One constructor for each type.
-
-For example, `Union2<String, int>` expose two constructors:
-
-- `new Union2.first(String value)`
-- `new Union2.second(int value)`
-
-Whereas `Union4<String, int, double, List<int>>` have four constructors:
-
-- `new Union4.first(String value)`
-- `new Union4.second(int value)`
-- `new Union4.third(double value)`
-- `new Union4.forth(List<int> value)`
-
-We can therefore do:
+Due to a language limitation, we cannot do:
 
 ```dart
-Union2<String, int> myUnion;
-
-myUnion = Union2.first('hello world');
-myUnion = Union2.second(42);
+Union2<String, int> foo = 42;
+foo = "hello world";
 ```
 
-## Reading the value
+Instead we have to wrap our value into another object.
+To do so, `union` expose a bunch of extension methods to transform our
+value in a union, which goes from `asFirst` to `asNinth`.
 
-Unions expose the current value publicly through [value].
+This number represent the index that our value correspond to in the type
+list that the union can take.
+
+For example, `42.asFirst` allows creating:
+
+```dart
+Union1<int> union1 = 42.asFirst();
+Union2<int, SomeType> union2 = 42.asFirst();
+Union3<int, SomeType, AnotherType> union3 = 42.asFirst();
+...
+```
+
+Whereas `42.asSecond` allows creating:
+
+```dart
+Union2<SomeType, int> union2 = 42.asSecond();
+Union3<SomeType, int, AnotherType> union3 = 42.asSecond();
+Union4<SomeType, int, AnotherType, YetAnotherType> union4 = 42.asSecond();
+...
+```
+
+As such, our original example becomes:
+
+```dart
+Union2<String, int> foo = 42.asSecond();
+foo = "hello world".asFirst();
+```
+
+# Converting a union to another union
+
+Any union can be freely upcasted to unions that takes more types.
+
+For example, we can do:
+
+```dart
+Union2<String, int> union2;
+
+Union3<String, int, double> union3 = union2; // upcast, no problem
+Union4<String, int, double, Object> union4 = union2; // still works
+...
+```
+
+But we cannot downcast unions.
+It is therefore impossible to do:
+
+```dart
+Union3<String, int, double> union3;
+
+// downcast, does not work because the value can be a double too.
+Union2<String, int> union2 = union3;
+```
+
+# Reading the value
+
+Unions expose their current value publicly through the getter `value`.
 
 But since the value can be of different types, a small trick is necessary
 to preserve type safety:
 
-On a `Union2<SomeClass, AnotherClass>`, the type of [value] is neither of
-type `SomeClass` nor of type `AnotherClass`.
+On a `Union2<SomeType, AnotherType>`, the type of `value` is neither of
+type `SomeType` nor of type `AnotherType`.
 Instead it has the type of their nearest common interface.
 
 ```dart
@@ -102,10 +139,7 @@ Union2<String, String> example3;
 String value3 = example3.value; // type safe, there's no cast or compile error.
 ```
 
-NOTE:
-Such powerful type inference is made possible only thanks to type extension.
-
-## Applying operations on the value
+# Applying operations on the value
 
 To prevent mistakes, it is not recommended to use the `is` operator to
 determine what the value currently is.
@@ -127,87 +161,106 @@ potential types that the value can take.
 Instead, use one of the availble methods on unions, such as:
 
 - [map], which transforms the current value in another value.
-- [forEach], which allows performing some logic based on the value type.
+- [switchCase], which allows performing some logic based on the value type.
 - [join], which fuse all the different types in a single type.
 
 **DO:**
 
 ```dart
 Union2<String, int> union;
-union.forEach(
+union.switchCase(
   (String value) => print('String: $value'),
   (int value) => print('int: $value'),
 );
 ```
 
 This is better because the code will not compile if we forgot to handle
-one of the potential types that [value] can take.
+one of the potential types that `value` can take.
 
-## Making a reusable union
+# Limitations
 
-Sometimes, we have a specific combination of types that we want to want to
-reuse all the time.
+Because they are not part of the language, but implemented on the top of it,
+this implementation comes with a few limitations.
 
-In such case, having to specify the generic types of a Union can be a bit
-verbose. Similarly, the constructors name (first, second, ...) may not be
-ideal.
+- the operator== of unions cannot be overriden. This means that two unions
+  containing the same value may not be equal:
 
-In that situation, what we can do is subclassing the desired Union, as
-followed:
+  ```dart
+  final a = 42.asFirst();
+  final b = 42.asFirst();
+  print(a == b); // false
+  ```
+
+  Instead, compare their `value`:
+
+  ```dart
+  final a = 42.asFirst();
+  final b = 42.asFirst();
+  print(a.value == b.value); // false
+  ```
+
+- `Union2<String, int>` cannot be assigned to `Union2<int, String>`.
+  Instead you can use `join` to convert one to another:
+
+  ```dart
+   Union2<String, int> union = "hello world".asFirst();
+
+   Union2<int, String> converted = union.join(
+     (v) => v.asSecond(),
+     (v) => v.asFirst(),
+   );
+  ```
+
+# Custom unions
+
+Sometimes we want to reuse one specific combination of type often.
+In that situation, we'll want to write a type alias.
+
+Ideally, we'd want:
 
 ```dart
-class AsyncState<T> extends Union3<T, Loading, Exception> {
-    const AsyncState.value(T value): super.first(value);
-    const AsyncState.loading(): super.second(const Loading());
-    const AsyncState.exception(Exception error): super.third(error);
-}
+typedef Result<T> = Union2<T, Exception>;
 ```
 
-This allows us to write:
+Sadly, Dart does not support typedefs of typedefs (but it may come soon).
+See https://github.com/dart-lang/language/issues/65
+
+Instead as a temporary workaround, we can _expand_ the typedef.
+As such, the actual implementation of such `Result<T>` would be:
 
 ```dart
-final state = AsyncState<int>.value(42);
-final loading = const AsyncState<int>.loading();
+typedef Result<T> = void Function(
+  void Function(T value),
+  void Function(Exception value),
+  Object _c,
+  Object _d,
+  Object _e,
+  Object _f,
+  Object _g,
+  Object _h,
+  Object _i,
+);
 ```
 
-instead of:
+This is of course not ideal, but there's an easy way to implement it:
+
+- go to the definition of the union you want to reuse (here `Union2`)
+- copy its implementation
+- paste it and update it to match your needs.
+
+On the hand, while the initial boilerplate is a bit boring, this
+implementation has some benefits.
+Our custom `Result<T>` is assignable freely to `Union2<T, Exception>`:
 
 ```dart
-final state = Union3<int, Loading, Exception>.first(42);
-final loading = const Union3<int, Loading, Exception>.second(const Loading());
-```
-
-Then, we may want to write an extension on the original Union, to easily
-convert raw unions to our custom union:
-
-```dart
-extension ToAsyncState<T> on Union3<T, Loading, Exception> {
-  AsyncState<T> toAsyncState() {
-    return join(
-      (v) => AsyncState.value(v),
-      (_) => const AsyncState.loading(),
-      (v) => AsyncState.exception(v),
-    );
-  }
-}
-```
-
-This allows us to write:
-
-```dart
-var state = AsyncState<int>.value(42);
-state = state
-    .map(
-      (v) => v * 2,
-      (v) => v,
-      (v) => v,
-    )
-    .toAsyncState();
+Union2<int, Exception> union2;
+Result<int> result = union2; // works without issue
+union2 = result; // works too
 ```
 
 [value]: https://pub.dev/documentation/union/latest/union/Union2Value/value.html
 [union2]: https://pub.dev/documentation/union/latest/union/Union2-class.html
 [union3]: https://pub.dev/documentation/union/latest/union/Union2-class.html
 [map]: https://pub.dev/documentation/union/latest/union/Union2/map.html
-[foreach]: https://pub.dev/documentation/union/latest/union/Union2/forEach.html
+[switchCase]: https://pub.dev/documentation/union/latest/union/Union2/switchCase.html
 [join]: https://pub.dev/documentation/union/latest/union/Union2/join.html

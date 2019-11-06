@@ -4,53 +4,17 @@ import 'package:test/test.dart';
 import 'common.dart';
 
 void main() {
+  group('Union1', () {
+    final first = a.asFirst();
+
+    test('value', () {
+      expect(first.value, equals(a));
+    });
+  });
   group('Union2', () {
-    final first = Union2<A, B>.first(a);
-    final second = Union2<A, B>.second(b);
+    final Union2<A, B> first = a.asFirst();
+    final second = b.asSecond<A>();
 
-    test('const ctor', () {
-      const Union2<A, B>.first(A());
-      const Union2<A, B>.second(B());
-    });
-
-    test('equals', () {
-      expect(
-        Union2<A, B>.first(a),
-        equals(Union2<A, B>.first(a)),
-      );
-
-      expect(
-        Union2<A, B>.second(b),
-        equals(Union2<A, B>.second(b)),
-      );
-
-      expect(
-        Union2<A, B>.first(a),
-        isNot(
-          equals(Union2<A, int>.first(a)),
-        ),
-      );
-    });
-    test('hash', () {
-      expect(
-        Union2<A, B>.first(a).hashCode,
-        equals(Union2<A, B>.first(a).hashCode),
-      );
-
-      expect(
-        Union2<A, B>.second(b).hashCode,
-        equals(Union2<A, B>.second(b).hashCode),
-      );
-
-      expect(
-        Union2<A, B>.first(a).hashCode,
-        isNot(
-          equals(
-            Union2<A, int>.first(a).hashCode,
-          ),
-        ),
-      );
-    });
     test('join', () {
       expect(
         first.join(
@@ -88,73 +52,30 @@ void main() {
         equals(2),
       );
     });
-    test('forEach', () {
+    test('switchCase', () {
       var callCount = 0;
-      first.forEach(
+      first.switchCase(
         (v) => callCount++,
         (v) => throw Error(),
       );
       expect(callCount, equals(1));
-      second.forEach(
+      second.switchCase(
         (v) => throw Error(),
         (v) => callCount++,
       );
       expect(callCount, equals(2));
     });
 
-    test('forEach null', () {
-      first.forEach(null, null);
-      second.forEach(null, null);
+    test('switchCase null', () {
+      first.switchCase(null, null);
+      second.switchCase(null, null);
     });
   });
 
   group('Union3', () {
-    final first = Union3<A, B, C>.first(a);
-    final second = Union3<A, B, C>.second(b);
-    final third = Union3<A, B, C>.third(c);
-    test('const ctor', () {
-      const Union3<A, B, C>.first(A());
-      const Union3<A, B, C>.second(B());
-      const Union3<A, B, C>.third(C());
-    });
-    test('equals', () {
-      expect(
-        Union3<A, B, C>.first(a),
-        equals(Union3<A, B, C>.first(a)),
-      );
-
-      expect(
-        Union3<A, B, C>.second(b),
-        equals(Union3<A, B, C>.second(b)),
-      );
-
-      expect(
-        Union3<A, B, C>.first(a),
-        isNot(
-          equals(Union3<A, int, int>.first(a)),
-        ),
-      );
-    });
-    test('hash', () {
-      expect(
-        Union3<A, B, C>.first(a).hashCode,
-        equals(Union3<A, B, C>.first(a).hashCode),
-      );
-
-      expect(
-        Union3<A, B, C>.second(b).hashCode,
-        equals(Union3<A, B, C>.second(b).hashCode),
-      );
-
-      expect(
-        Union3<A, B, C>.first(a).hashCode,
-        isNot(
-          equals(
-            Union3<A, int, int>.first(a).hashCode,
-          ),
-        ),
-      );
-    });
+    final Union3<A, B, C> first = a.asFirst();
+    final Union3<A, B, C> second = b.asSecond();
+    final third = c.asThird<A, B>();
     test('join', () {
       expect(
         first.join(
@@ -214,21 +135,21 @@ void main() {
         equals(3),
       );
     });
-    test('forEach', () {
+    test('switchCase', () {
       var callCount = 0;
-      first.forEach(
+      first.switchCase(
         (v) => callCount++,
         (v) => throw Error(),
         (v) => throw Error(),
       );
       expect(callCount, equals(1));
-      second.forEach(
+      second.switchCase(
         (v) => throw Error(),
         (v) => callCount++,
         (v) => throw Error(),
       );
       expect(callCount, equals(2));
-      third.forEach(
+      third.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => callCount++,
@@ -236,64 +157,19 @@ void main() {
       expect(callCount, equals(3));
     });
 
-    test('forEach null', () {
-      first.forEach(null, null, null);
-      second.forEach(null, null, null);
-      third.forEach(null, null, null);
+    test('switchCase null', () {
+      first.switchCase(null, null, null);
+      second.switchCase(null, null, null);
+      third.switchCase(null, null, null);
     });
   });
 
   group('Union4', () {
-    final first = Union4<A, B, C, D>.first(a);
-    final second = Union4<A, B, C, D>.second(b);
-    final third = Union4<A, B, C, D>.third(c);
-    final forth = Union4<A, B, C, D>.forth(d);
+    final Union4<A, B, C, D> first = a.asFirst();
+    final Union4<A, B, C, D> second = b.asSecond();
+    final Union4<A, B, C, D> third = c.asThird();
+    final forth = d.asForth<A, B, C>();
 
-    test('const ctor', () {
-      const Union4<A, B, C, D>.first(A());
-      const Union4<A, B, C, D>.second(B());
-      const Union4<A, B, C, D>.third(C());
-      const Union4<A, B, C, D>.forth(D());
-    });
-
-    test('equals', () {
-      expect(
-        Union4<A, B, C, D>.first(a),
-        equals(Union4<A, B, C, D>.first(a)),
-      );
-
-      expect(
-        Union4<A, B, C, D>.second(b),
-        equals(Union4<A, B, C, D>.second(b)),
-      );
-
-      expect(
-        Union4<A, B, C, D>.first(a),
-        isNot(
-          equals(Union4<A, int, int, int>.first(a)),
-        ),
-      );
-    });
-    test('hash', () {
-      expect(
-        Union4<A, B, C, D>.first(a).hashCode,
-        equals(Union4<A, B, C, D>.first(a).hashCode),
-      );
-
-      expect(
-        Union4<A, B, C, D>.second(b).hashCode,
-        equals(Union4<A, B, C, D>.second(b).hashCode),
-      );
-
-      expect(
-        Union4<A, B, C, D>.first(a).hashCode,
-        isNot(
-          equals(
-            Union4<A, int, int, int>.first(a).hashCode,
-          ),
-        ),
-      );
-    });
     test('join', () {
       expect(
         first.join(
@@ -379,30 +255,30 @@ void main() {
         equals(4),
       );
     });
-    test('forEach', () {
+    test('switchCase', () {
       var callCount = 0;
-      first.forEach(
+      first.switchCase(
         (v) => callCount++,
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
       );
       expect(callCount, equals(1));
-      second.forEach(
+      second.switchCase(
         (v) => throw Error(),
         (v) => callCount++,
         (v) => throw Error(),
         (v) => throw Error(),
       );
       expect(callCount, equals(2));
-      third.forEach(
+      third.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => callCount++,
         (v) => throw Error(),
       );
       expect(callCount, equals(3));
-      forth.forEach(
+      forth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -411,67 +287,21 @@ void main() {
       expect(callCount, equals(4));
     });
 
-    test('forEach null', () {
-      first.forEach(null, null, null, null);
-      second.forEach(null, null, null, null);
-      third.forEach(null, null, null, null);
-      forth.forEach(null, null, null, null);
+    test('switchCase null', () {
+      first.switchCase(null, null, null, null);
+      second.switchCase(null, null, null, null);
+      third.switchCase(null, null, null, null);
+      forth.switchCase(null, null, null, null);
     });
   });
 
   group('Union5', () {
-    final first = Union5<A, B, C, D, E>.first(a);
-    final second = Union5<A, B, C, D, E>.second(b);
-    final third = Union5<A, B, C, D, E>.third(c);
-    final forth = Union5<A, B, C, D, E>.forth(d);
-    final fifth = Union5<A, B, C, D, E>.fifth(e);
+    final Union5<A, B, C, D, E> first = a.asFirst();
+    final Union5<A, B, C, D, E> second = b.asSecond();
+    final Union5<A, B, C, D, E> third = c.asThird();
+    final Union5<A, B, C, D, E> forth = d.asForth();
+    final fifth = e.asFifth<A, B, C, D>();
 
-    test('const ctor', () {
-      const Union5<A, B, C, D, E>.first(A());
-      const Union5<A, B, C, D, E>.second(B());
-      const Union5<A, B, C, D, E>.third(C());
-      const Union5<A, B, C, D, E>.forth(D());
-      const Union5<A, B, C, D, E>.fifth(E());
-    });
-
-    test('equals', () {
-      expect(
-        Union5<A, B, C, D, E>.first(a),
-        equals(Union5<A, B, C, D, E>.first(a)),
-      );
-
-      expect(
-        Union5<A, B, C, D, E>.second(b),
-        equals(Union5<A, B, C, D, E>.second(b)),
-      );
-
-      expect(
-        Union5<A, B, C, D, E>.first(a),
-        isNot(
-          equals(Union5<A, int, int, int, int>.first(a)),
-        ),
-      );
-    });
-    test('hash', () {
-      expect(
-        Union5<A, B, C, D, E>.first(a).hashCode,
-        equals(Union5<A, B, C, D, E>.first(a).hashCode),
-      );
-
-      expect(
-        Union5<A, B, C, D, E>.second(b).hashCode,
-        equals(Union5<A, B, C, D, E>.second(b).hashCode),
-      );
-
-      expect(
-        Union5<A, B, C, D, E>.first(a).hashCode,
-        isNot(
-          equals(
-            Union5<A, int, int, int, int>.first(a).hashCode,
-          ),
-        ),
-      );
-    });
     test('join', () {
       expect(
         first.join(
@@ -587,9 +417,9 @@ void main() {
         equals(5),
       );
     });
-    test('forEach', () {
+    test('switchCase', () {
       var callCount = 0;
-      first.forEach(
+      first.switchCase(
         (v) => callCount++,
         (v) => throw Error(),
         (v) => throw Error(),
@@ -597,7 +427,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(1));
-      second.forEach(
+      second.switchCase(
         (v) => throw Error(),
         (v) => callCount++,
         (v) => throw Error(),
@@ -605,7 +435,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(2));
-      third.forEach(
+      third.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => callCount++,
@@ -613,7 +443,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(3));
-      forth.forEach(
+      forth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -621,7 +451,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(4));
-      fifth.forEach(
+      fifth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -631,69 +461,22 @@ void main() {
       expect(callCount, equals(5));
     });
 
-    test('forEach null', () {
-      first.forEach(null, null, null, null, null);
-      second.forEach(null, null, null, null, null);
-      third.forEach(null, null, null, null, null);
-      forth.forEach(null, null, null, null, null);
-      fifth.forEach(null, null, null, null, null);
+    test('switchCase null', () {
+      first.switchCase(null, null, null, null, null);
+      second.switchCase(null, null, null, null, null);
+      third.switchCase(null, null, null, null, null);
+      forth.switchCase(null, null, null, null, null);
+      fifth.switchCase(null, null, null, null, null);
     });
   });
   group('Union6', () {
-    final first = Union6<A, B, C, D, E, F>.first(a);
-    final second = Union6<A, B, C, D, E, F>.second(b);
-    final third = Union6<A, B, C, D, E, F>.third(c);
-    final forth = Union6<A, B, C, D, E, F>.forth(d);
-    final fifth = Union6<A, B, C, D, E, F>.fifth(e);
-    final sixth = Union6<A, B, C, D, E, F>.sixth(f);
+    final Union6<A, B, C, D, E, F> first = a.asFirst();
+    final Union6<A, B, C, D, E, F> second = b.asSecond();
+    final Union6<A, B, C, D, E, F> third = c.asThird();
+    final Union6<A, B, C, D, E, F> forth = d.asForth();
+    final Union6<A, B, C, D, E, F> fifth = e.asFifth();
+    final sixth = f.asSixth<A, B, C, D, E>();
 
-    test('const ctor', () {
-      const Union6<A, B, C, D, E, F>.first(A());
-      const Union6<A, B, C, D, E, F>.second(B());
-      const Union6<A, B, C, D, E, F>.third(C());
-      const Union6<A, B, C, D, E, F>.forth(D());
-      const Union6<A, B, C, D, E, F>.fifth(E());
-      const Union6<A, B, C, D, E, F>.sixth(F());
-    });
-
-    test('equals', () {
-      expect(
-        Union6<A, B, C, D, E, F>.first(a),
-        equals(Union6<A, B, C, D, E, F>.first(a)),
-      );
-
-      expect(
-        Union6<A, B, C, D, E, F>.second(b),
-        equals(Union6<A, B, C, D, E, F>.second(b)),
-      );
-
-      expect(
-        Union6<A, B, C, D, E, F>.first(a),
-        isNot(
-          equals(Union6<A, int, int, int, int, int>.first(a)),
-        ),
-      );
-    });
-    test('hash', () {
-      expect(
-        Union6<A, B, C, D, E, F>.first(a).hashCode,
-        equals(Union6<A, B, C, D, E, F>.first(a).hashCode),
-      );
-
-      expect(
-        Union6<A, B, C, D, E, F>.second(b).hashCode,
-        equals(Union6<A, B, C, D, E, F>.second(b).hashCode),
-      );
-
-      expect(
-        Union6<A, B, C, D, E, F>.first(a).hashCode,
-        isNot(
-          equals(
-            Union6<A, int, int, int, int, int>.first(a).hashCode,
-          ),
-        ),
-      );
-    });
     test('join', () {
       expect(
         first.join(
@@ -843,9 +626,9 @@ void main() {
         equals(6),
       );
     });
-    test('forEach', () {
+    test('switchCase', () {
       var callCount = 0;
-      first.forEach(
+      first.switchCase(
         (v) => callCount++,
         (v) => throw Error(),
         (v) => throw Error(),
@@ -854,7 +637,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(1));
-      second.forEach(
+      second.switchCase(
         (v) => throw Error(),
         (v) => callCount++,
         (v) => throw Error(),
@@ -863,7 +646,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(2));
-      third.forEach(
+      third.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => callCount++,
@@ -872,7 +655,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(3));
-      forth.forEach(
+      forth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -881,7 +664,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(4));
-      fifth.forEach(
+      fifth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -890,7 +673,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(5));
-      sixth.forEach(
+      sixth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -901,73 +684,25 @@ void main() {
       expect(callCount, equals(6));
     });
 
-    test('forEach null', () {
-      first.forEach(null, null, null, null, null, null);
-      second.forEach(null, null, null, null, null, null);
-      third.forEach(null, null, null, null, null, null);
-      forth.forEach(null, null, null, null, null, null);
-      fifth.forEach(null, null, null, null, null, null);
-      sixth.forEach(null, null, null, null, null, null);
+    test('switchCase null', () {
+      first.switchCase(null, null, null, null, null, null);
+      second.switchCase(null, null, null, null, null, null);
+      third.switchCase(null, null, null, null, null, null);
+      forth.switchCase(null, null, null, null, null, null);
+      fifth.switchCase(null, null, null, null, null, null);
+      sixth.switchCase(null, null, null, null, null, null);
     });
   });
 
   group('Union7', () {
-    final first = Union7<A, B, C, D, E, F, G>.first(a);
-    final second = Union7<A, B, C, D, E, F, G>.second(b);
-    final third = Union7<A, B, C, D, E, F, G>.third(c);
-    final forth = Union7<A, B, C, D, E, F, G>.forth(d);
-    final fifth = Union7<A, B, C, D, E, F, G>.fifth(e);
-    final sixth = Union7<A, B, C, D, E, F, G>.sixth(f);
-    final seventh = Union7<A, B, C, D, E, F, G>.seventh(g);
+    final Union7<A, B, C, D, E, F, G> first = a.asFirst();
+    final Union7<A, B, C, D, E, F, G> second = b.asSecond();
+    final Union7<A, B, C, D, E, F, G> third = c.asThird();
+    final Union7<A, B, C, D, E, F, G> forth = d.asForth();
+    final Union7<A, B, C, D, E, F, G> fifth = e.asFifth();
+    final Union7<A, B, C, D, E, F, G> sixth = f.asSixth();
+    final seventh = g.asSeventh<A, B, C, D, E, F>();
 
-    test('const ctor', () {
-      const Union7<A, B, C, D, E, F, G>.first(A());
-      const Union7<A, B, C, D, E, F, G>.second(B());
-      const Union7<A, B, C, D, E, F, G>.third(C());
-      const Union7<A, B, C, D, E, F, G>.forth(D());
-      const Union7<A, B, C, D, E, F, G>.fifth(E());
-      const Union7<A, B, C, D, E, F, G>.sixth(F());
-      const Union7<A, B, C, D, E, F, G>.seventh(G());
-    });
-
-    test('equals', () {
-      expect(
-        Union7<A, B, C, D, E, F, G>.first(a),
-        equals(Union7<A, B, C, D, E, F, G>.first(a)),
-      );
-
-      expect(
-        Union7<A, B, C, D, E, F, G>.second(b),
-        equals(Union7<A, B, C, D, E, F, G>.second(b)),
-      );
-
-      expect(
-        Union7<A, B, C, D, E, F, G>.first(a),
-        isNot(
-          equals(Union7<A, int, int, int, int, int, int>.first(a)),
-        ),
-      );
-    });
-    test('hash', () {
-      expect(
-        Union7<A, B, C, D, E, F, G>.first(a).hashCode,
-        equals(Union7<A, B, C, D, E, F, G>.first(a).hashCode),
-      );
-
-      expect(
-        Union7<A, B, C, D, E, F, G>.second(b).hashCode,
-        equals(Union7<A, B, C, D, E, F, G>.second(b).hashCode),
-      );
-
-      expect(
-        Union7<A, B, C, D, E, F, G>.first(a).hashCode,
-        isNot(
-          equals(
-            Union7<A, int, int, int, int, int, int>.first(a).hashCode,
-          ),
-        ),
-      );
-    });
     test('join', () {
       expect(
         first.join(
@@ -1155,9 +890,9 @@ void main() {
         equals(7),
       );
     });
-    test('forEach', () {
+    test('switchCase', () {
       var callCount = 0;
-      first.forEach(
+      first.switchCase(
         (v) => callCount++,
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1167,7 +902,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(1));
-      second.forEach(
+      second.switchCase(
         (v) => throw Error(),
         (v) => callCount++,
         (v) => throw Error(),
@@ -1177,7 +912,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(2));
-      third.forEach(
+      third.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => callCount++,
@@ -1187,7 +922,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(3));
-      forth.forEach(
+      forth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1197,7 +932,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(4));
-      fifth.forEach(
+      fifth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1207,7 +942,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(5));
-      sixth.forEach(
+      sixth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1217,7 +952,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(6));
-      seventh.forEach(
+      seventh.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1228,76 +963,27 @@ void main() {
       );
       expect(callCount, equals(7));
     });
-    test('forEach null', () {
-      first.forEach(null, null, null, null, null, null, null);
-      second.forEach(null, null, null, null, null, null, null);
-      third.forEach(null, null, null, null, null, null, null);
-      forth.forEach(null, null, null, null, null, null, null);
-      fifth.forEach(null, null, null, null, null, null, null);
-      sixth.forEach(null, null, null, null, null, null, null);
-      seventh.forEach(null, null, null, null, null, null, null);
+    test('switchCase null', () {
+      first.switchCase(null, null, null, null, null, null, null);
+      second.switchCase(null, null, null, null, null, null, null);
+      third.switchCase(null, null, null, null, null, null, null);
+      forth.switchCase(null, null, null, null, null, null, null);
+      fifth.switchCase(null, null, null, null, null, null, null);
+      sixth.switchCase(null, null, null, null, null, null, null);
+      seventh.switchCase(null, null, null, null, null, null, null);
     });
   });
 
   group('Union8', () {
-    final first = Union8<A, B, C, D, E, F, G, H>.first(a);
-    final second = Union8<A, B, C, D, E, F, G, H>.second(b);
-    final third = Union8<A, B, C, D, E, F, G, H>.third(c);
-    final forth = Union8<A, B, C, D, E, F, G, H>.forth(d);
-    final fifth = Union8<A, B, C, D, E, F, G, H>.fifth(e);
-    final sixth = Union8<A, B, C, D, E, F, G, H>.sixth(f);
-    final seventh = Union8<A, B, C, D, E, F, G, H>.seventh(g);
-    final eighth = Union8<A, B, C, D, E, F, G, H>.eighth(h);
+    final Union8<A, B, C, D, E, F, G, H> first = a.asFirst();
+    final Union8<A, B, C, D, E, F, G, H> second = b.asSecond();
+    final Union8<A, B, C, D, E, F, G, H> third = c.asThird();
+    final Union8<A, B, C, D, E, F, G, H> forth = d.asForth();
+    final Union8<A, B, C, D, E, F, G, H> fifth = e.asFifth();
+    final Union8<A, B, C, D, E, F, G, H> sixth = f.asSixth();
+    final Union8<A, B, C, D, E, F, G, H> seventh = g.asSeventh();
+    final eighth = h.asEighth<A, B, C, D, E, F, G>();
 
-    test('const ctor', () {
-      const Union8<A, B, C, D, E, F, G, H>.first(A());
-      const Union8<A, B, C, D, E, F, G, H>.second(B());
-      const Union8<A, B, C, D, E, F, G, H>.third(C());
-      const Union8<A, B, C, D, E, F, G, H>.forth(D());
-      const Union8<A, B, C, D, E, F, G, H>.fifth(E());
-      const Union8<A, B, C, D, E, F, G, H>.sixth(F());
-      const Union8<A, B, C, D, E, F, G, H>.seventh(G());
-      const Union8<A, B, C, D, E, F, G, H>.eighth(H());
-    });
-
-    test('equals', () {
-      expect(
-        Union8<A, B, C, D, E, F, G, H>.first(a),
-        equals(Union8<A, B, C, D, E, F, G, H>.first(a)),
-      );
-
-      expect(
-        Union8<A, B, C, D, E, F, G, H>.second(b),
-        equals(Union8<A, B, C, D, E, F, G, H>.second(b)),
-      );
-
-      expect(
-        Union8<A, B, C, D, E, F, G, H>.first(a),
-        isNot(
-          equals(Union8<A, int, int, int, int, int, int, int>.first(a)),
-        ),
-      );
-    });
-    test('hash', () {
-      expect(
-        Union8<A, B, C, D, E, F, G, H>.first(a).hashCode,
-        equals(Union8<A, B, C, D, E, F, G, H>.first(a).hashCode),
-      );
-
-      expect(
-        Union8<A, B, C, D, E, F, G, H>.second(b).hashCode,
-        equals(Union8<A, B, C, D, E, F, G, H>.second(b).hashCode),
-      );
-
-      expect(
-        Union8<A, B, C, D, E, F, G, H>.first(a).hashCode,
-        isNot(
-          equals(
-            Union8<A, int, int, int, int, int, int, int>.first(a).hashCode,
-          ),
-        ),
-      );
-    });
     test('join', () {
       expect(
         first.join(
@@ -1527,9 +1213,9 @@ void main() {
         equals(8),
       );
     });
-    test('forEach', () {
+    test('switchCase', () {
       var callCount = 0;
-      first.forEach(
+      first.switchCase(
         (v) => callCount++,
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1540,7 +1226,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(1));
-      second.forEach(
+      second.switchCase(
         (v) => throw Error(),
         (v) => callCount++,
         (v) => throw Error(),
@@ -1551,7 +1237,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(2));
-      third.forEach(
+      third.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => callCount++,
@@ -1562,7 +1248,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(3));
-      forth.forEach(
+      forth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1573,7 +1259,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(4));
-      fifth.forEach(
+      fifth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1584,7 +1270,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(5));
-      sixth.forEach(
+      sixth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1595,7 +1281,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(6));
-      seventh.forEach(
+      seventh.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1606,7 +1292,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(7));
-      eighth.forEach(
+      eighth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1619,78 +1305,29 @@ void main() {
       expect(callCount, equals(8));
     });
 
-    test('forEach null', () {
-      first.forEach(null, null, null, null, null, null, null, null);
-      second.forEach(null, null, null, null, null, null, null, null);
-      third.forEach(null, null, null, null, null, null, null, null);
-      forth.forEach(null, null, null, null, null, null, null, null);
-      fifth.forEach(null, null, null, null, null, null, null, null);
-      sixth.forEach(null, null, null, null, null, null, null, null);
-      seventh.forEach(null, null, null, null, null, null, null, null);
-      eighth.forEach(null, null, null, null, null, null, null, null);
+    test('switchCase null', () {
+      first.switchCase(null, null, null, null, null, null, null, null);
+      second.switchCase(null, null, null, null, null, null, null, null);
+      third.switchCase(null, null, null, null, null, null, null, null);
+      forth.switchCase(null, null, null, null, null, null, null, null);
+      fifth.switchCase(null, null, null, null, null, null, null, null);
+      sixth.switchCase(null, null, null, null, null, null, null, null);
+      seventh.switchCase(null, null, null, null, null, null, null, null);
+      eighth.switchCase(null, null, null, null, null, null, null, null);
     });
   });
 
   group('Union9', () {
-    final first = Union9<A, B, C, D, E, F, G, H, I>.first(a);
-    final second = Union9<A, B, C, D, E, F, G, H, I>.second(b);
-    final third = Union9<A, B, C, D, E, F, G, H, I>.third(c);
-    final forth = Union9<A, B, C, D, E, F, G, H, I>.forth(d);
-    final fifth = Union9<A, B, C, D, E, F, G, H, I>.fifth(e);
-    final sixth = Union9<A, B, C, D, E, F, G, H, I>.sixth(f);
-    final seventh = Union9<A, B, C, D, E, F, G, H, I>.seventh(g);
-    final eighth = Union9<A, B, C, D, E, F, G, H, I>.eighth(h);
-    final ninth = Union9<A, B, C, D, E, F, G, H, I>.ninth(i);
+    final Union9<A, B, C, D, E, F, G, H, I> first = a.asFirst();
+    final Union9<A, B, C, D, E, F, G, H, I> second = b.asSecond();
+    final Union9<A, B, C, D, E, F, G, H, I> third = c.asThird();
+    final Union9<A, B, C, D, E, F, G, H, I> forth = d.asForth();
+    final Union9<A, B, C, D, E, F, G, H, I> fifth = e.asFifth();
+    final Union9<A, B, C, D, E, F, G, H, I> sixth = f.asSixth();
+    final Union9<A, B, C, D, E, F, G, H, I> seventh = g.asSeventh();
+    final Union9<A, B, C, D, E, F, G, H, I> eighth = h.asEighth();
+    final ninth = i.asNinth<A, B, C, D, E, F, G, H>();
 
-    test('const ctor', () {
-      const Union9<A, B, C, D, E, F, G, H, I>.first(A());
-      const Union9<A, B, C, D, E, F, G, H, I>.second(B());
-      const Union9<A, B, C, D, E, F, G, H, I>.third(C());
-      const Union9<A, B, C, D, E, F, G, H, I>.forth(D());
-      const Union9<A, B, C, D, E, F, G, H, I>.fifth(E());
-      const Union9<A, B, C, D, E, F, G, H, I>.sixth(F());
-      const Union9<A, B, C, D, E, F, G, H, I>.seventh(G());
-      const Union9<A, B, C, D, E, F, G, H, I>.eighth(H());
-      const Union9<A, B, C, D, E, F, G, H, I>.ninth(I());
-    });
-    test('equals', () {
-      expect(
-        Union9<A, B, C, D, E, F, G, H, I>.first(a),
-        equals(Union9<A, B, C, D, E, F, G, H, I>.first(a)),
-      );
-
-      expect(
-        Union9<A, B, C, D, E, F, G, H, I>.second(b),
-        equals(Union9<A, B, C, D, E, F, G, H, I>.second(b)),
-      );
-
-      expect(
-        Union9<A, B, C, D, E, F, G, H, I>.first(a),
-        isNot(
-          equals(Union9<A, int, int, int, int, int, int, int, int>.first(a)),
-        ),
-      );
-    });
-    test('hash', () {
-      expect(
-        Union9<A, B, C, D, E, F, G, H, I>.first(a).hashCode,
-        equals(Union9<A, B, C, D, E, F, G, H, I>.first(a).hashCode),
-      );
-
-      expect(
-        Union9<A, B, C, D, E, F, G, H, I>.second(b).hashCode,
-        equals(Union9<A, B, C, D, E, F, G, H, I>.second(b).hashCode),
-      );
-
-      expect(
-        Union9<A, B, C, D, E, F, G, H, I>.first(a).hashCode,
-        isNot(
-          equals(
-            Union9<A, int, int, int, int, int, int, int, int>.first(a).hashCode,
-          ),
-        ),
-      );
-    });
     test('join', () {
       expect(
         first.join(
@@ -1957,9 +1594,9 @@ void main() {
         equals(9),
       );
     });
-    test('forEach', () {
+    test('switchCase', () {
       var callCount = 0;
-      first.forEach(
+      first.switchCase(
         (v) => callCount++,
         (v) => throw Error(),
         (v) => throw Error(),
@@ -1971,7 +1608,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(1));
-      second.forEach(
+      second.switchCase(
         (v) => throw Error(),
         (v) => callCount++,
         (v) => throw Error(),
@@ -1983,7 +1620,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(2));
-      third.forEach(
+      third.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => callCount++,
@@ -1995,7 +1632,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(3));
-      forth.forEach(
+      forth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -2007,7 +1644,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(4));
-      fifth.forEach(
+      fifth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -2019,7 +1656,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(5));
-      sixth.forEach(
+      sixth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -2031,7 +1668,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(6));
-      seventh.forEach(
+      seventh.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -2043,7 +1680,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(7));
-      eighth.forEach(
+      eighth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -2055,7 +1692,7 @@ void main() {
         (v) => throw Error(),
       );
       expect(callCount, equals(8));
-      ninth.forEach(
+      ninth.switchCase(
         (v) => throw Error(),
         (v) => throw Error(),
         (v) => throw Error(),
@@ -2069,16 +1706,16 @@ void main() {
       expect(callCount, equals(9));
     });
 
-    test('forEach null', () {
-      first.forEach(null, null, null, null, null, null, null, null, null);
-      second.forEach(null, null, null, null, null, null, null, null, null);
-      third.forEach(null, null, null, null, null, null, null, null, null);
-      forth.forEach(null, null, null, null, null, null, null, null, null);
-      fifth.forEach(null, null, null, null, null, null, null, null, null);
-      sixth.forEach(null, null, null, null, null, null, null, null, null);
-      seventh.forEach(null, null, null, null, null, null, null, null, null);
-      eighth.forEach(null, null, null, null, null, null, null, null, null);
-      ninth.forEach(null, null, null, null, null, null, null, null, null);
+    test('switchCase null', () {
+      first.switchCase(null, null, null, null, null, null, null, null, null);
+      second.switchCase(null, null, null, null, null, null, null, null, null);
+      third.switchCase(null, null, null, null, null, null, null, null, null);
+      forth.switchCase(null, null, null, null, null, null, null, null, null);
+      fifth.switchCase(null, null, null, null, null, null, null, null, null);
+      sixth.switchCase(null, null, null, null, null, null, null, null, null);
+      seventh.switchCase(null, null, null, null, null, null, null, null, null);
+      eighth.switchCase(null, null, null, null, null, null, null, null, null);
+      ninth.switchCase(null, null, null, null, null, null, null, null, null);
     });
   });
 }

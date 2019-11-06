@@ -1,3 +1,9 @@
+## 0.0.3
+
+Unions are now implemented using functions instead of classes.
+
+This allows assigning `Union2<A, B>` to `Union3<A, B, Whatever>`.
+
 ## 0.0.2
 
 Allow const constructors on unions.

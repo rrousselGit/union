@@ -1,164 +1,11 @@
-part 'union.g.dart';
-
-// ignore: missing_return
-R _noop<T, R>(T t) {}
-
-abstract class _UnionBase {
-  /// Create a union from _UnionBase first generic type
-  const _UnionBase(this._value, this._join);
-
-  final _Join _join;
-  final Object _value;
-
-  @override
-  bool operator ==(Object other) {
-    return other is _UnionBase &&
-        runtimeType == other.runtimeType &&
-        other._join == _join &&
-        other._value == _value;
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode ^ _join.hashCode ^ _value.hashCode;
-}
-
-T _first<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    first(union._value as A);
-T _second<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    second(union._value as B);
-T _third<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    third(union._value as C);
-T _forth<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    forth(union._value as D);
-T _fifth<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    fifth(union._value as E);
-T _sixth<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    sixth(union._value as F);
-T _seventh<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    seventh(union._value as G);
-T _eighth<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    eighth(union._value as H);
-T _ninth<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase union,
-  T first(A a), [
-  T second(B b),
-  T third(C c),
-  T forth(D d),
-  T fifth(E e),
-  T sixth(F f),
-  T seventh(G g),
-  T eighth(H h),
-  T ninth(I i),
-]) =>
-    ninth(union._value as I);
-
-typedef _Join = T Function<T, A, B, C, D, E, F, G, H, I>(
-  _UnionBase,
-  T Function(A a), [
-  T Function(B b),
-  T Function(C c),
-  T Function(D d),
-  T Function(E e),
-  T Function(F f),
-  T Function(G g),
-  T Function(H h),
-  T Function(I i),
-]);
+void _noop<T>(T t) {}
 
 /// {@template union}
-/// A class that holds a value which can be of different types, and allow
+/// A **function** that holds a value which can be of different types, and allow
 /// manipulating that value in a type-safe way.
 ///
-/// Unions comes in different variants, where the class name "Union" is
-/// suffixed by a number (such as [Union2] or [Union3]).
+/// Unions comes in different variants, where its name "Union" is suffixed
+/// by a number (such as [Union2] or [Union3]).
 /// That number represents the number of different types the value stored
 /// can take.
 ///
@@ -177,46 +24,83 @@ typedef _Join = T Function<T, A, B, C, D, E, F, G, H, I>(
 /// Note that we cannot assign `Union2<int, String>` to `Union2<String, int>`
 /// (or the opposite).
 ///
-/// # Assigning a value to a union
+/// On the other hand, it is possible to assign `Union2<int, String>` to
+/// `Union3<int, String, Whatever>` (but not the opposite).
 ///
-/// We've seen previously that a `Union2<String, int>` stores a value that is
-/// either a [String] or an [int].
+/// # Creating a union
 ///
-/// But such union **cannot** contain a type that is neither [String] nor [int].
-///
-/// As such, to ensure the type safety, instead of a single constructor that
-/// take the current value of any given type, unions have multiple constructor:
-/// One constructor for each type.
-///
-/// For example, `Union2<String, int>` expose two constructors:
-/// - `new Union2.first(String value)`
-/// - `new Union2.second(int value)`
-///
-/// Whereas `Union4<String, int, double, List<int>>` have four constructors:
-/// - `new Union4.first(String value)`
-/// - `new Union4.second(int value)`
-/// - `new Union4.third(double value)`
-/// - `new Union4.forth(List<int> value)`
-///
-///
-/// We can therefore do:
+/// Due to a language limitation, we cannot do:
 ///
 /// ```dart
-/// Union2<String, int> myUnion;
+/// Union2<String, int> foo = 42;
+/// foo = "hello world";
+/// ```
 ///
-/// myUnion = Union2.first('hello world');
-/// myUnion = Union2.second(42);
+/// Instead we have to wrap our value into another object.
+/// To do so, `union` expose a bunch of extension methods to transform our
+/// value in a union, which goes from `asFirst` to `asNinth`.
+///
+/// This number represent the index that our value correspond to in the type
+/// list that the union can take.
+///
+/// For example, `42.asFirst` allows creating:
+///
+/// ```dart
+/// Union1<int> union1 = 42.asFirst();
+/// Union2<int, SomeType> union2 = 42.asFirst();
+/// Union3<int, SomeType, AnotherType> union3 = 42.asFirst();
+/// ...
+/// ```
+///
+/// Whereas `42.asSecond` allows creating:
+///
+/// ```dart
+/// Union2<SomeType, int> union2 = 42.asSecond();
+/// Union3<SomeType, int, AnotherType> union3 = 42.asSecond();
+/// Union4<SomeType, int, AnotherType, YetAnotherType> union4 = 42.asSecond();
+/// ...
+/// ```
+///
+/// As such, our original example becomes:
+///
+/// ```dart
+/// Union2<String, int> foo = 42.asSecond();
+/// foo = "hello world".asFirst();
+/// ```
+///
+/// # Converting a union to another union
+///
+/// Any union can be freely upcasted to unions that takes more types.
+///
+/// For example, we can do:
+///
+/// ```dart
+/// Union2<String, int> union2;
+///
+/// Union3<String, int, double> union3 = union2; // upcast, no problem
+/// Union4<String, int, double, Object> union4 = union2; // still works
+/// ...
+/// ```
+///
+/// But we cannot downcast unions.
+/// It is therefore impossible to do:
+///
+/// /// ```dart
+/// Union3<String, int, double> union3;
+///
+/// // downcast, does not work because the value can be a double too.
+/// Union2<String, int> union2 = union3;
 /// ```
 ///
 /// # Reading the value
 ///
-/// Unions expose the current value publicly through [value].
+/// Unions expose their current value publicly through the getter `value`.
 ///
 /// But since the value can be of different types, a small trick is necessary
 /// to preserve type safety:
 ///
-/// On a `Union2<SomeClass, AnotherClass>`, the type of [value] is neither of
-/// type `SomeClass` nor of type `AnotherClass`.
+/// On a `Union2<SomeType, AnotherType>`, the type of `value` is neither of
+/// type `SomeType` nor of type `AnotherType`.
 /// Instead it has the type of their nearest common interface.
 ///
 ///
@@ -235,9 +119,6 @@ typedef _Join = T Function<T, A, B, C, D, E, F, G, H, I>(
 /// // The type is always a String, so value is a String too
 /// String value3 = example3.value; // type safe, there's no cast or compile error.
 /// ```
-///
-/// NOTE:
-/// Such powerful type inference is made possible only thanks to type extension.
 ///
 /// # Applying operations on the value
 ///
@@ -259,241 +140,397 @@ typedef _Join = T Function<T, A, B, C, D, E, F, G, H, I>(
 /// potential types that the value can take.
 ///
 /// Instead, use one of the availble methods on unions, such as:
-/// - [map], which transforms the current value in another value.
-/// - [forEach], which allows performing some logic based on the value type.
-/// - [join], which fuse all the different types in a single type.
+/// - `map`, which transforms the current value in another value.
+/// - `switchCase`, which allows performing some logic based on the value type.
+/// - `join`, which fuse all the different types in a single type.
 ///
 /// **DO:**
 /// ```dart
 /// Union2<String, int> union;
-/// union.forEach(
+/// union.switchCase(
 ///   (String value) => print('String: $value'),
 ///   (int value) => print('int: $value'),
 /// );
 /// ```
 ///
 /// This is better because the code will not compile if we forgot to handle
-/// one of the potential types that [value] can take.
+/// one of the potential types that `value` can take.
+///
+/// # Limitations
+///
+/// Because they are not part of the language, but implemented on the top of it,
+/// this implementation comes with a few limitations.
+///
+/// - the operator== of unions cannot be overriden. This means that two unions
+///   containing the same value may not be equal:
+///   ```dart
+///   final a = 42.asFirst();
+///   final b = 42.asFirst();
+///   print(a == b); // false
+///   ```
+///
+///   Instead, compare their `value`:
+///   ```dart
+///   final a = 42.asFirst();
+///   final b = 42.asFirst();
+///   print(a.value == b.value); // false
+///   ```
+/// - `Union2<String, int>` cannot be assigned to `Union2<int, String>`.
+///   Instead you can use `join` to convert one to another:
+///   ```dart
+///    Union2<String, int> union = "hello world".asFirst();
+///
+///    Union2<int, String> converted = union.join(
+///      (v) => v.asSecond(),
+///      (v) => v.asFirst(),
+///    );
+///   ```
+///
+/// # Custom unions
+///
+/// Sometimes we want to reuse one specific combination of type often.
+/// In that situation, we'll want to write a type alias.
+///
+/// Ideally, we'd want:
+///
+/// ```dart
+/// typedef Result<T> = Union2<T, Exception>;
+/// ```
+///
+/// Sadly, Dart does not support typedefs of typedefs (but it may come soon).
+/// See https://github.com/dart-lang/language/issues/65
+///
+/// Instead as a temporary workaround, we can _expand_ the typedef.
+/// As such, the actual implementation of such `Result<T>` would be:
+///
+/// ```dart
+/// typedef Result<T> = void Function(
+///   void Function(T value),
+///   void Function(Exception value),
+///   Object _c,
+///   Object _d,
+///   Object _e,
+///   Object _f,
+///   Object _g,
+///   Object _h,
+///   Object _i,
+/// );
+/// ```
+///
+/// This is of course not ideal, but there's an easy way to implement it:
+/// - go to the definition of the union you want to reuse (here `Union2`)
+/// - copy its implementation
+/// - paste it and update it to match your needs.
+///
+///
+/// On the hand, while the initial boilerplate is a bit boring, this
+/// implementation has some benefits.
+/// Our custom `Result<T>` is assignable freely to `Union2<T, Exception>`:
+///
+/// ```dart
+/// Union2<int, Exception> union2;
+/// Result<int> result = union2; // works without issue
+/// union2 = result; // works too
+/// ```
 /// {@endtemplate}
-class Union2<A, B> extends _UnionBase implements Union3<A, B, Object> {
-  /// Create a union from its first generic type
-  const Union2.first(A value) : super(value, _first);
-
-  /// Create a union from its second generic type
-  const Union2.second(B value) : super(value, _second);
-}
-
-/// {@macro union}
-class Union3<A, B, C> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union3.first(A value) : super(value, _first);
-
-  /// Create a union from its second generic type
-  const Union3.second(B value) : super(value, _second);
-
-  /// Create a union from its third generic type
-  const Union3.third(C value) : super(value, _third);
-}
+typedef Union1<A> = void Function(
+  void Function(A value),
+  Object _b,
+  Object _c,
+  Object _d,
+  Object _e,
+  Object _f,
+  Object _g,
+  Object _h,
+  Object _i,
+);
 
 /// {@macro union}
-class Union4<A, B, C, D> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union4.first(A value) : super(value, _first);
-
-  /// Create a union from its second generic type
-  const Union4.second(B value) : super(value, _second);
-
-  /// Create a union from its third generic type
-  const Union4.third(C value) : super(value, _third);
-
-  /// Create a union from its forth generic type
-  const Union4.forth(D value) : super(value, _forth);
-}
+typedef Union2<A, B> = void Function(
+  void Function(A value),
+  void Function(B value),
+  Object _c,
+  Object _d,
+  Object _e,
+  Object _f,
+  Object _g,
+  Object _h,
+  Object _i,
+);
 
 /// {@macro union}
-class Union5<A, B, C, D, E> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union5.first(A value) : super(value, _first);
-
-  /// Create a union from its second generic type
-  const Union5.second(B value) : super(value, _second);
-
-  /// Create a union from its third generic type
-  const Union5.third(C value) : super(value, _third);
-
-  /// Create a union from its forth generic type
-  const Union5.forth(D value) : super(value, _forth);
-
-  /// Create a union from its seventh generic type
-  const Union5.fifth(E value) : super(value, _fifth);
-}
+typedef Union3<A, B, C> = void Function(
+  void Function(A value),
+  void Function(B value),
+  void Function(C value),
+  Object _d,
+  Object _e,
+  Object _f,
+  Object _g,
+  Object _h,
+  Object _i,
+);
 
 /// {@macro union}
-class Union6<A, B, C, D, E, F> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union6.first(A value) : super(value, _first);
-
-  /// Create a union from its second generic type
-  const Union6.second(B value) : super(value, _second);
-
-  /// Create a union from its third generic type
-  const Union6.third(C value) : super(value, _third);
-
-  /// Create a union from its forth generic type
-  const Union6.forth(D value) : super(value, _forth);
-
-  /// Create a union from its seventh generic type
-  const Union6.fifth(E value) : super(value, _fifth);
-
-  /// Create a union from its seventh generic type
-  const Union6.sixth(F value) : super(value, _sixth);
-}
+typedef Union4<A, B, C, D> = void Function(
+  void Function(A value),
+  void Function(B value),
+  void Function(C value),
+  void Function(D value),
+  Object _e,
+  Object _f,
+  Object _g,
+  Object _h,
+  Object _i,
+);
 
 /// {@macro union}
-class Union7<A, B, C, D, E, F, G> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union7.first(A value) : super(value, _first);
-
-  /// Create a union from its second generic type
-  const Union7.second(B value) : super(value, _second);
-
-  /// Create a union from its third generic type
-  const Union7.third(C value) : super(value, _third);
-
-  /// Create a union from its forth generic type
-  const Union7.forth(D value) : super(value, _forth);
-
-  /// Create a union from its seventh generic type
-  const Union7.fifth(E value) : super(value, _fifth);
-
-  /// Create a union from its seventh generic type
-  const Union7.sixth(F value) : super(value, _sixth);
-
-  /// Create a union from its seventh generic type
-  const Union7.seventh(G value) : super(value, _seventh);
-}
+typedef Union5<A, B, C, D, E> = void Function(
+  void Function(A value),
+  void Function(B value),
+  void Function(C value),
+  void Function(D value),
+  void Function(E value),
+  Object _f,
+  Object _g,
+  Object _h,
+  Object _i,
+);
 
 /// {@macro union}
-class Union8<A, B, C, D, E, F, G, H> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union8.first(A value) : super(value, _first);
-
-  /// Create a union from its second generic type
-  const Union8.second(B value) : super(value, _second);
-
-  /// Create a union from its third generic type
-  const Union8.third(C value) : super(value, _third);
-
-  /// Create a union from its forth generic type
-  const Union8.forth(D value) : super(value, _forth);
-
-  /// Create a union from its seventh generic type
-  const Union8.fifth(E value) : super(value, _fifth);
-
-  /// Create a union from its seventh generic type
-  const Union8.sixth(F value) : super(value, _sixth);
-
-  /// Create a union from its seventh generic type
-  const Union8.seventh(G value) : super(value, _seventh);
-
-  /// Create a union from its eighth generic type
-  const Union8.eighth(H value) : super(value, _eighth);
-}
+typedef Union6<A, B, C, D, E, F> = void Function(
+  void Function(A value),
+  void Function(B value),
+  void Function(C value),
+  void Function(D value),
+  void Function(E value),
+  void Function(F value),
+  Object _g,
+  Object _h,
+  Object _i,
+);
 
 /// {@macro union}
-class Union9<A, B, C, D, E, F, G, H, I> extends _UnionBase {
-  /// Create a union from its first generic type
-  const Union9.first(A value) : super(value, _first);
+typedef Union7<A, B, C, D, E, F, G> = void Function(
+  void Function(A value),
+  void Function(B value),
+  void Function(C value),
+  void Function(D value),
+  void Function(E value),
+  void Function(F value),
+  void Function(G value),
+  Object _h,
+  Object _i,
+);
 
-  /// Create a union from its second generic type
-  const Union9.second(B value) : super(value, _second);
+/// {@macro union}
+typedef Union8<A, B, C, D, E, F, G, H> = void Function(
+  void Function(A value),
+  void Function(B value),
+  void Function(C value),
+  void Function(D value),
+  void Function(E value),
+  void Function(F value),
+  void Function(G value),
+  void Function(H value),
+  Object _i,
+);
 
-  /// Create a union from its third generic type
-  const Union9.third(C value) : super(value, _third);
+/// {@macro union}
+typedef Union9<A, B, C, D, E, F, G, H, I> = void Function(
+  void Function(A value),
+  void Function(B value),
+  void Function(C value),
+  void Function(D value),
+  void Function(E value),
+  void Function(F value),
+  void Function(G value),
+  void Function(H value),
+  void Function(I value),
+);
 
-  /// Create a union from its forth generic type
-  const Union9.forth(D value) : super(value, _forth);
+/// Extensions that transform a value of any type into an union that contains
+/// this type.
+extension AsUnion<T> on T {
+  /// Transform the object in a union where the object type is the first type
+  /// the union can take.
+  ///
+  /// ```dart
+  /// Union1<int> a = 42.asFirst();
+  /// Union2<int, String> b = 42.asFirst();
+  /// ```
+  Union1<T> asFirst() => (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(this as T);
 
-  /// Create a union from its seventh generic type
-  const Union9.fifth(E value) : super(value, _fifth);
+  /// Transform the object in a union where the object type is the second type
+  /// the union can take.
+  ///
+  /// ```dart
+  /// Union2<String, int> a = 42.asFirst();
+  /// Union3<String, int, double> b = 42.asFirst();
+  /// ```
+  Union2<A, T> asSecond<A>() {
+    return (_a, f, _c, _d, _e, _f, _g, _h, _i) => f(this as T);
+  }
 
-  /// Create a union from its seventh generic type
-  const Union9.sixth(F value) : super(value, _sixth);
+  /// Transform the object in a union where the object type is the third type
+  /// the union can take.
+  Union3<A, B, T> asThird<A, B>() {
+    return (_a, _b, f, _d, _e, _f, _g, _h, _i) => f(this as T);
+  }
 
-  /// Create a union from its seventh generic type
-  const Union9.seventh(G value) : super(value, _seventh);
+  /// Transform the object in a union where the object type is the forth type
+  /// the union can take.
+  Union4<A, B, C, T> asForth<A, B, C>() {
+    return (_a, _b, _c, f, _e, _f, _g, _h, _i) => f(this as T);
+  }
 
-  /// Create a union from its eighth generic type
-  const Union9.eighth(H value) : super(value, _eighth);
+  /// Transform the object in a union where the object type is the fifth type
+  /// the union can take.
+  Union5<A, B, C, D, T> asFifth<A, B, C, D>() {
+    return (_a, _b, _c, _d, f, _f, _g, _h, _i) => f(this as T);
+  }
 
-  /// Create a union from its ninth generic type
-  const Union9.ninth(I value) : super(value, _ninth);
+  /// Transform the object in a union where the object type is the sixth type
+  /// the union can take.
+  Union6<A, B, C, D, E, T> asSixth<A, B, C, D, E>() {
+    return (_a, _b, _c, _d, _e, f, _g, _h, _i) => f(this as T);
+  }
+
+  /// Transform the object in a union where the object type is the seventh type
+  /// the union can take.
+  Union7<A, B, C, D, E, F, T> asSeventh<A, B, C, D, E, F>() {
+    return (_a, _b, _c, _d, _e, _f, f, _h, _i) => f(this as T);
+  }
+
+  /// Transform the object in a union where the object type is the eighth type
+  /// the union can take.
+  Union8<A, B, C, D, E, F, G, T> asEighth<A, B, C, D, E, G, F>() {
+    return (_a, _b, _c, _d, _e, _f, _g, f, _i) => f(this as T);
+  }
+
+  /// Transform the object in a union where the object type is the ninth type
+  /// the union can take.
+  Union9<A, B, C, D, E, F, G, H, T> asNinth<A, B, C, D, E, G, F, H>() {
+    return (_a, _b, _c, _d, _e, _f, _g, _h, f) => f(this as T);
+  }
 }
 
 /// An extension that expose the current value.
-extension Union2Value<A> on Union2<A, A> {
+extension Union1Value<A> on Union1<A> {
   /// {@template union.value}
   /// The current value of the union.
   ///
   /// Its type is based the nearest common interface of all the types
   /// that the value can take.
   ///
-  /// See [Union2] for examples on how [value] works.
+  /// See [Union2] for examples on how `value` works.
   /// {@endtemplate}
-  A get value => _value as A;
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(assign, null, null, null, null, null, null, null, null);
+    return res;
+  }
+}
+
+/// An extension that expose the current value.
+extension Union2Value<A> on Union2<A, A> {
+  /// {@macro union.value}
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(assign, assign, null, null, null, null, null, null, null);
+    return res;
+  }
 }
 
 /// An extension that expose the current value.
 extension Union3Value<A> on Union3<A, A, A> {
   /// {@macro union.value}
-  A get value => _value as A;
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(assign, assign, assign, null, null, null, null, null, null);
+    return res;
+  }
 }
 
 /// An extension that expose the current value.
 extension Union4Value<A> on Union4<A, A, A, A> {
   /// {@macro union.value}
-  A get value => _value as A;
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(assign, assign, assign, assign, null, null, null, null, null);
+    return res;
+  }
 }
 
 /// An extension that expose the current value.
 extension Union5Value<A> on Union5<A, A, A, A, A> {
   /// {@macro union.value}
-  A get value => _value as A;
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(assign, assign, assign, assign, assign, null, null, null, null);
+    return res;
+  }
 }
 
 /// An extension that expose the current value.
 extension Union6Value<A> on Union6<A, A, A, A, A, A> {
   /// {@macro union.value}
-  A get value => _value as A;
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(assign, assign, assign, assign, assign, assign, null, null, null);
+    return res;
+  }
 }
 
 /// An extension that expose the current value.
 extension Union7Value<A> on Union7<A, A, A, A, A, A, A> {
   /// {@macro union.value}
-  A get value => _value as A;
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(assign, assign, assign, assign, assign, assign, assign, null, null);
+    return res;
+  }
 }
 
 /// An extension that expose the current value.
 extension Union8Value<A> on Union8<A, A, A, A, A, A, A, A> {
   /// {@macro union.value}
-  A get value => _value as A;
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(assign, assign, assign, assign, assign, assign, assign, assign, null);
+    return res;
+  }
 }
 
 /// An extension that expose the current value.
 extension Union9Value<A> on Union9<A, A, A, A, A, A, A, A, A> {
   /// {@macro union.value}
-  A get value => _value as A;
+  A get value {
+    A res;
+    final assign = (A a) => res = a;
+    this(
+        assign, assign, assign, assign, assign, assign, assign, assign, assign);
+    return res;
+  }
 }
 
-/// The methods on Union3.
+/// The methods on Union2.
 extension Union2Methods<A, B> on Union2<A, B> {
-  /// {@template union.forEach}
+  /// {@template union.switchCase}
   /// Allow executing custom logic based on the value type in a type safe way.
   ///
   /// Prefer using this method over the `is` operator.
   ///
-  /// The [forEach] method voluntarily forces the code to handle all types that
-  /// the value can take, whereas `is` doesn't.
+  /// The [switchCase] method voluntarily forces the code to handle all types
+  /// that the value can take, whereas `is` doesn't.
   ///
   /// As such, while we can do:
   ///
@@ -514,12 +551,12 @@ extension Union2Methods<A, B> on Union2<A, B> {
   /// - if in the future the union changes (a type changed or a new type is
   ///   added), then we may forget to update this specific piece of code.
   ///
-  /// Instead, we can use [forEach] like so:
+  /// Instead, we can use [switchCase] like so:
   ///
   /// ```dart
   /// Union2<String, int> union;
   ///
-  /// union.forEach(
+  /// union.switchCase(
   ///   null, // we explicitly don't handle String
   ///   (value) => print(value),
   /// );
@@ -536,19 +573,25 @@ extension Union2Methods<A, B> on Union2<A, B> {
   ///   This ensures that there's no invalid/dead code that we forgot to update.
   /// {@endtemplate}
   /// Callbacks can be `null`, but all callbacks are required.
-  void forEach(
+  void switchCase(
     void first(A value),
     void second(B value),
   ) {
-    return _join<void, A, B, void, void, void, void, void, void, void>(
-      this,
+    return this(
       first ?? _noop,
       second ?? _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
   }
 
   /// {@template union.join}
-  /// Transform all the potential types that [value] can take into a single
+  /// Transform all the potential types that `value` can take into a single
   /// unique type.
   ///
   /// For example, we can use [join] to convert a `Union2<String, int>` into
@@ -589,11 +632,19 @@ extension Union2Methods<A, B> on Union2<A, B> {
     T first(A value),
     T second(B value),
   ) {
-    return _join<T, A, B, void, void, void, void, void, void, void>(
-      this,
-      first,
-      second,
+    T res;
+    this(
+      (a) => res = first(a),
+      (a) => res = second(a),
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 
   /// {@template union.map}
@@ -630,28 +681,46 @@ extension Union2Methods<A, B> on Union2<A, B> {
     A2 first(A value),
     B2 second(B value),
   ) {
-    return _join<Union2<A2, B2>, A, B, void, void, void, void, void, void,
-        void>(
-      this,
-      (value) => Union2.first(first(value)),
-      (value) => Union2.second(second(value)),
+    Union2<A2, B2> res;
+    this(
+      (a) {
+        final value = first(a);
+        res = (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = second(a);
+        res = (_, f, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 }
 
 /// The methods on Union3.
 extension Union3Methods<A, B, C> on Union3<A, B, C> {
-  /// {@macro union.forEach}
-  void forEach(
+  /// {@macro union.switchCase}
+  void switchCase(
     void first(A value),
     void second(B value),
     void third(C value),
   ) {
-    return _join<void, A, B, C, void, void, void, void, void, void>(
-      this,
+    return this(
       first ?? _noop,
       second ?? _noop,
       third ?? _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
   }
 
@@ -662,12 +731,19 @@ extension Union3Methods<A, B, C> on Union3<A, B, C> {
     T second(B value),
     T third(C value),
   ) {
-    return _join<T, A, B, C, void, void, void, void, void, void>(
-      this,
-      first,
-      second,
-      third,
+    T res;
+    this(
+      (a) => res = first(a),
+      (a) => res = second(a),
+      (a) => res = third(a),
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 
   /// {@macro union.map}
@@ -677,31 +753,50 @@ extension Union3Methods<A, B, C> on Union3<A, B, C> {
     B2 second(B value),
     C2 third(C value),
   ) {
-    return _join<Union3<A2, B2, C2>, A, B, C, void, void, void, void, void,
-        void>(
-      this,
-      (value) => Union3.first(first(value)),
-      (value) => Union3.second(second(value)),
-      (value) => Union3.third(third(value)),
+    Union3<A2, B2, C2> res;
+    this(
+      (a) {
+        final value = first(a);
+        res = (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = second(a);
+        res = (_, f, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = third(a);
+        res = (_, _b, f, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 }
 
 /// The methods on Union3.
 extension Union4Methods<A, B, C, D> on Union4<A, B, C, D> {
-  /// {@macro union.forEach}
-  void forEach(
+  /// {@macro union.switchCase}
+  void switchCase(
     void first(A value),
     void second(B value),
     void third(C value),
     void forth(D value),
   ) {
-    return _join<void, A, B, C, D, void, void, void, void, void>(
-      this,
+    return this(
       first ?? _noop,
       second ?? _noop,
       third ?? _noop,
       forth ?? _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
   }
 
@@ -713,13 +808,19 @@ extension Union4Methods<A, B, C, D> on Union4<A, B, C, D> {
     T third(C value),
     T forth(D value),
   ) {
-    return _join<T, A, B, C, D, void, void, void, void, void>(
-      this,
-      first,
-      second,
-      third,
-      forth,
+    T res;
+    this(
+      (a) => res = first(a),
+      (a) => res = second(a),
+      (a) => res = third(a),
+      (a) => res = forth(a),
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 
   /// {@macro union.map}
@@ -730,34 +831,54 @@ extension Union4Methods<A, B, C, D> on Union4<A, B, C, D> {
     C2 third(C value),
     D2 forth(D value),
   ) {
-    return _join<Union4<A2, B2, C2, D2>, A, B, C, D, void, void, void, void,
-        void>(
-      this,
-      (value) => Union4.first(first(value)),
-      (value) => Union4.second(second(value)),
-      (value) => Union4.third(third(value)),
-      (value) => Union4.forth(forth(value)),
+    Union4<A2, B2, C2, D2> res;
+    this(
+      (a) {
+        final value = first(a);
+        res = (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = second(a);
+        res = (_, f, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = third(a);
+        res = (_, _b, f, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = forth(a);
+        res = (_, _b, _c, f, _e, _f, _g, _h, _i) => f(value);
+      },
+      _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 }
 
 /// The methods on Union3.
 extension Union5Methods<A, B, C, D, E> on Union5<A, B, C, D, E> {
-  /// {@macro union.forEach}
-  void forEach(
+  /// {@macro union.switchCase}
+  void switchCase(
     void first(A value),
     void second(B value),
     void third(C value),
     void forth(D value),
     void fifth(E value),
   ) {
-    return _join<void, A, B, C, D, E, void, void, void, void>(
-      this,
+    return this(
       first ?? _noop,
       second ?? _noop,
       third ?? _noop,
       forth ?? _noop,
       fifth ?? _noop,
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
   }
 
@@ -770,14 +891,19 @@ extension Union5Methods<A, B, C, D, E> on Union5<A, B, C, D, E> {
     T forth(D value),
     T fifth(E value),
   ) {
-    return _join<T, A, B, C, D, E, void, void, void, void>(
-      this,
-      first,
-      second,
-      third,
-      forth,
-      fifth,
+    T res;
+    this(
+      (a) => res = first(a),
+      (a) => res = second(a),
+      (a) => res = third(a),
+      (a) => res = forth(a),
+      (a) => res = fifth(a),
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 
   /// {@macro union.map}
@@ -789,22 +915,41 @@ extension Union5Methods<A, B, C, D, E> on Union5<A, B, C, D, E> {
     D2 forth(D value),
     E2 fifth(E value),
   ) {
-    return _join<Union5<A2, B2, C2, D2, E2>, A, B, C, D, E, void, void, void,
-        void>(
-      this,
-      (value) => Union5.first(first(value)),
-      (value) => Union5.second(second(value)),
-      (value) => Union5.third(third(value)),
-      (value) => Union5.forth(forth(value)),
-      (value) => Union5.fifth(fifth(value)),
+    Union5<A2, B2, C2, D2, E2> res;
+    this(
+      (a) {
+        final value = first(a);
+        res = (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = second(a);
+        res = (_, f, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = third(a);
+        res = (_, _b, f, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = forth(a);
+        res = (_, _b, _c, f, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = fifth(a);
+        res = (_, _b, _c, _d, f, _f, _g, _h, _i) => f(value);
+      },
+      _noop,
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 }
 
 /// The methods on Union3.
 extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
-  /// {@macro union.forEach}
-  void forEach(
+  /// {@macro union.switchCase}
+  void switchCase(
     void first(A value),
     void second(B value),
     void third(C value),
@@ -812,14 +957,16 @@ extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
     void fifth(E value),
     void sixth(F value),
   ) {
-    return _join<void, A, B, C, D, E, F, void, void, void>(
-      this,
+    return this(
       first ?? _noop,
       second ?? _noop,
       third ?? _noop,
       forth ?? _noop,
       fifth ?? _noop,
       sixth ?? _noop,
+      _noop,
+      _noop,
+      _noop,
     );
   }
 
@@ -833,15 +980,19 @@ extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
     T fifth(E value),
     T sixth(F value),
   ) {
-    return _join<T, A, B, C, D, E, F, void, void, void>(
-      this,
-      first,
-      second,
-      third,
-      forth,
-      fifth,
-      sixth,
+    T res;
+    this(
+      (a) => res = first(a),
+      (a) => res = second(a),
+      (a) => res = third(a),
+      (a) => res = forth(a),
+      (a) => res = fifth(a),
+      (a) => res = sixth(a),
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 
   /// {@macro union.map}
@@ -854,23 +1005,44 @@ extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
     E2 fifth(E value),
     F2 sixth(F value),
   ) {
-    return _join<Union6<A2, B2, C2, D2, E2, F2>, A, B, C, D, E, F, void, void,
-        void>(
-      this,
-      (value) => Union6.first(first(value)),
-      (value) => Union6.second(second(value)),
-      (value) => Union6.third(third(value)),
-      (value) => Union6.forth(forth(value)),
-      (value) => Union6.fifth(fifth(value)),
-      (value) => Union6.sixth(sixth(value)),
+    Union6<A2, B2, C2, D2, E2, F2> res;
+    this(
+      (a) {
+        final value = first(a);
+        res = (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = second(a);
+        res = (_, f, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = third(a);
+        res = (_, _b, f, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = forth(a);
+        res = (_, _b, _c, f, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = fifth(a);
+        res = (_, _b, _c, _d, f, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = sixth(a);
+        res = (_, _b, _c, _d, _e, f, _g, _h, _i) => f(value);
+      },
+      _noop,
+      _noop,
+      _noop,
     );
+    return res;
   }
 }
 
 /// The methods on Union3.
 extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
-  /// {@macro union.forEach}
-  void forEach(
+  /// {@macro union.switchCase}
+  void switchCase(
     void first(A value),
     void second(B value),
     void third(C value),
@@ -879,8 +1051,7 @@ extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
     void sixth(F value),
     void seventh(G value),
   ) {
-    return _join<void, A, B, C, D, E, F, G, void, void>(
-      this,
+    return this(
       first ?? _noop,
       second ?? _noop,
       third ?? _noop,
@@ -888,6 +1059,8 @@ extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
       fifth ?? _noop,
       sixth ?? _noop,
       seventh ?? _noop,
+      _noop,
+      _noop,
     );
   }
 
@@ -902,16 +1075,19 @@ extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
     T sixth(F value),
     T seventh(G value),
   ) {
-    return _join<T, A, B, C, D, E, F, G, void, void>(
-      this,
-      first,
-      second,
-      third,
-      forth,
-      fifth,
-      sixth,
-      seventh,
+    T res;
+    this(
+      (a) => res = first(a),
+      (a) => res = second(a),
+      (a) => res = third(a),
+      (a) => res = forth(a),
+      (a) => res = fifth(a),
+      (a) => res = sixth(a),
+      (a) => res = seventh(a),
+      _noop,
+      _noop,
     );
+    return res;
   }
 
   /// {@macro union.map}
@@ -925,25 +1101,48 @@ extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
     F2 sixth(F value),
     G2 seventh(G value),
   ) {
-    return _join<Union7<A2, B2, C2, D2, E2, F2, G2>, A, B, C, D, E, F, G, void,
-        void>(
-      this,
-      (value) => Union7.first(first(value)),
-      (value) => Union7.second(second(value)),
-      (value) => Union7.third(third(value)),
-      (value) => Union7.forth(forth(value)),
-      (value) => Union7.fifth(fifth(value)),
-      (value) => Union7.sixth(sixth(value)),
-      (value) => Union7.seventh(seventh(value)),
+    Union7<A2, B2, C2, D2, E2, F2, G2> res;
+    this(
+      (a) {
+        final value = first(a);
+        res = (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = second(a);
+        res = (_, f, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = third(a);
+        res = (_, _b, f, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = forth(a);
+        res = (_, _b, _c, f, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = fifth(a);
+        res = (_, _b, _c, _d, f, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = sixth(a);
+        res = (_, _b, _c, _d, _e, f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = seventh(a);
+        res = (_, _b, _c, _d, _e, _f, f, _h, _i) => f(value);
+      },
+      _noop,
+      _noop,
     );
+    return res;
   }
 }
 
 /// The methods on Union3.
 extension Union8Methods<A, B, C, D, E, F, G, H>
     on Union8<A, B, C, D, E, F, G, H> {
-  /// {@macro union.forEach}
-  void forEach(
+  /// {@macro union.switchCase}
+  void switchCase(
     void first(A value),
     void second(B value),
     void third(C value),
@@ -953,8 +1152,7 @@ extension Union8Methods<A, B, C, D, E, F, G, H>
     void seventh(G value),
     void eighth(H value),
   ) {
-    return _join<void, A, B, C, D, E, F, G, H, void>(
-      this,
+    return this(
       first ?? _noop,
       second ?? _noop,
       third ?? _noop,
@@ -963,6 +1161,7 @@ extension Union8Methods<A, B, C, D, E, F, G, H>
       sixth ?? _noop,
       seventh ?? _noop,
       eighth ?? _noop,
+      _noop,
     );
   }
 
@@ -978,17 +1177,19 @@ extension Union8Methods<A, B, C, D, E, F, G, H>
     T seventh(G value),
     T eighth(H value),
   ) {
-    return _join<T, A, B, C, D, E, F, G, H, void>(
-      this,
-      first,
-      second,
-      third,
-      forth,
-      fifth,
-      sixth,
-      seventh,
-      eighth,
+    T res;
+    this(
+      (a) => res = first(a),
+      (a) => res = second(a),
+      (a) => res = third(a),
+      (a) => res = forth(a),
+      (a) => res = fifth(a),
+      (a) => res = sixth(a),
+      (a) => res = seventh(a),
+      (a) => res = eighth(a),
+      _noop,
     );
+    return res;
   }
 
   /// {@macro union.map}
@@ -1003,26 +1204,51 @@ extension Union8Methods<A, B, C, D, E, F, G, H>
     G2 seventh(G value),
     H2 eighth(H value),
   ) {
-    return _join<Union8<A2, B2, C2, D2, E2, F2, G2, H2>, A, B, C, D, E, F, G, H,
-        void>(
-      this,
-      (value) => Union8.first(first(value)),
-      (value) => Union8.second(second(value)),
-      (value) => Union8.third(third(value)),
-      (value) => Union8.forth(forth(value)),
-      (value) => Union8.fifth(fifth(value)),
-      (value) => Union8.sixth(sixth(value)),
-      (value) => Union8.seventh(seventh(value)),
-      (value) => Union8.eighth(eighth(value)),
+    Union8<A2, B2, C2, D2, E2, F2, G2, H2> res;
+    this(
+      (a) {
+        final value = first(a);
+        res = (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = second(a);
+        res = (_, f, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = third(a);
+        res = (_, _b, f, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = forth(a);
+        res = (_, _b, _c, f, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = fifth(a);
+        res = (_, _b, _c, _d, f, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = sixth(a);
+        res = (_, _b, _c, _d, _e, f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = seventh(a);
+        res = (_, _b, _c, _d, _e, _f, f, _h, _i) => f(value);
+      },
+      (a) {
+        final value = eighth(a);
+        res = (_, _b, _c, _d, _e, _f, _g, f, _i) => f(value);
+      },
+      _noop,
     );
+    return res;
   }
 }
 
 /// The methods on Union3.
 extension Union9Methods<A, B, C, D, E, F, G, H, I>
     on Union9<A, B, C, D, E, F, G, H, I> {
-  /// {@macro union.forEach}
-  void forEach(
+  /// {@macro union.switchCase}
+  void switchCase(
     void first(A value),
     void second(B value),
     void third(C value),
@@ -1033,8 +1259,7 @@ extension Union9Methods<A, B, C, D, E, F, G, H, I>
     void eighth(H value),
     void ninth(I value),
   ) {
-    return _join(
-      this,
+    return this(
       first ?? _noop,
       second ?? _noop,
       third ?? _noop,
@@ -1060,18 +1285,19 @@ extension Union9Methods<A, B, C, D, E, F, G, H, I>
     T eighth(H value),
     T ninth(I value),
   ) {
-    return _join(
-      this,
-      first,
-      second,
-      third,
-      forth,
-      fifth,
-      sixth,
-      seventh,
-      eighth,
-      ninth,
+    T res;
+    this(
+      (a) => res = first(a),
+      (a) => res = second(a),
+      (a) => res = third(a),
+      (a) => res = forth(a),
+      (a) => res = fifth(a),
+      (a) => res = sixth(a),
+      (a) => res = seventh(a),
+      (a) => res = eighth(a),
+      (a) => res = ninth(a),
     );
+    return res;
   }
 
   /// {@macro union.map}
@@ -1088,18 +1314,45 @@ extension Union9Methods<A, B, C, D, E, F, G, H, I>
     H2 eighth(H value),
     I2 ninth(I value),
   ) {
-    return _join<Union9<A2, B2, C2, D2, E2, F2, G2, H2, I2>, A, B, C, D, E, F,
-        G, H, I>(
-      this,
-      (value) => Union9.first(first(value)),
-      (value) => Union9.second(second(value)),
-      (value) => Union9.third(third(value)),
-      (value) => Union9.forth(forth(value)),
-      (value) => Union9.fifth(fifth(value)),
-      (value) => Union9.sixth(sixth(value)),
-      (value) => Union9.seventh(seventh(value)),
-      (value) => Union9.eighth(eighth(value)),
-      (value) => Union9.ninth(ninth(value)),
+    Union9<A2, B2, C2, D2, E2, F2, G2, H2, I2> res;
+    this(
+      (a) {
+        final value = first(a);
+        res = (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = second(a);
+        res = (_, f, _c, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = third(a);
+        res = (_, _b, f, _d, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = forth(a);
+        res = (_, _b, _c, f, _e, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = fifth(a);
+        res = (_, _b, _c, _d, f, _f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = sixth(a);
+        res = (_, _b, _c, _d, _e, f, _g, _h, _i) => f(value);
+      },
+      (a) {
+        final value = seventh(a);
+        res = (_, _b, _c, _d, _e, _f, f, _h, _i) => f(value);
+      },
+      (a) {
+        final value = eighth(a);
+        res = (_, _b, _c, _d, _e, _f, _g, f, _i) => f(value);
+      },
+      (a) {
+        final value = ninth(a);
+        res = (_, _b, _c, _d, _e, _f, _g, _h, f) => f(value);
+      },
     );
+    return res;
   }
 }

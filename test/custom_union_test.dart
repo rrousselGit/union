@@ -3,36 +3,31 @@ import 'package:union/union.dart';
 
 void main() {
   test('map', () {
+    AsyncState<int> test = 42.asFirst();
+    test = test.map(
+      (value) => value * 2,
+      (v) => v,
+      (v) => v,
+    );
     expect(
-      const AsyncState<int>.value(42)
-          .map(
-            (v) => v * 2,
-            (v) => v,
-            (v) => v,
-          )
-          .toAsyncState()
-          .value,
+      test.value,
       equals(84),
     );
   });
 }
 
-class AsyncState<T> extends Union3<T, Loading, Exception> {
-  const AsyncState.value(T value) : super.first(value);
-  const AsyncState.loading() : super.second(const Loading());
-  const AsyncState.exception(Exception error) : super.third(error);
-}
+typedef AsyncState<T> = void Function(
+  void Function(T value),
+  void Function(Loading value),
+  void Function(Exception value),
+  Object _d,
+  Object _e,
+  Object _f,
+  Object _g,
+  Object _h,
+  Object _i,
+);
 
 class Loading {
   const Loading();
-}
-
-extension ToAsyncState<T> on Union3<T, Loading, Exception> {
-  AsyncState<T> toAsyncState() {
-    return join(
-      (v) => AsyncState.value(v),
-      (_) => const AsyncState.loading(),
-      (v) => AsyncState.exception(v),
-    );
-  }
 }
