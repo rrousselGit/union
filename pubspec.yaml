@@ -1,6 +1,6 @@
 name: union
 description: Type safe union types for dart, by using extensions from Dart 2.6
-version: 0.0.3
+version: 0.0.3+1
 homepage: https://github.com/rrousselGit/union
 authors:
   - Remi Rousselet <darky12s@gmail.com>

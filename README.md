@@ -160,9 +160,9 @@ potential types that the value can take.
 
 Instead, use one of the availble methods on unions, such as:
 
-- [map], which transforms the current value in another value.
-- [switchCase], which allows performing some logic based on the value type.
-- [join], which fuse all the different types in a single type.
+- `map`, which transforms the current value in another value.
+- `switchCase`, which allows performing some logic based on the value type.
+- `join`, which fuse all the different types in a single type.
 
 **DO:**
 
@@ -196,7 +196,7 @@ this implementation comes with a few limitations.
   ```dart
   final a = 42.asFirst();
   final b = 42.asFirst();
-  print(a.value == b.value); // false
+  print(a.value == b.value); // true
   ```
 
 - `Union2<String, int>` cannot be assigned to `Union2<int, String>`.
@@ -244,7 +244,7 @@ typedef Result<T> = void Function(
 
 This is of course not ideal, but there's an easy way to implement it:
 
-- go to the definition of the union you want to reuse (here `Union2`)
+- go to the definition of the union you want to reuse (here [Union2])
 - copy its implementation
 - paste it and update it to match your needs.
 
@@ -258,9 +258,5 @@ Result<int> result = union2; // works without issue
 union2 = result; // works too
 ```
 
-[value]: https://pub.dev/documentation/union/latest/union/Union2Value/value.html
-[union2]: https://pub.dev/documentation/union/latest/union/Union2-class.html
-[union3]: https://pub.dev/documentation/union/latest/union/Union2-class.html
-[map]: https://pub.dev/documentation/union/latest/union/Union2/map.html
-[switchCase]: https://pub.dev/documentation/union/latest/union/Union2/switchCase.html
-[join]: https://pub.dev/documentation/union/latest/union/Union2/join.html
+[union2]: https://pub.dev/documentation/union/latest/union/Union2.html
+[union3]: https://pub.dev/documentation/union/latest/union/Union2.html
