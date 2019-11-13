@@ -7,7 +7,7 @@ Type-safe, boilerplate-free union types for Dart
 
 - [Documentation](https://pub.dev/documentation/union/latest/union/union-library.html)
 - [Pub Package](https://pub.dev/packages/union)
-- [GitHub Repository](https://github.com/leisim/union)
+- [GitHub Repository](https://github.com/rrousselGit/union)
 
 # Installation
 
