@@ -16,7 +16,7 @@ String generateGenerics(List<int> types) {
   return '<${types.map(indexToLetter).join(', ')}>';
 }
 
-String valueToUnion({int index, int union}) {
+String valueToUnion({required int index, required int union}) {
   return '      (v) => Union$union.${indexName[index]}(v),';
 }
 
@@ -33,10 +33,10 @@ List<List<int>> generateAllMergeTypesCombination(
 }
 
 Iterable<List<int>> _generateAllMergeTypesCombination({
-  int fromLength,
-  List<int> currentCombination,
-  int targetLength,
-  int nextNewChar,
+  required int fromLength,
+  required List<int> currentCombination,
+  required int targetLength,
+  required int nextNewChar,
 }) sync* {
   if (targetLength == 0) {
     if (nextNewChar >= fromLength) {
