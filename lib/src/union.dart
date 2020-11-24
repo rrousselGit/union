@@ -359,7 +359,7 @@ extension AsUnion<T> on T {
   /// Union1<int> a = 42.asFirst();
   /// Union2<int, String> b = 42.asFirst();
   /// ```
-  Union1<T> asFirst() => (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(this as T);
+  Union1<T> asFirst() => (f, _b, _c, _d, _e, _f, _g, _h, _i) => f(this);
 
   /// Transform the object in a union where the object type is the second type
   /// the union can take.
@@ -369,49 +369,49 @@ extension AsUnion<T> on T {
   /// Union3<String, int, double> b = 42.asFirst();
   /// ```
   Union2<A, T> asSecond<A>() {
-    return (_a, f, _c, _d, _e, _f, _g, _h, _i) => f(this as T);
+    return (_a, f, _c, _d, _e, _f, _g, _h, _i) => f(this);
   }
 
   /// Transform the object in a union where the object type is the third type
   /// the union can take.
   Union3<A, B, T> asThird<A, B>() {
-    return (_a, _b, f, _d, _e, _f, _g, _h, _i) => f(this as T);
+    return (_a, _b, f, _d, _e, _f, _g, _h, _i) => f(this);
   }
 
   /// Transform the object in a union where the object type is the forth type
   /// the union can take.
   Union4<A, B, C, T> asForth<A, B, C>() {
-    return (_a, _b, _c, f, _e, _f, _g, _h, _i) => f(this as T);
+    return (_a, _b, _c, f, _e, _f, _g, _h, _i) => f(this);
   }
 
   /// Transform the object in a union where the object type is the fifth type
   /// the union can take.
   Union5<A, B, C, D, T> asFifth<A, B, C, D>() {
-    return (_a, _b, _c, _d, f, _f, _g, _h, _i) => f(this as T);
+    return (_a, _b, _c, _d, f, _f, _g, _h, _i) => f(this);
   }
 
   /// Transform the object in a union where the object type is the sixth type
   /// the union can take.
   Union6<A, B, C, D, E, T> asSixth<A, B, C, D, E>() {
-    return (_a, _b, _c, _d, _e, f, _g, _h, _i) => f(this as T);
+    return (_a, _b, _c, _d, _e, f, _g, _h, _i) => f(this);
   }
 
   /// Transform the object in a union where the object type is the seventh type
   /// the union can take.
   Union7<A, B, C, D, E, F, T> asSeventh<A, B, C, D, E, F>() {
-    return (_a, _b, _c, _d, _e, _f, f, _h, _i) => f(this as T);
+    return (_a, _b, _c, _d, _e, _f, f, _h, _i) => f(this);
   }
 
   /// Transform the object in a union where the object type is the eighth type
   /// the union can take.
   Union8<A, B, C, D, E, F, G, T> asEighth<A, B, C, D, E, G, F>() {
-    return (_a, _b, _c, _d, _e, _f, _g, f, _i) => f(this as T);
+    return (_a, _b, _c, _d, _e, _f, _g, f, _i) => f(this);
   }
 
   /// Transform the object in a union where the object type is the ninth type
   /// the union can take.
   Union9<A, B, C, D, E, F, G, H, T> asNinth<A, B, C, D, E, G, F, H>() {
-    return (_a, _b, _c, _d, _e, _f, _g, _h, f) => f(this as T);
+    return (_a, _b, _c, _d, _e, _f, _g, _h, f) => f(this);
   }
 }
 

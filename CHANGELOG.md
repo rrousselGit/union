@@ -1,3 +1,7 @@
+## 0.0.4-nullsafety.1
+
+Migrated to non-nullable types (thanks to @Elias8)
+
 ## 0.0.3+1
 
 Fix readme links
