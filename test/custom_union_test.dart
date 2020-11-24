@@ -20,12 +20,12 @@ typedef AsyncState<T> = void Function(
   void Function(T value),
   void Function(Loading value),
   void Function(Exception value),
-  Object _d,
-  Object _e,
-  Object _f,
-  Object _g,
-  Object _h,
-  Object _i,
+  Object? _d,
+  Object? _e,
+  Object? _f,
+  Object? _g,
+  Object? _h,
+  Object? _i,
 );
 
 class Loading {

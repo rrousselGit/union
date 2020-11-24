@@ -207,13 +207,13 @@ void _noop<T>(T t) {}
 /// typedef Result<T> = void Function(
 ///   void Function(T value),
 ///   void Function(Exception value),
-///   Object _c,
-///   Object _d,
-///   Object _e,
-///   Object _f,
-///   Object _g,
-///   Object _h,
-///   Object _i,
+///   Object? _c,
+///   Object? _d,
+///   Object? _e,
+///   Object? _f,
+///   Object? _g,
+///   Object? _h,
+///   Object? _i,
 /// );
 /// ```
 ///
@@ -235,27 +235,27 @@ void _noop<T>(T t) {}
 /// {@endtemplate}
 typedef Union1<A> = void Function(
   void Function(A value),
-  Object _b,
-  Object _c,
-  Object _d,
-  Object _e,
-  Object _f,
-  Object _g,
-  Object _h,
-  Object _i,
+  Object? _b,
+  Object? _c,
+  Object? _d,
+  Object? _e,
+  Object? _f,
+  Object? _g,
+  Object? _h,
+  Object? _i,
 );
 
 /// {@macro union}
 typedef Union2<A, B> = void Function(
   void Function(A value),
   void Function(B value),
-  Object _c,
-  Object _d,
-  Object _e,
-  Object _f,
-  Object _g,
-  Object _h,
-  Object _i,
+  Object? _c,
+  Object? _d,
+  Object? _e,
+  Object? _f,
+  Object? _g,
+  Object? _h,
+  Object? _i,
 );
 
 /// {@macro union}
@@ -263,12 +263,12 @@ typedef Union3<A, B, C> = void Function(
   void Function(A value),
   void Function(B value),
   void Function(C value),
-  Object _d,
-  Object _e,
-  Object _f,
-  Object _g,
-  Object _h,
-  Object _i,
+  Object? _d,
+  Object? _e,
+  Object? _f,
+  Object? _g,
+  Object? _h,
+  Object? _i,
 );
 
 /// {@macro union}
@@ -277,11 +277,11 @@ typedef Union4<A, B, C, D> = void Function(
   void Function(B value),
   void Function(C value),
   void Function(D value),
-  Object _e,
-  Object _f,
-  Object _g,
-  Object _h,
-  Object _i,
+  Object? _e,
+  Object? _f,
+  Object? _g,
+  Object? _h,
+  Object? _i,
 );
 
 /// {@macro union}
@@ -291,10 +291,10 @@ typedef Union5<A, B, C, D, E> = void Function(
   void Function(C value),
   void Function(D value),
   void Function(E value),
-  Object _f,
-  Object _g,
-  Object _h,
-  Object _i,
+  Object? _f,
+  Object? _g,
+  Object? _h,
+  Object? _i,
 );
 
 /// {@macro union}
@@ -305,9 +305,9 @@ typedef Union6<A, B, C, D, E, F> = void Function(
   void Function(D value),
   void Function(E value),
   void Function(F value),
-  Object _g,
-  Object _h,
-  Object _i,
+  Object? _g,
+  Object? _h,
+  Object? _i,
 );
 
 /// {@macro union}
@@ -319,8 +319,8 @@ typedef Union7<A, B, C, D, E, F, G> = void Function(
   void Function(E value),
   void Function(F value),
   void Function(G value),
-  Object _h,
-  Object _i,
+  Object? _h,
+  Object? _i,
 );
 
 /// {@macro union}
@@ -333,7 +333,7 @@ typedef Union8<A, B, C, D, E, F, G, H> = void Function(
   void Function(F value),
   void Function(G value),
   void Function(H value),
-  Object _i,
+  Object? _i,
 );
 
 /// {@macro union}
@@ -426,7 +426,7 @@ extension Union1Value<A> on Union1<A> {
   /// See [Union2] for examples on how `value` works.
   /// {@endtemplate}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(assign, null, null, null, null, null, null, null, null);
     return res;
@@ -437,7 +437,7 @@ extension Union1Value<A> on Union1<A> {
 extension Union2Value<A> on Union2<A, A> {
   /// {@macro union.value}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(assign, assign, null, null, null, null, null, null, null);
     return res;
@@ -448,7 +448,7 @@ extension Union2Value<A> on Union2<A, A> {
 extension Union3Value<A> on Union3<A, A, A> {
   /// {@macro union.value}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(assign, assign, assign, null, null, null, null, null, null);
     return res;
@@ -459,7 +459,7 @@ extension Union3Value<A> on Union3<A, A, A> {
 extension Union4Value<A> on Union4<A, A, A, A> {
   /// {@macro union.value}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(assign, assign, assign, assign, null, null, null, null, null);
     return res;
@@ -470,7 +470,7 @@ extension Union4Value<A> on Union4<A, A, A, A> {
 extension Union5Value<A> on Union5<A, A, A, A, A> {
   /// {@macro union.value}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(assign, assign, assign, assign, assign, null, null, null, null);
     return res;
@@ -481,7 +481,7 @@ extension Union5Value<A> on Union5<A, A, A, A, A> {
 extension Union6Value<A> on Union6<A, A, A, A, A, A> {
   /// {@macro union.value}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(assign, assign, assign, assign, assign, assign, null, null, null);
     return res;
@@ -492,7 +492,7 @@ extension Union6Value<A> on Union6<A, A, A, A, A, A> {
 extension Union7Value<A> on Union7<A, A, A, A, A, A, A> {
   /// {@macro union.value}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(assign, assign, assign, assign, assign, assign, assign, null, null);
     return res;
@@ -503,7 +503,7 @@ extension Union7Value<A> on Union7<A, A, A, A, A, A, A> {
 extension Union8Value<A> on Union8<A, A, A, A, A, A, A, A> {
   /// {@macro union.value}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(assign, assign, assign, assign, assign, assign, assign, assign, null);
     return res;
@@ -514,7 +514,7 @@ extension Union8Value<A> on Union8<A, A, A, A, A, A, A, A> {
 extension Union9Value<A> on Union9<A, A, A, A, A, A, A, A, A> {
   /// {@macro union.value}
   A get value {
-    A res;
+    late A res;
     final assign = (A a) => res = a;
     this(
         assign, assign, assign, assign, assign, assign, assign, assign, assign);
@@ -574,8 +574,8 @@ extension Union2Methods<A, B> on Union2<A, B> {
   /// {@endtemplate}
   /// Callbacks can be `null`, but all callbacks are required.
   void switchCase(
-    void first(A value),
-    void second(B value),
+    void first(A value)?,
+    void second(B value)?,
   ) {
     return this(
       first ?? _noop,
@@ -620,10 +620,10 @@ extension Union2Methods<A, B> on Union2<A, B> {
   ///   (value) {
   ///     final parsed = int.tryParse(value);
   ///     return parsed != null
-  ///         ? Union2.first(parsed)
-  ///         : Union2.second(FormatException());
+  ///         ? parsed.asFirst()
+  ///         : FormatException().asSecond();
   ///   },
-  ///   (value) => Union2.first(value),
+  ///   (value) => value.asFirst(),
   /// );
   /// ```
   /// {@endtemplate}
@@ -632,7 +632,7 @@ extension Union2Methods<A, B> on Union2<A, B> {
     T first(A value),
     T second(B value),
   ) {
-    T res;
+    late T res;
     this(
       (a) => res = first(a),
       (a) => res = second(a),
@@ -681,7 +681,7 @@ extension Union2Methods<A, B> on Union2<A, B> {
     A2 first(A value),
     B2 second(B value),
   ) {
-    Union2<A2, B2> res;
+    late Union2<A2, B2> res;
     this(
       (a) {
         final value = first(a);
@@ -707,9 +707,9 @@ extension Union2Methods<A, B> on Union2<A, B> {
 extension Union3Methods<A, B, C> on Union3<A, B, C> {
   /// {@macro union.switchCase}
   void switchCase(
-    void first(A value),
-    void second(B value),
-    void third(C value),
+    void first(A value)?,
+    void second(B value)?,
+    void third(C value)?,
   ) {
     return this(
       first ?? _noop,
@@ -731,7 +731,7 @@ extension Union3Methods<A, B, C> on Union3<A, B, C> {
     T second(B value),
     T third(C value),
   ) {
-    T res;
+    late T res;
     this(
       (a) => res = first(a),
       (a) => res = second(a),
@@ -753,7 +753,7 @@ extension Union3Methods<A, B, C> on Union3<A, B, C> {
     B2 second(B value),
     C2 third(C value),
   ) {
-    Union3<A2, B2, C2> res;
+    late Union3<A2, B2, C2> res;
     this(
       (a) {
         final value = first(a);
@@ -782,10 +782,10 @@ extension Union3Methods<A, B, C> on Union3<A, B, C> {
 extension Union4Methods<A, B, C, D> on Union4<A, B, C, D> {
   /// {@macro union.switchCase}
   void switchCase(
-    void first(A value),
-    void second(B value),
-    void third(C value),
-    void forth(D value),
+    void first(A value)?,
+    void second(B value)?,
+    void third(C value)?,
+    void forth(D value)?,
   ) {
     return this(
       first ?? _noop,
@@ -808,7 +808,7 @@ extension Union4Methods<A, B, C, D> on Union4<A, B, C, D> {
     T third(C value),
     T forth(D value),
   ) {
-    T res;
+    late T res;
     this(
       (a) => res = first(a),
       (a) => res = second(a),
@@ -831,7 +831,7 @@ extension Union4Methods<A, B, C, D> on Union4<A, B, C, D> {
     C2 third(C value),
     D2 forth(D value),
   ) {
-    Union4<A2, B2, C2, D2> res;
+    late Union4<A2, B2, C2, D2> res;
     this(
       (a) {
         final value = first(a);
@@ -863,11 +863,11 @@ extension Union4Methods<A, B, C, D> on Union4<A, B, C, D> {
 extension Union5Methods<A, B, C, D, E> on Union5<A, B, C, D, E> {
   /// {@macro union.switchCase}
   void switchCase(
-    void first(A value),
-    void second(B value),
-    void third(C value),
-    void forth(D value),
-    void fifth(E value),
+    void first(A value)?,
+    void second(B value)?,
+    void third(C value)?,
+    void forth(D value)?,
+    void fifth(E value)?,
   ) {
     return this(
       first ?? _noop,
@@ -891,7 +891,7 @@ extension Union5Methods<A, B, C, D, E> on Union5<A, B, C, D, E> {
     T forth(D value),
     T fifth(E value),
   ) {
-    T res;
+    late T res;
     this(
       (a) => res = first(a),
       (a) => res = second(a),
@@ -915,7 +915,7 @@ extension Union5Methods<A, B, C, D, E> on Union5<A, B, C, D, E> {
     D2 forth(D value),
     E2 fifth(E value),
   ) {
-    Union5<A2, B2, C2, D2, E2> res;
+    late Union5<A2, B2, C2, D2, E2> res;
     this(
       (a) {
         final value = first(a);
@@ -950,12 +950,12 @@ extension Union5Methods<A, B, C, D, E> on Union5<A, B, C, D, E> {
 extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
   /// {@macro union.switchCase}
   void switchCase(
-    void first(A value),
-    void second(B value),
-    void third(C value),
-    void forth(D value),
-    void fifth(E value),
-    void sixth(F value),
+    void first(A value)?,
+    void second(B value)?,
+    void third(C value)?,
+    void forth(D value)?,
+    void fifth(E value)?,
+    void sixth(F value)?,
   ) {
     return this(
       first ?? _noop,
@@ -980,7 +980,7 @@ extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
     T fifth(E value),
     T sixth(F value),
   ) {
-    T res;
+    late T res;
     this(
       (a) => res = first(a),
       (a) => res = second(a),
@@ -1005,7 +1005,7 @@ extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
     E2 fifth(E value),
     F2 sixth(F value),
   ) {
-    Union6<A2, B2, C2, D2, E2, F2> res;
+    late Union6<A2, B2, C2, D2, E2, F2> res;
     this(
       (a) {
         final value = first(a);
@@ -1043,13 +1043,13 @@ extension Union6Methods<A, B, C, D, E, F> on Union6<A, B, C, D, E, F> {
 extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
   /// {@macro union.switchCase}
   void switchCase(
-    void first(A value),
-    void second(B value),
-    void third(C value),
-    void forth(D value),
-    void fifth(E value),
-    void sixth(F value),
-    void seventh(G value),
+    void first(A value)?,
+    void second(B value)?,
+    void third(C value)?,
+    void forth(D value)?,
+    void fifth(E value)?,
+    void sixth(F value)?,
+    void seventh(G value)?,
   ) {
     return this(
       first ?? _noop,
@@ -1075,7 +1075,7 @@ extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
     T sixth(F value),
     T seventh(G value),
   ) {
-    T res;
+    late T res;
     this(
       (a) => res = first(a),
       (a) => res = second(a),
@@ -1101,7 +1101,7 @@ extension Union7Methods<A, B, C, D, E, F, G> on Union7<A, B, C, D, E, F, G> {
     F2 sixth(F value),
     G2 seventh(G value),
   ) {
-    Union7<A2, B2, C2, D2, E2, F2, G2> res;
+    late Union7<A2, B2, C2, D2, E2, F2, G2> res;
     this(
       (a) {
         final value = first(a);
@@ -1143,14 +1143,14 @@ extension Union8Methods<A, B, C, D, E, F, G, H>
     on Union8<A, B, C, D, E, F, G, H> {
   /// {@macro union.switchCase}
   void switchCase(
-    void first(A value),
-    void second(B value),
-    void third(C value),
-    void forth(D value),
-    void fifth(E value),
-    void sixth(F value),
-    void seventh(G value),
-    void eighth(H value),
+    void first(A value)?,
+    void second(B value)?,
+    void third(C value)?,
+    void forth(D value)?,
+    void fifth(E value)?,
+    void sixth(F value)?,
+    void seventh(G value)?,
+    void eighth(H value)?,
   ) {
     return this(
       first ?? _noop,
@@ -1177,7 +1177,7 @@ extension Union8Methods<A, B, C, D, E, F, G, H>
     T seventh(G value),
     T eighth(H value),
   ) {
-    T res;
+    late T res;
     this(
       (a) => res = first(a),
       (a) => res = second(a),
@@ -1204,7 +1204,7 @@ extension Union8Methods<A, B, C, D, E, F, G, H>
     G2 seventh(G value),
     H2 eighth(H value),
   ) {
-    Union8<A2, B2, C2, D2, E2, F2, G2, H2> res;
+    late Union8<A2, B2, C2, D2, E2, F2, G2, H2> res;
     this(
       (a) {
         final value = first(a);
@@ -1249,15 +1249,15 @@ extension Union9Methods<A, B, C, D, E, F, G, H, I>
     on Union9<A, B, C, D, E, F, G, H, I> {
   /// {@macro union.switchCase}
   void switchCase(
-    void first(A value),
-    void second(B value),
-    void third(C value),
-    void forth(D value),
-    void fifth(E value),
-    void sixth(F value),
-    void seventh(G value),
-    void eighth(H value),
-    void ninth(I value),
+    void first(A value)?,
+    void second(B value)?,
+    void third(C value)?,
+    void forth(D value)?,
+    void fifth(E value)?,
+    void sixth(F value)?,
+    void seventh(G value)?,
+    void eighth(H value)?,
+    void ninth(I value)?,
   ) {
     return this(
       first ?? _noop,
@@ -1285,7 +1285,7 @@ extension Union9Methods<A, B, C, D, E, F, G, H, I>
     T eighth(H value),
     T ninth(I value),
   ) {
-    T res;
+    late T res;
     this(
       (a) => res = first(a),
       (a) => res = second(a),
@@ -1314,7 +1314,7 @@ extension Union9Methods<A, B, C, D, E, F, G, H, I>
     H2 eighth(H value),
     I2 ninth(I value),
   ) {
-    Union9<A2, B2, C2, D2, E2, F2, G2, H2, I2> res;
+    late Union9<A2, B2, C2, D2, E2, F2, G2, H2, I2> res;
     this(
       (a) {
         final value = first(a);
